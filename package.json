@@ -1,0 +1,24 @@
+{
+  "name": "polymerexpress",
+  "version": "1.0.0",
+  "description": "Manage your contacts like a train",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zorbing/polymerexpress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zorbing/polymerexpress/issues"
+  },
+  "homepage": "https://github.com/Zorbing/polymerexpress#readme",
+  "devDependencies": {
+    "express.js": "^1.0.0",
+    "polymer-cli": "^0.17.0",
+    "typescript": "^2.0.10"
+  }
+}
