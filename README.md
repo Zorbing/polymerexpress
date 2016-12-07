@@ -20,6 +20,12 @@ Intall all dependencies of the repository (including the ones from bower):
 
 `npm install`
 
+For simpler use in development, it is recommended to install `polymer-cli` and `bower` globally:
+
+`npm install -g bower polymer-cli`
+
+Otherwise you have to write `./node_modules/.bin/polymer` instead of just `polymer` for each of the following commands.
+
 
 ## Start the development server
 
