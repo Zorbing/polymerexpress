@@ -11,8 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/Zorbing/polymerexpress.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Martin Boekhoff <boekhoffmartin@gmail.com>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Zorbing/polymerexpress/issues"
   },
