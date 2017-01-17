@@ -1,0 +1,62 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/src/forms/shared-styles.html">
+
+<dom-module id="edit-address">
+<template>
+	<style include="shared-styles"></style>
+	<style>
+		:host {
+			display: block;
+		}
+		
+		:host paper-input {
+			width: 250px;
+			display: block;			
+		}
+		
+		:host paper-swatch-picker {
+			top: 18px;
+			left: 7px;
+		}
+	</style>
+	<iron-icon icon="icons:home"></iron-icon>	
+	
+	<paper-input label="street address" value="{{street}}" required auto-validate error-message="[[error]]"></paper-input>
+	<paper-input label="postcode" value="{{postcode}}" required auto-validate allowed-pattern="[0-9]*" error-message="[[error]]"></paper-input>
+	<paper-input label="city" value="{{city}}"required auto-validate error-message="[[error]]"></paper-input>
+	
+	<div><paper-button raised class="save">Save</paper-button></div>
+</template>
+<script>
+	Polymer({
+		is: 'edit-address',
+		
+		properties: {			
+			street: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			} ,
+			postcode: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			} ,
+			city: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			} ,
+			error: {
+				type: String,
+				value: "Required!"
+			}			
+		}
+	});
+</script>
+
+</dom-module>
