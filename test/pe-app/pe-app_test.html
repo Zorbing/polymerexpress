@@ -4,27 +4,27 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-		<title>polymerexpress-app test</title>
+		<title>pe-app test</title>
 
 		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
 		<script src="../../../web-component-tester/browser.js"></script>
 
-		<link rel="import" href="../../src/polymerexpress-app/polymerexpress-app.html">
+		<link rel="import" href="../../src/pe-app/pe-app.html">
 	</head>
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<polymerexpress-app></polymerexpress-app>
+				<pe-app></pe-app>
 			</template>
 		</test-fixture>
 
 		<script>
-suite('polymerexpress-app', function ()
+suite('pe-app', function ()
 {
 	test('instantiating the element works', function ()
 	{
 		var element = fixture('basic');
-		assert.equal(element.is, 'polymerexpress-app');
+		assert.equal(element.is, 'pe-app');
 	});
 });
 		</script>

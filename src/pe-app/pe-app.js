@@ -25,12 +25,12 @@
 'use strict';
 
 Polymer({
-	is: 'polymerexpress-app'
+	is: 'pe-app'
 
 	, properties: {
 		prop1: {
 			type: String
-			, value: 'polymerexpress-app'
+			, value: 'pe-app'
 		}
 	}
 });

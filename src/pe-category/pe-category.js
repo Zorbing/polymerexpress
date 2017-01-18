@@ -25,12 +25,12 @@
 'use strict';
 
 Polymer({
-	is: 'polymerexpress-category'
+	is: 'pe-category'
 
 	, properties: {
 		prop1: {
 			type: String
-			, value: 'polymerexpress-category'
+			, value: 'pe-category'
 		}
 	}
 });
