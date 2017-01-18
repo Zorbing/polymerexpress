@@ -25,12 +25,12 @@
 'use strict';
 
 Polymer({
-	is: 'pe-category'
+	is: 'pe-categories'
 
 	, properties: {
-		prop1: {
-			type: String
-			, value: 'pe-category'
+		list: {
+			type: Array
+			, value: ['test1', 'test2']
 		}
 	}
 });

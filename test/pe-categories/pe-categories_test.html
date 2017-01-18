@@ -4,27 +4,38 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-		<title>pe-category test</title>
+		<title>pe-categories test</title>
 
 		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
 		<script src="../../../web-component-tester/browser.js"></script>
 
-		<link rel="import" href="../../src/pe-category/pe-category.html">
+		<link rel="import" href="../../src/pe-categories/pe-categories.html">
 	</head>
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<pe-category></pe-category>
+				<pe-categories></pe-categories>
 			</template>
 		</test-fixture>
 
 		<script>
-suite('pe-category', function()
+suite('pe-categories', function()
 {
+	const testList = ['First', 'second'];
+	let element;
+	setup(function ()
+	{
+		element = fixture('basic');
+	});
+
 	test('instantiating the element works', function ()
 	{
-		var element = fixture('basic');
-		assert.equal(element.is, 'pe-category');
+		assert.equal(element.is, 'pe-categories');
+	});
+	test('setting the category list works', function ()
+	{
+		element.list = testList;
+		assert.equal(element.list, testList);
 	});
 });
 		</script>

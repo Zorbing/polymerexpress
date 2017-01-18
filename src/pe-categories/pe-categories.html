@@ -1,0 +1,18 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="pe-categories">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<ul>
+			<template is="dom-repeat" items="{{list}}">
+				<li>{{item}}</li>
+			</template>
+		</ul>
+	</template>
+
+	<script type="text/javascript" src="pe-categories.js"></script>
+</dom-module>
