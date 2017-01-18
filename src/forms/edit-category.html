@@ -11,7 +11,7 @@
 <dom-module id="edit-category">
 <template>
 	<style include="shared-styles"></style>
-	<style>
+	<style is="custom-style">
 		:host {
 			display: block;
 		}
@@ -25,11 +25,13 @@
 		:host paper-swatch-picker {
 			top: 18px;
 			left: 7px;
+			--paper-swatch-picker-color-size: 20px;
 		}
 	</style>
 
-	<paper-swatch-picker color="{{selectedColor}}" 		
-		color-list='["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige",
+	<paper-swatch-picker color="{{selectedColor}}" column-count="20" autofill-columns	
+		color-list='[					
+					"AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige",
 					"Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown",
 					"BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral",
 					"CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue",
@@ -54,10 +56,11 @@
 					"Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue",
 					"SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan",
 					"Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke",
-					"Yellow","YellowGreen"]'>
+					"Yellow","YellowGreen", "Rebeccapurple"									
+					]'>
 	</paper-swatch-picker>
 		
-	<paper-input label="category name" value="{{name}}">
+	<paper-input label="category name" required auto-validate error-message="Required!" value="{{name}}">
 		  <iron-icon icon="label" style="fill:{{selectedColor}}" prefix></iron-icon>
 	</paper-input>
 	<div><paper-button raised class="save">Save</paper-button></div>
