@@ -24,6 +24,7 @@
 
 'use strict';
 
+const restResource = 'category';
 const colorKeywords = [
 	'silver', 'gray', 'white', 'maroon', 'red', 'purple', 'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'blue'
 	, 'teal', 'aqua', 'orange', 'aliceblue', 'antiquewhite', 'aquamarine', 'azure', 'beige', 'bisque', 'blanchedalmond'
@@ -44,6 +45,58 @@ const colorKeywords = [
 	, 'springgreen', 'steelblue', 'tan', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'whitesmoke'
 	, 'yellowgreen', 'rebeccapurple'
 ];
+const categoryListStub = [
+	{
+		id: 1
+		, name: 'Friend'
+		, color: 'floralwhite'
+	}
+	, {
+		id: 2
+		, name: 'Acquaintances'
+		, color: 'lightgoldenrodyellow'
+	}
+	, {
+		id: 3
+		, name: 'Family'
+		, color: 'ghostwhite'
+	}
+	, {
+		id: 4
+		, name: 'Enemies'
+		, color: 'darkmagenta'
+	}
+	, {
+		id: 5
+		, name: 'School'
+		, color: 'darkolivegreen'
+	}
+	, {
+		id: 6
+		, name: 'Supplier'
+		, color: 'darkorange'
+	}
+	, {
+		id: 7
+		, name: 'Business'
+		, color: 'dimgray'
+	}
+	, {
+		id: 8
+		, name: 'Work'
+		, color: 'skyblue'
+	}
+	, {
+		id: 9
+		, name: 'Customer'
+		, color: 'brown'
+	}
+	, {
+		id: 10
+		, name: 'VIP'
+		, color: 'darkblue'
+	}
+];
 
 Polymer({
 	is: 'pe-rest-category'
@@ -53,29 +106,27 @@ Polymer({
 
 	, create: function (name, color)
 	{
-		return this.$.rest.create({
+		const rest = this.$.rest;
+		rest.resource = restResource;
+		return rest.create({
 			name: name
 			, color: color
 		});
 	}
 	, delete: function (id)
 	{
-		const oldResource = this.$.rest.resource;
-		this.$.rest.resource = 'category/' + id;
-		const promise = this.$.rest.delete();
-		this.$.rest.resource = oldResource;
-		return promise;
+		const rest = this.$.rest;
+		rest.resource = restResource + '/' + id;
+		return rest.delete();
 	}
 	, edit: function (id, name, color)
 	{
-		const oldResource = this.$.rest.resource;
-		this.$.rest.resource = 'category/' + id;
-		const promise = this.$.rest.update({
+		const rest = this.$.rest;
+		rest.resource = restResource + '/' + id;
+		return rest.update({
 			name: name
 			, color: color
 		});
-		this.$.rest.resource = oldResource;
-		return promise;
 	}
 	, getColorKeywords: function ()
 	{
@@ -85,19 +136,10 @@ Polymer({
 	{
 		if (testData)
 		{
-			return Promise.resolve([
-				{
-					id: 2
-					, name: 'Family'
-					, color: 'green'
-				}
-				, {
-					id: 0
-					, name: 'Friends'
-					, color: 'blue'
-				}
-			]);
+			return Promise.resolve(categoryListStub);
 		}
-		return this.$.rest.read();
+		const rest = this.$.rest;
+		rest.resource = restResource;
+		return rest.read();
 	}
 });
