@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>pe-rest test</title>
+
+		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../../web-component-tester/browser.js"></script>
+
+		<link rel="import" href="../../src/pe-rest-category/pe-rest-category.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<pe-rest-category></pe-rest-category>
+			</template>
+		</test-fixture>
+
+		<script>
+suite('<pe-rest-category>', function ()
+{
+	let request;
+	let server;
+	const responseHeaders = {
+		json: { 'Content-Type': 'application/json' }
+	};
+	const categoryList = [
+		{
+			id: 2
+			, name: 'Family'
+			, color: 'green'
+		}
+		, {
+			id: 0
+			, name: 'Friends'
+			, color: 'blue'
+		}
+	];
+	let element;
+	setup(function ()
+	{
+		server = sinon.fakeServer.create();
+		server.respondWith(
+			'GET'
+			, /\/category/
+			, [
+				200
+				, responseHeaders.json
+				, JSON.stringify(categoryList)
+			]
+		);
+
+		element = fixture('basic');
+	});
+	teardown(function ()
+	{
+		server.restore();
+	});
+	this.timeout(100);
+
+	test('instantiating the element works', function ()
+	{
+		assert.equal(element.is, 'pe-rest-category');
+	});
+
+	suite('read category list', function ()
+	{
+		test('reading returns a promise', function ()
+		{
+			const promise = element.list(false);
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+			expect(promise).to.be.instanceof(Promise);
+		});
+		test('the read promise fulfills', function ()
+		{
+			const promise = element.list(false);
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('array');
+				expect(response).to.be.deep.equal(categoryList);
+			});
+		});
+	});
+});
+		</script>
+	</body>
+</html>

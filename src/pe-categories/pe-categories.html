@@ -1,4 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../pe-rest-category/pe-rest-category.html">
 
 <dom-module id="pe-categories">
 	<template>
@@ -9,9 +10,10 @@
 		</style>
 		<ul>
 			<template is="dom-repeat" items="{{list}}">
-				<li>{{item}}</li>
+				<li style="color: {{item.color}};">({{item.id}}) {{item.name}}</li>
 			</template>
 		</ul>
+		<pe-rest-category id="rest"></pe-rest-category>
 	</template>
 
 	<script type="text/javascript" src="pe-categories.js"></script>

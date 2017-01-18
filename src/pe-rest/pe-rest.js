@@ -44,6 +44,10 @@ Polymer({
 	{
 		return this._request(HTTP_POST, newResource);
 	}
+	, delete: function ()
+	{
+		return this._request(HTTP_DELETE);
+	}
 	, read: function ()
 	{
 		return this._request(HTTP_GET);
@@ -51,10 +55,6 @@ Polymer({
 	, update: function (updatedResource)
 	{
 		return this._request(HTTP_PATCH, updatedResource);
-	}
-	, delete: function ()
-	{
-		return this._request(HTTP_DELETE);
 	}
 
 
@@ -77,7 +77,13 @@ Polymer({
 		const deferred = request2Deferred.get(obj.request);
 		if (deferred)
 		{
-			deferred.reject(obj.error);
+			const error = obj.error;
+			const statusCode = error.message.match(/The request failed with status code: (\d+)/);
+			if (statusCode)
+			{
+				error.status = parseInt(statusCode[1], 10);
+			}
+			deferred.reject(error);
 		}
 	}
 	, _handleResponse: function (event, request)

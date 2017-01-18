@@ -30,7 +30,17 @@ Polymer({
 	, properties: {
 		list: {
 			type: Array
-			, value: ['test1', 'test2']
+			, value: []
 		}
+	}
+
+	, ready: function ()
+	{
+		this.$.rest.list()
+			.then((list) =>
+			{
+				this.list = list;
+			})
+		;
 	}
 });

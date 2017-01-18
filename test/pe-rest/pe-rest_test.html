@@ -109,7 +109,13 @@ suite('<pe-rest>', function ()
 			expect(promise).to.exist;
 			expect(promise).to.be.a('promise');
 		});
-		test('the read promise fulfills', function ()
+		test('read returns 200', function ()
+		{
+			const promise = element.read();
+			server.respond();
+			return promise;
+		});
+		test('read returns the correct data', function ()
 		{
 			const promise = element.read();
 			server.respond();
