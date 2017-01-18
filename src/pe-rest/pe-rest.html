@@ -1,0 +1,15 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="pe-rest">
+	<template>
+		<iron-ajax
+			id="requester"
+			handle-as="json"
+			on-error="_handleError"
+			on-response="_handleResponse">
+		</iron-ajax>
+	</template>
+
+	<script type="text/javascript" src="pe-rest.js"></script>
+</dom-module>

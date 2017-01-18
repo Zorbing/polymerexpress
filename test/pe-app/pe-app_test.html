@@ -19,11 +19,16 @@
 		</test-fixture>
 
 		<script>
-suite('pe-app', function ()
+suite('<pe-app>', function ()
 {
+	let element;
+	setup(function ()
+	{
+		element = fixture('basic');
+	});
+
 	test('instantiating the element works', function ()
 	{
-		var element = fixture('basic');
 		assert.equal(element.is, 'pe-app');
 	});
 });

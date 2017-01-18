@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>pe-rest test</title>
+
+		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../../web-component-tester/browser.js"></script>
+
+		<link rel="import" href="../../src/pe-rest/pe-rest.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<pe-rest></pe-rest>
+			</template>
+		</test-fixture>
+
+		<script>
+function getParams(url)
+{
+	const params = {};
+	url.replace(/^.+\?/, '').split('&').forEach((part) =>
+	{
+		let [key, value] = part.split('=');
+		params[key] = decodeURIComponent(value);
+	});
+	return params;
+}
+
+suite('<pe-rest>', function ()
+{
+	let server;
+	const responseHeaders = {
+		json: { 'Content-Type': 'application/json' }
+	};
+	let element;
+	setup(function ()
+	{
+		server = sinon.fakeServer.create();
+		server.respondWith(
+			'GET'
+			, /\/test-resource/
+			, [
+				200
+				, responseHeaders.json
+				, '{"success":true}'
+			]
+		);
+		server.respondWith(
+			'POST'
+			, /\/test-resource/
+			, function (request)
+			{
+				const params = getParams(request.url);
+
+				request.respond(
+					200
+					, responseHeaders.json
+					, JSON.stringify(params)
+				);
+			}
+		);
+		server.respondWith(
+			'PATCH'
+			, /\/test-resource/
+			, function (request)
+			{
+				const params = getParams(request.url);
+
+				request.respond(
+					200
+					, responseHeaders.json
+					, JSON.stringify(params)
+				);
+			}
+		);
+		server.respondWith(
+			'DELETE'
+			, /\/test-resource/
+			, [
+				200
+				, responseHeaders.json
+				, '{"success":true}'
+			]
+		);
+
+		element = fixture('basic');
+		element.resource = 'test-resource';
+	});
+	teardown(function ()
+	{
+		server.restore();
+	});
+	this.timeout(100);
+
+	test('instantiating the element works', function ()
+	{
+		assert.equal(element.is, 'pe-rest');
+	});
+
+	suite('reading from the rest interface', function ()
+	{
+		test('reading returns a promise', function ()
+		{
+			const promise = element.read();
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('the read promise fulfills', function ()
+		{
+			const promise = element.read();
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response.success).to.be.true;
+				return true;
+			});
+		});
+		test('read returns 404', function ()
+		{
+			element.resource = 'test-reject';
+			const promise = element.read();
+			server.respond();
+			return promise.catch((error) =>
+			{
+				expect(error).to.be.an('error');
+				expect(error.message).to.be.equal('The request failed with status code: 404');
+				return true;
+			});
+		});
+	});
+
+	suite('creating something via rest interface', function ()
+	{
+		const testData = {
+			name: 'Made up resource'
+			, success: 'true'
+		};
+
+		test('creating returns a promise', function ()
+		{
+			const promise = element.create({});
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('create returns 200', function ()
+		{
+			const promise = element.create(testData);
+			server.respond();
+			return promise;
+		});
+		test('create returns the sent data', function ()
+		{
+			const promise = element.create(testData);
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response).to.be.deep.equal(testData);
+				return true;
+			});
+		});
+	});
+
+	suite('updating something via rest interface', function ()
+	{
+		const testData = {
+			name: 'Updated resource'
+			, success: 'true'
+		};
+
+		test('updating returns a promise', function ()
+		{
+			const promise = element.update({});
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('update returns 200', function ()
+		{
+			const promise = element.update(testData);
+			server.respond();
+			return promise;
+		});
+	});
+
+	suite('deleting something via rest interface', function ()
+	{
+		test('deleting returns a promise', function ()
+		{
+			const promise = element.delete({});
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('update returns 200', function ()
+		{
+			const promise = element.delete();
+			server.respond();
+			return promise;
+		});
+	});
+});
+		</script>
+	</body>
+</html>
