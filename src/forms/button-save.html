@@ -18,12 +18,17 @@
 		}
 	</style>
 		
-	<div><paper-button raised>Save</paper-button></div>
+	<div hidden$="[[hide]]"><paper-button raised>Save</paper-button></div>
 	
 </template>
 <script>
 	Polymer({
 		is: 'button-save',
+		hide: {
+	        	type: Boolean,
+	        	reflectToAttribute: true,
+	        	notify: true
+	        }
 	});
 </script>
 

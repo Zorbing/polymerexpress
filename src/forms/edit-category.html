@@ -14,17 +14,22 @@
 	<style include="shared-styles"></style>
 	<style is="custom-style">		
 		:host paper-swatch-picker {
-			top: 18px;
-			left: 7px;
+			margin: 0;
+			top: 16px;
+			vertical-align:top;
+			/*left: 7px;*/
 			--paper-swatch-picker-color-size: 20px;
+		}
+		
+		div.picker {
+			display: inline-block;
 		}
 	</style>
 	
-	<icon-button-delete></icon-button-delete>
+	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>
 	
 	<!-- colorlist-array by @bobspace -->
-	
-	<paper-swatch-picker color="{{color}}" column-count="20" autofill-columns	
+	<paper-swatch-picker color="{{color}}" column-count="20" autofill-columns disabled$="[[disabled]]"
 		color-list='[					
 					"AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige",
 					"Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown",
@@ -55,11 +60,11 @@
 					]'>
 	</paper-swatch-picker>
 		
-	<paper-input label="category name" required auto-validate error-message="Required!" value="{{name}}">
+	<paper-input readonly$="[[disabled]]" label="category name" required auto-validate error-message="Required!" value="{{name}}">
 		  <iron-icon icon="label" style$="color: {{color}};" prefix></iron-icon>
 	</paper-input>
 	
-	<button-save></button-save>
+	<button-save hide$="[[disabled]]"></button-save>
 </template>
 <script>
 	Polymer({
@@ -77,7 +82,13 @@
 				type: String,
 				reflectToAttribute: true,
 				notify: true
-			} 
+			} ,
+			
+			disabled: {
+	        	type: Boolean,
+	        	reflectToAttribute: true,
+	        	notify: true
+	        }
 		}
 	});
 </script>

@@ -11,13 +11,13 @@
 <template>
 	<style include="shared-styles"></style>
 		
-	<icon-button-delete></icon-button-delete>
+	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>
 		
-	<paper-input label="company name" required auto-validate error-message="Required!" value="{{name}}">
+	<paper-input readonly$="[[disabled]]" label="company name" required auto-validate error-message="Required!" value="{{name}}">
 		  <iron-icon icon="social:domain" prefix></iron-icon>
 	</paper-input>
 	
-	<button-save></button-save>
+	<button-save hide$="[[disabled]]"></button-save>
 </template>
 <script>
 	Polymer({
@@ -29,7 +29,12 @@
 				type: String,
 				reflectToAttribute: true,
 				notify: true
-			} 
+			} ,
+			disabled: {
+	        	type: Boolean,
+	        	reflectToAttribute: true,
+	        	notify: true
+	        }
 		}
 	});
 </script>

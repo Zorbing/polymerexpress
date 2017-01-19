@@ -3,6 +3,7 @@
 <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="edit-category.html">
 <link rel="import" href="edit-address.html">
 <link rel="import" href="edit-company.html">
@@ -49,44 +50,47 @@
 		</style>
 			
 	     <h2>All Forms</h2>
+	     
+	     <paper-toggle-button checked="{{disabled}}">Disable</paper-toggle-button>
+	     
 	     <div>
 	      	 <div class="preview">
 			    <h3>Add/Edit Category Empty</h3>
-			    <edit-category></edit-category>
+			    <edit-category disabled$="[[disabled]]"></edit-category>
 		     </div>
 		     <div class="preview">
 			    <h3>Add/Edit Category Filled</h3>
-			    <edit-category name="The Train" color="red"></edit-category>
+			    <edit-category disabled$="[[disabled]]" name="The Train" color="red"></edit-category>
 		     </div>
 	     </div>
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit Address Empty</h3>
-		     	<edit-address></edit-address>
+		     	<edit-address disabled$="[[disabled]]"></edit-address>
 		     </div>
 		     <div class="preview">
 		     	<h3>Add/Edit Address Filled</h3>
-		     	<edit-address street="Expressweg 15" city="Polymer" postcode="4242"></edit-address>
+		     	<edit-address disabled$="[[disabled]]" street="Expressweg 15" city="Polymer" postcode="4242"></edit-address>
 		     </div>
 	     </div>
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit Phone Number Empty</h3>
-		     	<edit-phone-number></edit-phone-number>	     	
+		     	<edit-phone-number disabled$="[[disabled]]"></edit-phone-number>	     	
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Add/Edit Phone Number Filled</h3>
-		     	<edit-phone-number number="+49 41424344"></edit-phone-number>	     	
+		     	<edit-phone-number disabled$="[[disabled]]" number="+49 41424344"></edit-phone-number>	     	
 		     </div>
 	     </div>
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Empty</h3>
-		     	<edit-email></edit-phone-number>	     	
+		     	<edit-email disabled$="[[disabled]]"></edit-phone-number>	     	
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Filled</h3>
-		     	<edit-email address="fahr.gast@polymer-express.de"></edit-phone-number>	     	
+		     	<edit-email disabled$="[[disabled]]" address="fahr.gast@polymer-express.de"></edit-phone-number>	     	
 		     </div>
 	     </div>
 	     
@@ -95,7 +99,16 @@
 
 	<script>
     Polymer({
-      is: 'all-forms-preview'    
+      is: 'all-forms-preview' , 
+      
+      properties: {
+			disabled: {
+	        	type: Boolean,
+	        	value: false,
+	        	reflectToAttribute: true,
+	        	notify: true
+	        },
+		} 
     });
   </script>
 </dom-module>

@@ -25,9 +25,10 @@
 		div.delete paper-icon-button:hover {
 			color: red;
 		}
+		
 	</style>
 		
-	<div class="delete">
+	<div class="delete" hidden$="[[hide]]">
 		<paper-icon-button icon="icons:delete-forever"></paper-icon-button>
 		<paper-tooltip animation-delay=0>Delete</paper-tooltip>
 	</div>
@@ -36,6 +37,11 @@
 <script>
 	Polymer({
 		is: 'icon-button-delete',
+		hide: {
+	        	type: Boolean,
+	        	reflectToAttribute: true,
+	        	notify: true
+	        }
 	});
 </script>
 
