@@ -1,0 +1,38 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="/src/forms/shared-styles.html">
+<link rel="import" href="/src/forms/icon-button-delete.html">
+<link rel="import" href="/src/forms/button-save.html">
+
+
+<dom-module id="edit-email">
+<template>
+	<style include="shared-styles"></style>
+
+	<icon-button-delete></icon-button-delete>
+
+	<paper-input label="email address" required auto-validate type="email" error-message="Required!" value="{{address}}">
+		  <iron-icon icon="communication:mail-outline" prefix></iron-icon>
+	</paper-input>
+	
+	<button-save></button-save>
+</template>
+<script>
+	Polymer({
+		is: 'edit-email',
+		
+		properties: {
+
+			address: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			} 
+		}
+	});
+</script>
+
+</dom-module>
