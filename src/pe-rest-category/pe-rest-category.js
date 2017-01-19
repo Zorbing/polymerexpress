@@ -24,7 +24,7 @@
 
 'use strict';
 
-const restResource = 'category';
+const categoryResource = 'category';
 const colorKeywords = [
 	'silver', 'gray', 'white', 'maroon', 'red', 'purple', 'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'blue'
 	, 'teal', 'aqua', 'orange', 'aliceblue', 'antiquewhite', 'aquamarine', 'azure', 'beige', 'bisque', 'blanchedalmond'
@@ -45,7 +45,7 @@ const colorKeywords = [
 	, 'springgreen', 'steelblue', 'tan', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'whitesmoke'
 	, 'yellowgreen', 'rebeccapurple'
 ];
-const categoryListStub = [
+const stubCategoryList = [
 	{
 		id: 1
 		, name: 'Friend'
@@ -101,13 +101,12 @@ const categoryListStub = [
 Polymer({
 	is: 'pe-rest-category'
 
-	, properties: {
-	}
+	, properties: {}
 
 	, create: function (name, color)
 	{
 		const rest = this.$.rest;
-		rest.resource = restResource;
+		rest.resource = categoryResource;
 		return rest.create({
 			name: name
 			, color: color
@@ -116,13 +115,13 @@ Polymer({
 	, delete: function (id)
 	{
 		const rest = this.$.rest;
-		rest.resource = restResource + '/' + id;
+		rest.resource = categoryResource + '/' + id;
 		return rest.delete();
 	}
 	, edit: function (id, name, color)
 	{
 		const rest = this.$.rest;
-		rest.resource = restResource + '/' + id;
+		rest.resource = categoryResource + '/' + id;
 		return rest.update({
 			name: name
 			, color: color
@@ -136,10 +135,10 @@ Polymer({
 	{
 		if (testData)
 		{
-			return Promise.resolve(categoryListStub);
+			return Promise.resolve(stubCategoryList);
 		}
 		const rest = this.$.rest;
-		rest.resource = restResource;
+		rest.resource = categoryResource;
 		return rest.read();
 	}
 });

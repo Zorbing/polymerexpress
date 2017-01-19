@@ -28,50 +28,39 @@ SOFTWARE.
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-		<title>pe-rest-category test</title>
+		<title>pe-rest-company test</title>
 
 		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
 		<script src="../../../web-component-tester/browser.js"></script>
 
-		<link rel="import" href="../../src/pe-rest-category/pe-rest-category.html">
+		<link rel="import" href="../../src/pe-rest-company/pe-rest-company.html">
 	</head>
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<pe-rest-category></pe-rest-category>
+				<pe-rest-company></pe-rest-company>
 			</template>
 		</test-fixture>
 
 		<script>
-suite('<pe-rest-category>', function ()
+suite('<pe-rest-company>', function ()
 {
 	let server;
 	const responseHeaders = {
 		json: { 'Content-Type': 'application/json' }
 	};
-	const stubCategoryList = [
-		{
-			id: 2
-			, name: 'Family'
-			, color: 'green'
-		}
-		, {
-			id: 0
-			, name: 'Friends'
-			, color: 'blue'
-		}
-	];
+	const stubCompanyList = ['Lakin and Sons', 'Schmidt Group', 'Wunsch-Berge', 'Zulauf-Streich', 'Schuppe-Beer'];
 	let element;
 	setup(function ()
 	{
 		server = sinon.fakeServer.create();
 		server.respondWith(
 			'GET'
-			, /\/category/
+			, /\/company/
 			, [
 				200
 				, responseHeaders.json
-				, JSON.stringify(stubCategoryList)
+				, JSON.stringify(stubCompanyList)
 			]
 		);
 
@@ -85,10 +74,10 @@ suite('<pe-rest-category>', function ()
 
 	test('instantiating the element works', function ()
 	{
-		assert.equal(element.is, 'pe-rest-category');
+		assert.equal(element.is, 'pe-rest-company');
 	});
 
-	suite('read category list', function ()
+	suite('read company list', function ()
 	{
 		test('reading returns a promise', function ()
 		{
@@ -105,7 +94,7 @@ suite('<pe-rest-category>', function ()
 			{
 				expect(response).to.be.ok;
 				expect(response).to.be.an('array');
-				expect(response).to.be.deep.equal(stubCategoryList);
+				expect(response).to.be.deep.equal(stubCompanyList);
 			});
 		});
 	});

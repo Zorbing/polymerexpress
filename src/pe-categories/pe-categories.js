@@ -36,7 +36,7 @@ Polymer({
 
 	, ready: function ()
 	{
-		this.$.rest.list()
+		this.$.restCategory.list()
 			.then((list) =>
 			{
 				this.list = list;
