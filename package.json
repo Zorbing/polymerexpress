@@ -5,14 +5,19 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "bower install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "polymer test -l chrome"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Zorbing/polymerexpress.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Martin Boekhoff <boekhoffmartin@gmail.com>",
+  "contributors": [
+    "Max Bachmann <max.bachmann@student.uni-luebeck.de>",
+    "Bastian Schmeier <bastianschmeier@gmail.com>",
+    "Jennifer Wilde <wilde.jennifer@web.de>"
+  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Zorbing/polymerexpress/issues"
   },

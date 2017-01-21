@@ -22,23 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../pe-rest-category/pe-rest-category.html">
 
-    <title>PolymerExpress</title>
-    <meta name="description" content="polymerexpress description">
+<dom-module id="pe-categories">
+	<template>
+		<style>
+			:host {
+				display: block;
+			}
+		</style>
+		<ul>
+			<template is="dom-repeat" items="{{list}}">
+				<li style="color: {{item.color}};">({{item.id}}) {{item.name}}</li>
+			</template>
+		</ul>
+		<pe-rest-category id="restCategory"></pe-rest-category>
+	</template>
 
-    <!-- See https://goo.gl/OOhYW5 -->
-    <link rel="manifest" href="/manifest.json">
-
-    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-
-    <link rel="import" href="/src/pe-app/pe-app.html">
-  </head>
-  <body>
-    <pe-app></pe-app>
-  </body>
-</html>
+	<script type="text/javascript" src="pe-categories.js"></script>
+</dom-module>
