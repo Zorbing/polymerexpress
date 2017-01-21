@@ -29,6 +29,7 @@ const HTTP_DELETE = 'DELETE';
 const HTTP_GET = 'GET';
 const HTTP_PATCH = 'PATCH';
 const HTTP_POST = 'POST';
+const HTTP_PUT = 'PUT';
 const request2Deferred = new WeakMap();
 
 Polymer({
@@ -42,19 +43,43 @@ Polymer({
 
 	, create: function (newResource)
 	{
-		return this._request(HTTP_POST, newResource);
+		return this.createSub(null, newResource);
+	}
+	, createSub: function(subResource, newResource)
+	{
+		return this._request(HTTP_POST, subResource, newResource);
 	}
 	, delete: function ()
 	{
-		return this._request(HTTP_DELETE);
+		return this.deleteSub(null);
+	}
+	, deleteSub: function (subResource)
+	{
+		return this._request(HTTP_DELETE, subResource);
 	}
 	, read: function ()
 	{
-		return this._request(HTTP_GET);
+		return this.readSub(null);
 	}
-	, update: function (updatedResource)
+	, readSub: function (subResource)
 	{
-		return this._request(HTTP_PATCH, updatedResource);
+		return this._request(HTTP_GET, subResource);
+	}
+	, replace: function (updatedResource)
+	{
+		return this.replaceSub(null, updatedResource);
+	}
+	, replaceSub: function (subResource, updatedResource)
+	{
+		return this._request(HTTP_PUT, subResource, updatedResource);
+	}
+	, update: function (updatedPartialResource)
+	{
+		return this.updateSub(null, updatedPartialResource);
+	}
+	, updateSub: function(subResource, updatedPartialResource)
+	{
+		return this._request(HTTP_PATCH, subResource, updatedPartialResource);
 	}
 
 
@@ -63,12 +88,12 @@ Polymer({
 	 * private methods
 	 */
 
-	, _computeUrl: function ()
+	, _computeUrl: function (subResource)
 	{
-		const encodedResource = this.resource
-			.split('/')
+		const encodedResource = [this.resource]
+			.concat(subResource ? [subResource] : [])
 			.map(s => encodeURIComponent(s))
-			.reduce((p, c) => p + '/' + c)
+			.join('/')
 		;
 		return apiBase + '/' + encodedResource;
 	}
@@ -94,10 +119,10 @@ Polymer({
 			deferred.resolve(request.response);
 		}
 	}
-	, _request: function (method, params = {})
+	, _request: function (method, subResource, params = {})
 	{
 		const requester = this.$.requester;
-		requester.url = this._computeUrl();
+		requester.url = this._computeUrl(subResource);
 		requester.method = method;
 		requester.params = params;
 		const request = requester.generateRequest();

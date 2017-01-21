@@ -67,7 +67,7 @@ suite('<pe-rest-category>', function ()
 		server = sinon.fakeServer.create();
 		server.respondWith(
 			'GET'
-			, /\/category/
+			, /\/category$/
 			, [
 				200
 				, responseHeaders.json

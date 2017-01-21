@@ -24,7 +24,6 @@
 
 'use strict';
 
-const categoryResource = 'category';
 const colorKeywords = [
 	'silver', 'gray', 'white', 'maroon', 'red', 'purple', 'fuchsia', 'green', 'lime', 'olive', 'yellow', 'navy', 'blue'
 	, 'teal', 'aqua', 'orange', 'aliceblue', 'antiquewhite', 'aquamarine', 'azure', 'beige', 'bisque', 'blanchedalmond'
@@ -105,26 +104,32 @@ Polymer({
 
 	, create: function (name, color)
 	{
-		const rest = this.$.rest;
-		rest.resource = categoryResource;
-		return rest.create({
+		return this.$.rest.create({
 			name: name
 			, color: color
 		});
 	}
 	, delete: function (id)
 	{
-		const rest = this.$.rest;
-		rest.resource = categoryResource + '/' + id;
-		return rest.delete();
+		return this.$.rest.deleteSub(id);
 	}
-	, edit: function (id, name, color)
+	, edit: function (id, newName, newColor)
 	{
-		const rest = this.$.rest;
-		rest.resource = categoryResource + '/' + id;
-		return rest.update({
-			name: name
-			, color: color
+		return this.$.rest.replaceSub(id, {
+			name: newName
+			, color: newColor
+		});
+	}
+	, editColor: function (id, newColor)
+	{
+		return this.$.rest.updateSub(id, {
+			color: newColor
+		});
+	}
+	, editName: function (id, newName)
+	{
+		return this.$.rest.updateSub(id, {
+			name: newName
 		});
 	}
 	, getColorKeywords: function ()
@@ -137,8 +142,6 @@ Polymer({
 		{
 			return Promise.resolve(stubCategoryList);
 		}
-		const rest = this.$.rest;
-		rest.resource = categoryResource;
-		return rest.read();
+		return this.$.rest.read();
 	}
 });
