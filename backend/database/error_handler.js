@@ -21,28 +21,20 @@
  */
 
 
-// Operate in strict mode.
-// See http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
 "use strict";
 
-// Setup express
-let express = require("express");
-let app = express();
-let port = 3000;
+let handleDatabaseError = function (error, httpResponse) {
+    let message = {
+        error: {
+            code: error.code,
+            message: error.message
+        }
+    };
+    httpResponse.send(JSON.stringify(message));
+};
 
-// Middleware
-let bodyParser = require('body-parser');
-app.use(bodyParser.raw({type:'*/*'}));
+let errorHandlerExports = {
+    handleDatabaseError: handleDatabaseError
+};
 
-// Load route modules
-let categoryHandler = require("./category/category");
-let companyHandler = require("./company/company");
-let personHandler = require("./person/person");
-app.use("/category", categoryHandler);
-app.use("/company", companyHandler);
-app.use("/person", personHandler);
-
-// Start the express web server.
-app.listen(port, function () {
-    console.log("Contacts backend listening on port " + port + ".");
-});
+module.exports = errorHandlerExports;
