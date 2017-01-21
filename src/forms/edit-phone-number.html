@@ -10,19 +10,19 @@
 <dom-module id="edit-phone-number">
 <template>
 	<style include="shared-styles"></style>
-		
-	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>	
-		
+
+	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>
+
 	<paper-input readonly$="[[disabled]]" label="phone number" required auto-validate allowed-pattern="[0-9+/ ]" error-message="Required!" value="{{number}}">
 		  <iron-icon icon="maps:local-phone" prefix></iron-icon>
 	</paper-input>
-	
+
 	<button-save hide$="[[disabled]]"></button-save>
 </template>
 <script>
 	Polymer({
 		is: 'edit-phone-number',
-		
+
 		properties: {
 
 			number: {
@@ -34,7 +34,7 @@
 	        	type: Boolean,
 	        	reflectToAttribute: true,
 	        	notify: true
-	        } 
+	        }
 		}
 	});
 </script>

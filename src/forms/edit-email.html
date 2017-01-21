@@ -17,13 +17,13 @@
 	<paper-input readonly$="[[disabled]]" label="email address" required auto-validate type="email" error-message="Required!" value="{{address}}">
 		  <iron-icon icon="communication:mail-outline" prefix></iron-icon>
 	</paper-input>
-	
+
 	<button-save hide$="[[disabled]]"></button-save>
 </template>
 <script>
 	Polymer({
 		is: 'edit-email',
-		
+
 		properties: {
 
 			address: {

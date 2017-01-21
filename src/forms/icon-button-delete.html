@@ -8,31 +8,31 @@
 <template>
 	<style>
 		:host paper-input {
-			display: block;			
-		}
-		
-		div.delete {	
-			color: darkgrey;		
 			display: block;
-			float: right;    
+		}
+
+		div.delete {
+			color: darkgrey;
+			display: block;
+			float: right;
 		    padding: 0px;
 		}
-		
+
 		div.delete paper-icon-button {
-			margin: auto;		
+			margin: auto;
 		}
-		
+
 		div.delete paper-icon-button:hover {
 			color: red;
 		}
-		
+
 	</style>
-		
+
 	<div class="delete" hidden$="[[hide]]">
 		<paper-icon-button icon="icons:delete-forever"></paper-icon-button>
 		<paper-tooltip animation-delay=0>Delete</paper-tooltip>
 	</div>
-	
+
 </template>
 <script>
 	Polymer({

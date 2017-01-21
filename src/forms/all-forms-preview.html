@@ -12,17 +12,17 @@
 
 <dom-module id="all-forms-preview">
 	<template>
-		<style>			
+		<style>
 			:host {
 		    	--app-primary-color: #4285f4;
 		        --app-secondary-color: black;
-		
+
 	        	display: block;
 	      	}
 	      	.drawer-list {
 	        	margin: 0 20px;
 	      	}
-	
+
 	      	.drawer-list a {
 		        display: block;
 		        padding: 0 16px;
@@ -30,29 +30,29 @@
 		        color: var(--app-secondary-color);
 		        line-height: 40px;
 	      	}
-	
+
 	      	.drawer-list a.iron-selected {
 		        color: black;
 		        font-weight: bold;
 	      	}
-	      	
+
 	      	.drawer-list a:hover {
 	      		color: blue;
 	      	}
-	      	
+
 	      	:host div.preview {
 	      		background-color: rgba(0,0,0,0.05);
 	      		margin: 10px;
 	      		width: 400px;
 	      		display: inline-block;
 	      	}
-	      	
+
 		</style>
-			
+
 	     <h2>All Forms</h2>
-	     
+
 	     <paper-toggle-button checked="{{disabled}}">Disable</paper-toggle-button>
-	     
+
 	     <div>
 	      	 <div class="preview">
 			    <h3>Add/Edit Category Empty</h3>
@@ -76,31 +76,31 @@
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit Phone Number Empty</h3>
-		     	<edit-phone-number disabled$="[[disabled]]"></edit-phone-number>	     	
+		     	<edit-phone-number disabled$="[[disabled]]"></edit-phone-number>
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Add/Edit Phone Number Filled</h3>
-		     	<edit-phone-number disabled$="[[disabled]]" number="+49 41424344"></edit-phone-number>	     	
+		     	<edit-phone-number disabled$="[[disabled]]" number="+49 41424344"></edit-phone-number>
 		     </div>
 	     </div>
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Empty</h3>
-		     	<edit-email disabled$="[[disabled]]"></edit-phone-number>	     	
+		     	<edit-email disabled$="[[disabled]]"></edit-phone-number>
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Filled</h3>
-		     	<edit-email disabled$="[[disabled]]" address="fahr.gast@polymer-express.de"></edit-phone-number>	     	
+		     	<edit-email disabled$="[[disabled]]" address="fahr.gast@polymer-express.de"></edit-phone-number>
 		     </div>
 	     </div>
-	     
-	     
+
+
 	</template>
 
 	<script>
     Polymer({
-      is: 'all-forms-preview' , 
-      
+      is: 'all-forms-preview' ,
+
       properties: {
 			disabled: {
 	        	type: Boolean,
@@ -108,7 +108,7 @@
 	        	reflectToAttribute: true,
 	        	notify: true
 	        },
-		} 
+		}
     });
   </script>
 </dom-module>

@@ -14,25 +14,25 @@
 		paper-input {
 			display: block;
 		}
-		
+
 	</style>
-	
-	
+
+
 	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>
-		
+
 	<iron-icon icon="icons:home"></iron-icon>
 
 	<paper-input readonly$="[[disabled]]" label="street address" value="{{street}}" required auto-validate error-message="[[error]]"></paper-input>
 	<paper-input readonly$="[[disabled]]" label="postcode" value="{{postcode}}" required auto-validate allowed-pattern="[0-9]" error-message="[[error]]"></paper-input>
 	<paper-input readonly$="[[disabled]]" label="city" value="{{city}}"required auto-validate error-message="[[error]]"></paper-input>
-	
+
 	<button-save hide$="[[disabled]]"></button-save>
 </template>
 <script>
 	Polymer({
 		is: 'edit-address',
-		
-		properties: {			
+
+		properties: {
 			street: {
 				type: String,
 				reflectToAttribute: true,
@@ -56,7 +56,7 @@
 	        	type: Boolean,
 	        	reflectToAttribute: true,
 	        	notify: true
-	        }			
+	        }
 		}
 	});
 </script>
