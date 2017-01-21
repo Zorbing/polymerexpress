@@ -22,23 +22,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>PolymerExpress</title>
-    <meta name="description" content="polymerexpress description">
+		<title>pe-app test</title>
 
-    <!-- See https://goo.gl/OOhYW5 -->
-    <link rel="manifest" href="/manifest.json">
+		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../../web-component-tester/browser.js"></script>
 
-    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="../../src/pe-app/pe-app.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<pe-app></pe-app>
+			</template>
+		</test-fixture>
 
-    <link rel="import" href="/src/pe-app/pe-app.html">
-  </head>
-  <body>
-    <pe-app></pe-app>
-  </body>
+		<script>
+suite('<pe-app>', function ()
+{
+	let element;
+	setup(function ()
+	{
+		element = fixture('basic');
+	});
+
+	test('instantiating the element works', function ()
+	{
+		assert.equal(element.is, 'pe-app');
+	});
+});
+		</script>
+	</body>
 </html>
