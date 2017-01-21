@@ -169,9 +169,9 @@ router.post("/", function (req, res) {
 });
 
 /**
- * Changes one category identified by an id in the database.
+ * Changes properties of one category identified by an id in the database.
  */
-router.put("/:id", function (req, res) {
+router.patch("/:id", function (req, res) {
     // Assert MIME type
     if (!req.is('application/json')) {
         respondWithError(res, "Wrong MIME. Requests have to use 'application/json'");
@@ -206,14 +206,63 @@ router.put("/:id", function (req, res) {
     // Update record in db
     let query = 'UPDATE ' + db.categoryTable + ' SET ';
     if (change.name) {
-        query += 'name = ' + conn.escape(body.name) + '';
+        query += 'name = ' + conn.escape(body.name);
     }
     if (change.name && change.color) {
         query += ',';
     }
     if (change.color) {
-        query += 'color = ' + conn.escape(body.color) + '';
+        query += 'color = ' + conn.escape(body.color);
     }
+    query += ' WHERE id=' + conn.escape(Number(req.params.id)) + " LIMIT 1";
+
+    let handler = function (error, results, fields) {
+        if (error) {
+            errorHandler.handleDatabaseError(error, res);
+        } else {
+            let details = {
+                changed: results.affectedRows
+            };
+            respondWithOk(res, details);
+        }
+    };
+
+    conn.query(query, handler);
+});
+
+/**
+ * Changes one category identified by an id in the database.
+ */
+router.put("/:id", function (req, res) {
+    // Assert MIME type
+    if (!req.is('application/json')) {
+        respondWithError(res, "Wrong MIME. Requests have to use 'application/json'");
+        return;
+    }
+
+    // Parse request body
+    let body = "";
+    try {
+        body = JSON.parse(req.body);
+    } catch (error) {
+        respondWithError(res, "Invalid JSON");
+        return;
+    }
+
+    // Assert parameters
+    if (!body.hasOwnProperty('name') || body.name === '') {
+        respondWithError(res, "Invalid name.");
+        return;
+    }
+    if (!body.hasOwnProperty('color') || body.color === '') {
+        respondWithError(res, "Invalid color.");
+        return;
+    }
+
+    // Update record in db
+    let query = 'UPDATE ' + db.categoryTable + ' SET ';
+    query += 'name = ' + conn.escape(body.name) + ',';
+    query += 'color = ' + conn.escape(body.color);
     query += ' WHERE id=' + conn.escape(Number(req.params.id)) + " LIMIT 1";
 
     let handler = function (error, results, fields) {
