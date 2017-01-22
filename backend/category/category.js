@@ -64,7 +64,7 @@ router.get("/", function (req, res) {
     // List all records in db
     let query = 'SELECT * FROM `' + db.categoryTable + '`';
 
-    let handler = function (error, results, fields) {
+    let handler = function (error, results) {
         if (error) {
             errorHandler.handleDatabaseError(error, res);
         } else {
@@ -82,7 +82,7 @@ router.get("/:id", function (req, res) {
     // Fetch record from db
     let query = 'SELECT * FROM `' + db.categoryTable + '` WHERE id=' + conn.escape(Number(req.params.id)) + ' LIMIT 1';
 
-    let handler = function (error, results, fields) {
+    let handler = function (error, results) {
         if (error) {
             errorHandler.handleDatabaseError(error, res);
         } else {
@@ -104,7 +104,7 @@ router.delete("/:id", function (req, res) {
     // Delete record from db
     let query = 'DELETE FROM ' + db.categoryTable + ' WHERE id=' + conn.escape(Number(req.params.id)) + ' LIMIT 1';
 
-    let handler = function (error, results, fields) {
+    let handler = function (error, results) {
         if (error) {
             errorHandler.handleDatabaseError(error, res);
         } else {
@@ -153,7 +153,7 @@ router.post("/", function (req, res) {
     query += conn.escape(body.color);
     query += ')';
 
-    let handler = function (error, results, fields) {
+    let handler = function (error, results) {
         if (error) {
             errorHandler.handleDatabaseError(error, res);
         } else {
@@ -216,7 +216,7 @@ router.patch("/:id", function (req, res) {
     }
     query += ' WHERE id=' + conn.escape(Number(req.params.id)) + " LIMIT 1";
 
-    let handler = function (error, results, fields) {
+    let handler = function (error, results) {
         if (error) {
             errorHandler.handleDatabaseError(error, res);
         } else {
@@ -265,7 +265,7 @@ router.put("/:id", function (req, res) {
     query += 'color = ' + conn.escape(body.color);
     query += ' WHERE id=' + conn.escape(Number(req.params.id)) + " LIMIT 1";
 
-    let handler = function (error, results, fields) {
+    let handler = function (error, results) {
         if (error) {
             errorHandler.handleDatabaseError(error, res);
         } else {

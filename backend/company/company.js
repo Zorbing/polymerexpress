@@ -33,7 +33,7 @@ router.get("/", function (req, res) {
     // List all records in db
     let query = 'SELECT * FROM `' + db.companyTable + '`';
 
-    let handler = function (error, results, fields) {
+    let handler = function (error, results) {
         if (error) {
             errorHandler.handleDatabaseError(error, res);
         } else {
