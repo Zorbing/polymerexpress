@@ -132,6 +132,12 @@ class Contact
 			, emailAddresses: newEmailAddresses
 		});
 	}
+	editAddress(addressId, newAddress)
+	{
+		return this.rest.sub(addressSubPath).sub(addressId).update({
+			address: newAddress
+		});
+	}
 	editAddresses(newAddresses)
 	{
 		return this.rest.update({
@@ -150,6 +156,12 @@ class Contact
 			dateOfBirth: newDateOfBirth
 		});
 	}
+	editEmailAddress(emailAddressId, newEmailAddress)
+	{
+		return this.rest.sub(emailAdressSubPath).sub(emailAddressId).update({
+			emailAddress: newEmailAddress
+		});
+	}
 	editEmailAddresses(newEmailAddresses)
 	{
 		return this.rest.update({
@@ -160,6 +172,12 @@ class Contact
 	{
 		return this.rest.update({
 			name: newName
+		});
+	}
+	editPhoneNumber(phoneNumberId, newPhoneNumber)
+	{
+		return this.rest.sub(phoneNumberSubPath).sub(phoneNumberId).update({
+			phoneNumber: newPhoneNumber
 		});
 	}
 	editPhoneNumbers(newPhoneNumbers)
