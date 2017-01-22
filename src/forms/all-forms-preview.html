@@ -9,6 +9,8 @@
 <link rel="import" href="edit-company.html">
 <link rel="import" href="edit-phone-number.html">
 <link rel="import" href="edit-email.html"/>
+<link rel="import" href="edit-contact.html"/>
+<link rel="import" href="show-companies.html"/>
 
 <dom-module id="all-forms-preview">
 	<template>
@@ -54,6 +56,17 @@
 	     <paper-toggle-button checked="{{disabled}}">Disable</paper-toggle-button>
 	     
 	     <div>
+	     	<div class="preview">
+	     		<h3>Add/Edit Contact Empty</h3>
+			    <edit-contact disabled$="[[disabled]]"></edit-contact>
+		     </div>
+		     <div class="preview">
+			    <h3>Add/Edit Category Filled</h3>
+			    <edit-contact disabled$="[[disabled]]" name="Hugo" company-name="Polyfill"></edit-contact>
+	     	</div>
+	     </div>
+	     
+	     <div>
 	      	 <div class="preview">
 			    <h3>Add/Edit Category Empty</h3>
 			    <edit-category disabled$="[[disabled]]"></edit-category>
@@ -86,11 +99,21 @@
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Empty</h3>
-		     	<edit-email disabled$="[[disabled]]"></edit-phone-number>	     	
+		     	<edit-email disabled$="[[disabled]]"></edit-email>	     	
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Filled</h3>
-		     	<edit-email disabled$="[[disabled]]" address="fahr.gast@polymer-express.de"></edit-phone-number>	     	
+		     	<edit-email disabled$="[[disabled]]" address="fahr.gast@polymer-express.de"></edit-email>	     	
+		     </div>
+	     </div>
+	     <div>
+		     <div class="preview">
+		     	<h3>Show Companies Dummy Data</h3>
+		     	<show-companies disabled$="[[disabled]]"></show-companies>	     	
+		     </div>
+	 		 <div class="preview">
+		     	<h3>Show Companies Address Filled</h3>
+		     	<show-companies company-list='["Company A", "Company B", "Company C"]' ></show-companies>	     	
 		     </div>
 	     </div>
 	     
