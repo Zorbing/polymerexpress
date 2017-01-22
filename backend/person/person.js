@@ -21,28 +21,34 @@
  */
 
 
-// Operate in strict mode.
-// See http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
 "use strict";
 
-// Setup express
 let express = require("express");
-let app = express();
-let port = 3000;
+let router = express.Router();
 
-// Middleware
-let bodyParser = require('body-parser');
-app.use(bodyParser.raw({type:'*/*'}));
-
-// Load route modules
-let categoryHandler = require("./category/category");
-let companyHandler = require("./company/company");
-let personHandler = require("./person/person");
-app.use("/category", categoryHandler);
-app.use("/company", companyHandler);
-app.use("/person", personHandler);
-
-// Start the express web server.
-app.listen(port, function () {
-    console.log("Contacts backend listening on port " + port + ".");
+router.get("/", function (req, res) {
+    // TODO: Get List of persons
+    res.send("GET person list");
 });
+
+router.get("/:id", function (req, res) {
+    // TODO: Get person with id
+    res.send("GET person with id " + req.params.id);
+});
+
+router.delete("/:id", function (req, res) {
+    // TODO: Remove person with id
+    res.send("DELETE person with id " + req.params.id);
+});
+
+router.post("/", function (req, res) {
+    // TODO: Save a new person
+    res.send("CREATE person");
+});
+
+router.put("/:id", function (req, res) {
+    // TODO Edit person with id
+    res.send("UPDATE person with id " + req.params.id);
+});
+
+module.exports = router;

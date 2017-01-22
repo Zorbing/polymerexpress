@@ -20,29 +20,25 @@
  * SOFTWARE.
  */
 
-
-// Operate in strict mode.
-// See http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
 "use strict";
 
-// Setup express
-let express = require("express");
-let app = express();
-let port = 3000;
-
-// Middleware
-let bodyParser = require('body-parser');
-app.use(bodyParser.raw({type:'*/*'}));
-
-// Load route modules
-let categoryHandler = require("./category/category");
-let companyHandler = require("./company/company");
-let personHandler = require("./person/person");
-app.use("/category", categoryHandler);
-app.use("/company", companyHandler);
-app.use("/person", personHandler);
-
-// Start the express web server.
-app.listen(port, function () {
-    console.log("Contacts backend listening on port " + port + ".");
+// Centralized mysql connection setup.
+let mysql = require('mysql');
+let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'polymerexpress',
+    password: 'PolymerExpress0$',
+    database: 'pe_contacts'
 });
+
+let connector = {
+    connection: connection,
+    categoryTable: 'contact_category',
+    companyTable: 'contact_company',
+    personTable: 'contact_person',
+    addressTable: 'contact_address',
+    phoneTable: 'contact_phone',
+    emailTable: 'contact_email'
+};
+
+module.exports = connector;
