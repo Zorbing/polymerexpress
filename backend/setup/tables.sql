@@ -42,10 +42,7 @@ COLLATE utf8_bin;
 CREATE TABLE IF NOT EXISTS contact_address (
 	id INT AUTO_INCREMENT,
 	person_id INT NOT NULL,
-	zip INT NOT NULL,
-	town VARCHAR(128) NOT NULL,
-	country VARCHAR(128) NOT NULL,
-	street VARCHAR(128) NOT NULL,
+	address TEXT NOT NULL,
 	PRIMARY KEY (id),
 	INDEX (person_id),
 	FOREIGN KEY (person_id)
