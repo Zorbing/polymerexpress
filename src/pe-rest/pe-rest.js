@@ -32,6 +32,7 @@ const HTTP_POST = 'POST';
 const HTTP_PUT = 'PUT';
 const request2Deferred = new WeakMap();
 
+let subResources = [];
 Polymer({
 	is: 'pe-rest'
 
@@ -43,43 +44,44 @@ Polymer({
 
 	, create: function (newResource)
 	{
-		return this.createSub(null, newResource);
-	}
-	, createSub: function(subResource, newResource)
-	{
-		return this._request(HTTP_POST, subResource, newResource);
+		return this._request(HTTP_POST, newResource);
 	}
 	, delete: function ()
 	{
-		return this.deleteSub(null);
-	}
-	, deleteSub: function (subResource)
-	{
-		return this._request(HTTP_DELETE, subResource);
+		return this._request(HTTP_DELETE);
 	}
 	, read: function ()
 	{
-		return this.readSub(null);
-	}
-	, readSub: function (subResource)
-	{
-		return this._request(HTTP_GET, subResource);
+		return this._request(HTTP_GET);
 	}
 	, replace: function (updatedResource)
 	{
-		return this.replaceSub(null, updatedResource);
+		return this._request(HTTP_PUT, updatedResource);
 	}
-	, replaceSub: function (subResource, updatedResource)
+	, sub: function (resource)
 	{
-		return this._request(HTTP_PUT, subResource, updatedResource);
+		const subs = subResources.concat([resource]);
+		const subHandler = {
+			get: function (target, name)
+			{
+				if (typeof target[name] === 'function')
+				{
+					return (...args) =>
+					{
+						subResources = subs;
+						const ret = target[name](...args);
+						subResources = [];
+						return ret;
+					};
+				}
+				return target[name];
+			}
+		};
+		return new Proxy(this, subHandler);
 	}
 	, update: function (updatedPartialResource)
 	{
-		return this.updateSub(null, updatedPartialResource);
-	}
-	, updateSub: function(subResource, updatedPartialResource)
-	{
-		return this._request(HTTP_PATCH, subResource, updatedPartialResource);
+		return this._request(HTTP_PATCH, updatedPartialResource);
 	}
 
 
@@ -91,7 +93,7 @@ Polymer({
 	, _computeUrl: function (subResource)
 	{
 		const encodedResource = [this.resource]
-			.concat(subResource ? [subResource] : [])
+			.concat(subResources)
 			.map(s => encodeURIComponent(s))
 			.join('/')
 		;
@@ -119,10 +121,10 @@ Polymer({
 			deferred.resolve(request.response);
 		}
 	}
-	, _request: function (method, subResource, params = {})
+	, _request: function (method, params = {})
 	{
 		const requester = this.$.requester;
-		requester.url = this._computeUrl(subResource);
+		requester.url = this._computeUrl();
 		requester.method = method;
 		requester.params = params;
 		const request = requester.generateRequest();

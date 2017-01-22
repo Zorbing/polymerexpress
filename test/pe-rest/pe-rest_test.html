@@ -70,7 +70,7 @@ suite('<pe-rest>', function ()
 			, [
 				200
 				, responseHeaders.json
-				, `{"success":true}`
+				, `{"success":true,"method":"GET"}`
 			]
 		);
 		server.respondWith(
@@ -107,7 +107,25 @@ suite('<pe-rest>', function ()
 			, [
 				200
 				, responseHeaders.json
-				, '{"success":true}'
+				, `{"success":true,"method":"DELETE"}`
+			]
+		);
+		server.respondWith(
+			'GET'
+			, /\/test-resource\/[^\/]+$/
+			, [
+				200
+				, responseHeaders.json
+				, `{"success":true,"method":"GET","sub":true}`
+			]
+		);
+		server.respondWith(
+			'GET'
+			, /\/test-resource\/[^\/]+\/sub-sub$/
+			, [
+				200
+				, responseHeaders.json
+				, `{"success":true,"method":"GET","subSub":true}`
 			]
 		);
 
@@ -232,6 +250,48 @@ suite('<pe-rest>', function ()
 			const promise = element.delete();
 			server.respond();
 			return promise;
+		});
+	});
+
+	suite('setting sub resource', function ()
+	{
+		test('returns an HTMLElement', function ()
+		{
+			const proxy = element.sub('123');
+			expect(proxy).to.exist;
+			expect(proxy).to.be.an.instanceof(HTMLElement);
+		});
+		test('reading sub', function ()
+		{
+			const promise = element.sub('123').read();
+			server.respond();
+			return promise;
+		});
+		test('reading sub resource returns success object', function ()
+		{
+			const promise = element.sub('123').read();
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response.method).to.be.equal('GET');
+				expect(response.sub).to.be.true;
+				return true;
+			});
+		});
+		test('reading sub-sub resource returns success object', function ()
+		{
+			const promise = element.sub('123').sub('sub-sub').read();
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response.method).to.be.equal('GET');
+				expect(response.subSub).to.be.true;
+				return true;
+			});
 		});
 	});
 });

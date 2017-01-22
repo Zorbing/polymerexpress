@@ -46,11 +46,11 @@ Polymer({
 	}
 	, delete: function (id)
 	{
-		return this.$.rest.deleteSub(id);
+		return this.$.rest.sub(id).delete();
 	}
 	, edit: function (id, newName, newDateOfBirth, newCompany, newAdresses, newPhoneNumbers, newEmailAdresses)
 	{
-		return this.$.rest.replaceSub(id, {
+		return this.$.rest.sub(id).replace({
 			name: newName
 			, dateOfBirth: newDateOfBirth
 			, company: newCompany
@@ -61,37 +61,37 @@ Polymer({
 	}
 	, editAdresses: function (id, newAdresses)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			adresses: newAdresses
 		});
 	}
 	, editCompany: function (id, newCompany)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			company: newCompany
 		});
 	}
 	, editDateOfBirth: function (id, newDateOfBirth)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			dateOfBirth: newDateOfBirth
 		});
 	}
 	, editEmailAdresses: function (id, newEmailAdresses)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			emailAdresses: newEmailAdresses
 		});
 	}
 	, editName: function (id, newName)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			name: newName
 		});
 	}
 	, editPhoneNumbers: function (id, newPhoneNumbers)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			phoneNumbers: newPhoneNumbers
 		});
 	}

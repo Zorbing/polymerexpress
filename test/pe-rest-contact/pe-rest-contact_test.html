@@ -49,6 +49,7 @@ suite('<pe-rest-contact>', function ()
 	const responseHeaders = {
 		json: { 'Content-Type': 'application/json' }
 	};
+	// TODO: add some stub data
 	const stubContactList = [];
 	let element;
 	setup(function ()
@@ -56,7 +57,7 @@ suite('<pe-rest-contact>', function ()
 		server = sinon.fakeServer.create();
 		server.respondWith(
 			'GET'
-			, /\/contact$/
+			, /\/person$/
 			, [
 				200
 				, responseHeaders.json
