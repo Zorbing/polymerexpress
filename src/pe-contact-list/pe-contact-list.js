@@ -25,7 +25,24 @@
 'use strict';
 
 Polymer({
-	is: 'pe-app'
+	is: 'pe-contact-list'
 
-	, properties: {}
+	, properties: {
+		list: {
+			type: Array
+			, value: []
+		}
+	}
+
+	, computeDateOfBirth: function (dateOfBirth)
+	{
+		const dt = new Date(dateOfBirth * 1e5);
+		return dt.toLocaleDateString('en');
+	}
+	, ready: function ()
+	{
+		this.$.restContact.list()
+			.then(list => this.list = list)
+		;
+	}
 });

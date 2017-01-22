@@ -28,7 +28,34 @@ const addressSubPath = 'address';
 const emailAdressSubPath = 'email-address';
 const phoneNumberSubPath = 'phone-number';
 const stubContactList = [
-	{}
+	{
+		name: 'Cond Uctor'
+		, dateOfBirth: -8757576
+		, company: 'Polybahn'
+		, addresses: [
+			{
+				street: 'Expressweg 15'
+				, zip: 4242
+				, city: 'Polymer'
+			}
+		]
+		, phoneNumbers: ['+49 41424344']
+		, emailAddresses: ['fahr.gast@polymer-express.de']
+	}
+	, {
+		name: 'Bernd Schmidt'
+		, dateOfBirth: 6932700
+		, company: 'ynapmoC'
+		, addresses: [
+			{
+				street: 'Some street 13'
+				, zip: 1234
+				, city: 'Exampletown'
+			}
+		]
+		, phoneNumbers: ['+223 3223322']
+		, emailAddresses: ['mr.schmith@timbuktu.ml']
+	}
 ];
 
 

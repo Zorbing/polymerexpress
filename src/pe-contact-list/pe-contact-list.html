@@ -1,0 +1,89 @@
+<!--
+The MIT License (MIT)
+
+Copyright 2017 Martin Boekhoff
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
+
+<dom-module id="pe-contact-list">
+	<template>
+		<style>
+			:host
+			{
+				display: block;
+			}
+		</style>
+		<template is="dom-repeat" items="{{list}}">
+			<paper-card heading="{{item.name}}" class="cyan">
+				<div class="card-content">
+					<div>Company: [[item.company]]</div>
+					<div>Date of birth: [[computeDateOfBirth(item.dateOfBirth)]]</div>
+					<h4>Phone numbers</h4>
+					<template is="dom-repeat" items="{{item.phoneNumbers}}" as="phoneNumber">
+						<div>
+							<iron-icon icon="communication:phone"></iron-icon>
+							<span>[[phoneNumber]]</span>
+						</div>
+					</template>
+					<h4>E-Mail-Addresses</h4>
+					<template is="dom-repeat" items="{{item.emailAddresses}}" as="emailAddress">
+						<div>
+							<iron-icon icon="communication:email"></iron-icon>
+							<span>[[emailAddress]]</span>
+						</div>
+					</template>
+					<h4>Post Addresses</h4>
+					<template is="dom-repeat" items="{{item.addresses}}" as="address">
+						<div>
+							<iron-icon icon="icons:home" style="float: left;"></iron-icon>
+							<div>
+								<span>[[address.street]]</span><br>
+								<span>[[address.zip]] [[address.city]]</span>
+							</div>
+						</div>
+					</template>
+				</div>
+				<div class="card-actions">
+					<paper-button>
+						<iron-icon icon="icons:create"></iron-icon>
+						Edit
+					</paper-button>
+					<paper-button>
+						<iron-icon icon="icons:delete-forever"></iron-icon>
+						Delete
+					</paper-button>
+				</div>
+			</paper-card>
+		</template>
+		<pe-rest-contact id="restContact"></pe-rest-contact>
+	</template>
+
+	<script type="text/javascript" src="pe-contact-list.js"></script>
+</dom-module>
