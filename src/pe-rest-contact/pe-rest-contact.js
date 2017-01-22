@@ -24,16 +24,142 @@
 
 'use strict';
 
+const addressSubPath = 'address';
+const emailAdressSubPath = 'email-address';
+const phoneNumberSubPath = 'phone-number';
 const stubContactList = [
 	{}
 ];
+
+
+
+class Contact
+{
+	constructor(id, rest)
+	{
+		this.rest = rest.sub(id);
+	}
+
+
+
+	/**
+	 * add
+	 */
+
+	addAddress(newAddress)
+	{
+		return this.rest.sub(addressSubPath).create({
+			address: newAddress
+		});
+	}
+	addEmailAddress(newEmailAddress)
+	{
+		return this.rest.sub(emailAdressSubPath).create({
+			emailAddress: newEmailAddress
+		});
+	}
+	addPhoneNumber(contactId, newPhoneNumber)
+	{
+		return this.rest.sub(phoneNumberSubPath).create({
+			phoneNumber: newPhoneNumber
+		});
+	}
+
+
+
+	/**
+	 * delete
+	 */
+
+	delete()
+	{
+		return this.rest.delete();
+	}
+	deleteAddress(addressId)
+	{
+		return this.rest.sub(addressSubPath).sub(addressId).delete();
+	}
+	deleteEmailAddress(emailAddressId)
+	{
+		return this.rest.sub(emailAdressSubPath).sub(emailAddressId).delete();
+	}
+	deletePhoneNumber(phoneNumberId)
+	{
+		return this.rest.sub(phoneNumberSubPath).sub(phoneNumberId).delete();
+	}
+
+
+
+	/**
+	 * edit
+	 */
+
+	edit(newName, newDateOfBirth, newCompany, newAddresses, newPhoneNumbers, newEmailAddresses)
+	{
+		return this.rest.replace({
+			name: newName
+			, dateOfBirth: newDateOfBirth
+			, company: newCompany
+			, addresses: newAddresses
+			, phoneNumbers: newPhoneNumbers
+			, emailAddresses: newEmailAddresses
+		});
+	}
+	editAddresses(newAddresses)
+	{
+		return this.rest.update({
+			addresses: newAddresses
+		});
+	}
+	editCompany(newCompany)
+	{
+		return this.rest.update({
+			company: newCompany
+		});
+	}
+	editDateOfBirth(newDateOfBirth)
+	{
+		return this.rest.update({
+			dateOfBirth: newDateOfBirth
+		});
+	}
+	editEmailAddresses(newEmailAddresses)
+	{
+		return this.rest.update({
+			emailAddresses: newEmailAddresses
+		});
+	}
+	editName(newName)
+	{
+		return this.rest.update({
+			name: newName
+		});
+	}
+	editPhoneNumbers(newPhoneNumbers)
+	{
+		return this.rest.update({
+			phoneNumbers: newPhoneNumbers
+		});
+	}
+
+
+
+	/**
+	 * get
+	 */
+
+	get()
+	{
+		return this.rest.read();
+	}
+}
 
 Polymer({
 	is: 'pe-rest-contact'
 
 	, properties: {}
 
-	, create: function (name, dateOfBirth, company, addresses = [], phoneNumbers = [], emailAddresses = [])
+	, add: function (name, dateOfBirth, company, addresses = [], phoneNumbers = [], emailAddresses = [])
 	{
 		return this.$.rest.create({
 			name: name
@@ -44,56 +170,9 @@ Polymer({
 			, emailAddresses: emailAddresses
 		});
 	}
-	, delete: function (id)
+	, id: function (contactId)
 	{
-		return this.$.rest.sub(id).delete();
-	}
-	, edit: function (id, newName, newDateOfBirth, newCompany, newAddresses, newPhoneNumbers, newEmailAddresses)
-	{
-		return this.$.rest.sub(id).replace({
-			name: newName
-			, dateOfBirth: newDateOfBirth
-			, company: newCompany
-			, addresses: newAddresses
-			, phoneNumbers: newPhoneNumbers
-			, emailAddresses: newEmailAddresses
-		});
-	}
-	, editAddresses: function (id, newAddresses)
-	{
-		return this.$.rest.sub(id).update({
-			addresses: newAddresses
-		});
-	}
-	, editCompany: function (id, newCompany)
-	{
-		return this.$.rest.sub(id).update({
-			company: newCompany
-		});
-	}
-	, editDateOfBirth: function (id, newDateOfBirth)
-	{
-		return this.$.rest.sub(id).update({
-			dateOfBirth: newDateOfBirth
-		});
-	}
-	, editEmailAddresses: function (id, newEmailAddresses)
-	{
-		return this.$.rest.sub(id).update({
-			emailAddresses: newEmailAddresses
-		});
-	}
-	, editName: function (id, newName)
-	{
-		return this.$.rest.sub(id).update({
-			name: newName
-		});
-	}
-	, editPhoneNumbers: function (id, newPhoneNumbers)
-	{
-		return this.$.rest.sub(id).update({
-			phoneNumbers: newPhoneNumbers
-		});
+		return new Contact(contactId, this.$.rest);
 	}
 	, list: function (testData = true)
 	{
