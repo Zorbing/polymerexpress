@@ -25,30 +25,23 @@
 
 let express = require("express");
 let router = express.Router();
+let db = require('../database/connector');
+let conn = db.connection;
+let errorHandler = require('../database/error_handler');
 
 router.get("/", function (req, res) {
-    // TODO: Get List of companies
-    res.send("GET company list");
-});
+    // List all records in db
+    let query = 'SELECT * FROM `' + db.companyTable + '`';
 
-router.get("/:id", function (req, res) {
-    // TODO: Get company with id
-    res.send("GET company with id " + req.params.id);
-});
+    let handler = function (error, results, fields) {
+        if (error) {
+            errorHandler.handleDatabaseError(error, res);
+        } else {
+            res.send(JSON.stringify(results));
+        }
+    };
 
-router.delete("/:id", function (req, res) {
-    // TODO: Remove company with id
-    res.send("DELETE company with id " + req.params.id);
-});
-
-router.post("/", function (req, res) {
-    // TODO: Save a new company
-    res.send("CREATE company");
-});
-
-router.put("/:id", function (req, res) {
-    // TODO Edit company with id
-    res.send("UPDATE company with id " + req.params.id);
+    conn.query(query, handler);
 });
 
 module.exports = router;
