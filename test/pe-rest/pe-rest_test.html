@@ -43,17 +43,6 @@ SOFTWARE.
 		</test-fixture>
 
 		<script>
-function getParams(url)
-{
-	const params = {};
-	url.replace(/^.+\?/, '').split('&').forEach((part) =>
-	{
-		let [key, value] = part.split('=');
-		params[key] = decodeURIComponent(value);
-	});
-	return params;
-}
-
 suite('<pe-rest>', function ()
 {
 	let server;
@@ -76,28 +65,24 @@ suite('<pe-rest>', function ()
 		server.respondWith(
 			'POST'
 			, /\/test-resource/
-			, function (request)
+			, (request) =>
 			{
-				const params = getParams(request.url);
-
 				request.respond(
 					200
 					, responseHeaders.json
-					, JSON.stringify(params)
+					, request.requestBody
 				);
 			}
 		);
 		server.respondWith(
 			'PATCH'
 			, /\/test-resource/
-			, function (request)
+			, (request) =>
 			{
-				const params = getParams(request.url);
-
 				request.respond(
 					200
 					, responseHeaders.json
-					, JSON.stringify(params)
+					, request.requestBody
 				);
 			}
 		);

@@ -28,8 +28,9 @@ SOFTWARE.
 <dom-module id="pe-rest">
 	<template>
 		<iron-ajax
-			id="requester"
+			content-type="application/json"
 			handle-as="json"
+			id="requester"
 			on-error="_handleError"
 			on-response="_handleResponse">
 		</iron-ajax>

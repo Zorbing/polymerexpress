@@ -33,36 +33,36 @@ Polymer({
 
 	, properties: {}
 
-	, create: function (name, dateOfBirth, company, adresses, phoneNumbers, emailAdresses)
+	, create: function (name, dateOfBirth, company, addresses = [], phoneNumbers = [], emailAddresses = [])
 	{
 		return this.$.rest.create({
 			name: name
 			, dateOfBirth: dateOfBirth
 			, company: company
-			, adresses: adresses
+			, addresses: addresses
 			, phoneNumbers: phoneNumbers
-			, emailAdresses: emailAdresses
+			, emailAddresses: emailAddresses
 		});
 	}
 	, delete: function (id)
 	{
 		return this.$.rest.sub(id).delete();
 	}
-	, edit: function (id, newName, newDateOfBirth, newCompany, newAdresses, newPhoneNumbers, newEmailAdresses)
+	, edit: function (id, newName, newDateOfBirth, newCompany, newAddresses, newPhoneNumbers, newEmailAddresses)
 	{
 		return this.$.rest.sub(id).replace({
 			name: newName
 			, dateOfBirth: newDateOfBirth
 			, company: newCompany
-			, adresses: newAdresses
+			, addresses: newAddresses
 			, phoneNumbers: newPhoneNumbers
-			, emailAdresses: newEmailAdresses
+			, emailAddresses: newEmailAddresses
 		});
 	}
-	, editAdresses: function (id, newAdresses)
+	, editAddresses: function (id, newAddresses)
 	{
 		return this.$.rest.sub(id).update({
-			adresses: newAdresses
+			addresses: newAddresses
 		});
 	}
 	, editCompany: function (id, newCompany)
@@ -77,10 +77,10 @@ Polymer({
 			dateOfBirth: newDateOfBirth
 		});
 	}
-	, editEmailAdresses: function (id, newEmailAdresses)
+	, editEmailAddresses: function (id, newEmailAddresses)
 	{
 		return this.$.rest.sub(id).update({
-			emailAdresses: newEmailAdresses
+			emailAddresses: newEmailAddresses
 		});
 	}
 	, editName: function (id, newName)

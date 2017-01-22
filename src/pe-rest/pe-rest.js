@@ -121,12 +121,12 @@ Polymer({
 			deferred.resolve(request.response);
 		}
 	}
-	, _request: function (method, params = {})
+	, _request: function (method, body = null)
 	{
 		const requester = this.$.requester;
 		requester.url = this._computeUrl();
 		requester.method = method;
-		requester.params = params;
+		requester.body = body;
 		const request = requester.generateRequest();
 		return new Promise((resolve, reject) =>
 		{
