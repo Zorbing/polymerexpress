@@ -29,9 +29,19 @@ SOFTWARE.
 <dom-module id="pe-app">
 	<template>
 		<style>
-			:host {
-				display: block;
-			}
+:host
+{
+	display: block;
+	padding: 1.2rem;
+}
+h2:not(:first-child)
+{
+	margin-top: 1.2rem;
+}
+h2:not(:last-child)
+{
+	margin-bottom: 0.4rem;
+}
 		</style>
 		<h2>Contact list</h2>
 		<pe-contact-list></pe-contact-list>

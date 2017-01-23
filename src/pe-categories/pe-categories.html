@@ -28,24 +28,25 @@ SOFTWARE.
 <dom-module id="pe-categories">
 	<template>
 		<style>
-			:host
-			{
-				display: block;
-			}
-			ul li
-			{
-				list-style: none;
-				position: relative;
-			}
-			ul li::before
-			{
-				content: '[' attr(data-id) ']';
-				display: inline-block;
-				margin-left: -1.5rem;
-				margin-right: 0.6rem;
-				text-align: center;
-				width: 2rem;
-			}
+:host
+{
+	display: block;
+}
+ul li
+{
+	list-style: none;
+	padding: 0 .8rem;
+	position: relative;
+}
+ul li::before
+{
+	content: '[' attr(data-id) ']';
+	display: inline-block;
+	margin-left: .4rem;
+	margin-right: .6rem;
+	text-align: center;
+	width: 2rem;
+}
 		</style>
 		<ul>
 			<template is="dom-repeat" items="{{list}}">
