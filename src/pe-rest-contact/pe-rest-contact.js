@@ -30,6 +30,7 @@ const phoneNumberSubPath = 'phone-number';
 const stubContactList = [
 	{
 		id: 0
+		, categoryId: 0
 		, name: 'Cond Uctor'
 		, dateOfBirth: -8757576
 		, company: 'Polybahn'
@@ -45,6 +46,7 @@ const stubContactList = [
 	}
 	, {
 		id: 1
+		, categoryId: 0
 		, name: 'Bernd Schmidt'
 		, dateOfBirth: 6932700
 		, company: 'ynapmoC'
@@ -57,6 +59,93 @@ const stubContactList = [
 		]
 		, phoneNumbers: ['+223 3223322']
 		, emailAddresses: ['mr.smith@timbuktu.ml']
+	}
+	, {
+		id: 2
+		, categoryId: 1
+		, name: 'Peter Pan'
+		, dateOfBirth: 0
+		, company: 'Polybahn'
+		, addresses: [
+			{
+				street: 'Direkt'
+				, zip: 999
+				, city: 'HTML'
+			}
+			, {
+				street: 'A'
+				, zip: 234
+				, city: 'B'
+			}
+		]
+		, phoneNumbers: ['345678', '98877665423']
+		, emailAddresses: ['test@bla.dia', 'star@gate.atlantis']
+	}
+	, {
+		id: 3
+		, categoryId: 1
+		, name: 'Bob Baumeister'
+		, dateOfBirth: 0
+		, company: 'Hot Animation Studios'
+		, addresses: [
+			{
+				street: 'Am Bauhof'
+				, zip: 3
+				, city: 'Bobhausen'
+			}
+		]
+		, phoneNumbers: []
+		, emailAddresses: []
+	}
+	, {
+		id: 4
+		, categoryId: 1
+		, name: 'Giesela Schmidt'
+		, dateOfBirth: 0
+		, company: 'ynapmoC'
+		, addresses: []
+		, phoneNumbers: []
+		, emailAddresses: []
+	}
+	, {
+		id: 5
+		, categoryId: 2
+		, name: 'Bernd Brot'
+		, dateOfBirth: 0
+		, company: 'KiKA-Lounge'
+		, addresses: []
+		, phoneNumbers: []
+		, emailAddresses: []
+	}
+	, {
+		id: 6
+		, categoryId: 2
+		, name: 'Bibi Range'
+		, dateOfBirth: 0
+		, company: 'TheirTube'
+		, addresses: []
+		, phoneNumbers: []
+		, emailAddresses: []
+	}
+	, {
+		id: 7
+		, categoryId: 3
+		, name: 'Womas Tinkler'
+		, dateOfBirth: -28382436
+		, company: 'SIMI'
+		, addresses: []
+		, phoneNumbers: []
+		, emailAddresses: []
+	}
+	, {
+		id: 8
+		, categoryId: 3
+		, name: 'Dieter Brooksdandern'
+		, dateOfBirth: 0
+		, company: 'SIMI'
+		, addresses: []
+		, phoneNumbers: []
+		, emailAddresses: []
 	}
 ];
 
