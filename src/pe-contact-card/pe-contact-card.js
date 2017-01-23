@@ -41,16 +41,62 @@ Polymer({
 	}
 	, handleDelete: function ()
 	{
-		// TODO
-		console.warn('TODO: delete contact');
+		this._showProgressNotifier();
+		this.restContact.delete()
+			.then(() =>
+			{
+				this.fire('delete', this.contact);
+				this._hideProgressNotifier();
+			})
+			.catch((error) =>
+			{
+				if (error.status == 404)
+				{
+					this.fire('delete', this.contact);
+				}
+				else
+				{
+					console.error('error while deleting contact %d:', this.contact.id, error);
+				}
+				this._hideProgressNotifier();
+			})
+		;
 	}
 	, handleEdit: function ()
 	{
-		// TODO
-		console.warn('TODO: edit contact');
+		this._showProgressNotifier();
+		this.restContact.edit(this.contact)
+			.then(() =>
+			{
+				this.fire('edit', this.contact);
+				this._hideProgressNotifier();
+			})
+			.catch((error) =>
+			{
+				console.error('error while editing contact %d:', this.contact.id, error);
+				this._hideProgressNotifier();
+			})
+		;
 	}
 	, ready: function ()
 	{
 		this.restContact = this.$.restContact.id(this.contact.id);
+	}
+
+
+
+	/**
+	 * private functions
+	 */
+
+	, _hideProgressNotifier: function ()
+	{
+		// TODO
+		console.warn('TODO: hide progress notifier');
+	}
+	, _showProgressNotifier: function ()
+	{
+		// TODO
+		console.warn('TODO: show progress notifier');
 	}
 });

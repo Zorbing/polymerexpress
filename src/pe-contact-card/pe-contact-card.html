@@ -76,7 +76,7 @@ h4
 	margin-left: 28px;
 }
 		</style>
-		<paper-card heading="{{contact.name}}" class="cyan">
+		<paper-card heading="[[contact.name]]" class="cyan">
 			<div class="card-content">
 				<div class="company">
 					<iron-icon icon="communication:business"></iron-icon>
@@ -88,7 +88,7 @@ h4
 				</div>
 
 				<h4>Phone numbers</h4>
-				<template is="dom-repeat" items="{{contact.phoneNumbers}}" as="phoneNumber">
+				<template is="dom-repeat" items="[[contact.phoneNumbers]]" as="phoneNumber">
 					<div class="phone">
 						<iron-icon icon="communication:phone"></iron-icon>
 						<span>[[phoneNumber]]</span>
@@ -96,7 +96,7 @@ h4
 				</template>
 
 				<h4>E-Mail-Addresses</h4>
-				<template is="dom-repeat" items="{{contact.emailAddresses}}" as="emailAddress">
+				<template is="dom-repeat" items="[[contact.emailAddresses]]" as="emailAddress">
 					<div class="email">
 						<iron-icon icon="communication:email"></iron-icon>
 						<span>[[emailAddress]]</span>
@@ -104,7 +104,7 @@ h4
 				</template>
 
 				<h4>Post Addresses</h4>
-				<template is="dom-repeat" items="{{contact.addresses}}" as="address">
+				<template is="dom-repeat" items="[[contact.addresses]]" as="address">
 					<div class="address">
 						<iron-icon icon="icons:home"></iron-icon>
 						<div class="text-block">

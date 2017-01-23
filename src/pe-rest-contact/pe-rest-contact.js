@@ -29,7 +29,8 @@ const emailAdressSubPath = 'email-address';
 const phoneNumberSubPath = 'phone-number';
 const stubContactList = [
 	{
-		name: 'Cond Uctor'
+		id: 0
+		, name: 'Cond Uctor'
 		, dateOfBirth: -8757576
 		, company: 'Polybahn'
 		, addresses: [
@@ -43,7 +44,8 @@ const stubContactList = [
 		, emailAddresses: ['fahr.gast@polymer-express.de']
 	}
 	, {
-		name: 'Bernd Schmidt'
+		id: 1
+		, name: 'Bernd Schmidt'
 		, dateOfBirth: 6932700
 		, company: 'ynapmoC'
 		, addresses: [

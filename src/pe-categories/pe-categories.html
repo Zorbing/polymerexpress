@@ -49,8 +49,8 @@ ul li::before
 }
 		</style>
 		<ul>
-			<template is="dom-repeat" items="{{list}}">
-				<li data-id$="[[item.id]]">{{item.name}} <span style="background-color: {{item.color}};">({{item.color}})</span></li>
+			<template is="dom-repeat" items="[[list]]">
+				<li data-id$="[[item.id]]">[[item.name]] <span style="background-color: [[item.color]];">([[item.color]])</span></li>
 			</template>
 		</ul>
 		<pe-rest-category id="restCategory"></pe-rest-category>

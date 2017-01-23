@@ -34,6 +34,20 @@ Polymer({
 		}
 	}
 
+	, handleDelete: function (event, contact)
+	{
+		// remove element from list
+		const index = this.list.indexOf(contact);
+		if (index !== -1)
+		{
+			this.splice('list', index, 1);
+		}
+	}
+	, handleEdit: function (event, contact)
+	{
+		console.log('args:', arguments);
+		// TODO: update some sort filter
+	}
 	, ready: function ()
 	{
 		this.$.restContact.list()

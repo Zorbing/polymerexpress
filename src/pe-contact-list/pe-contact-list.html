@@ -35,8 +35,8 @@ SOFTWARE.
 	display: block;
 }
 		</style>
-		<template is="dom-repeat" items="{{list}}">
-			<pe-contact-card contact="{{item}}"></pe-contact-card>
+		<template is="dom-repeat" items="[[list]]">
+			<pe-contact-card contact="[[item]]" on-delete="handleDelete" on-edit="handleEdit"></pe-contact-card>
 		</template>
 
 		<pe-rest-contact id="restContact"></pe-rest-contact>
