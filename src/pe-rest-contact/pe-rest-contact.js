@@ -54,7 +54,7 @@ const stubContactList = [
 			}
 		]
 		, phoneNumbers: ['+223 3223322']
-		, emailAddresses: ['mr.schmith@timbuktu.ml']
+		, emailAddresses: ['mr.smith@timbuktu.ml']
 	}
 ];
 

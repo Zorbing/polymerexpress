@@ -25,19 +25,32 @@
 'use strict';
 
 Polymer({
-	is: 'pe-contact-list'
+	is: 'pe-contact-card'
 
 	, properties: {
-		list: {
-			type: Array
-			, value: []
+		contact: {
+			type: Object
 		}
 	}
+	, restContact: null
 
+	, computeDateOfBirth: function (dateOfBirth)
+	{
+		const dt = new Date(dateOfBirth * 1e5);
+		return dt.toLocaleDateString('en');
+	}
+	, handleDelete: function ()
+	{
+		// TODO
+		console.warn('TODO: delete contact');
+	}
+	, handleEdit: function ()
+	{
+		// TODO
+		console.warn('TODO: edit contact');
+	}
 	, ready: function ()
 	{
-		this.$.restContact.list()
-			.then(list => this.list = list)
-		;
+		this.restContact = this.$.restContact.id(this.contact.id);
 	}
 });
