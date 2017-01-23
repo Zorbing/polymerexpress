@@ -4,11 +4,12 @@
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="/bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="edit-category.html">
-<link rel="import" href="edit-address.html">
-<link rel="import" href="edit-company.html">
-<link rel="import" href="edit-phone-number.html">
-<link rel="import" href="edit-email.html"/>
+<link rel="import" href="form-category.html">
+<link rel="import" href="form-address.html">
+<link rel="import" href="form-phone-number.html">
+<link rel="import" href="form-contact.html"/>
+<link rel="import" href="show-companies.html"/>
+<link rel="import" href="form-email.html"/>
 
 <dom-module id="all-forms-preview">
 	<template>
@@ -53,44 +54,72 @@
 
 	     <paper-toggle-button checked="{{disabled}}">Disable</paper-toggle-button>
 
+
+
 	     <div>
-	      	 <div class="preview">
-			    <h3>Add/Edit Category Empty</h3>
-			    <edit-category disabled$="[[disabled]]"></edit-category>
+	     	<div class="preview">
+	     		<h3>Add/Edit Contact Empty</h3>
+			    <form-contact disabled$="[[disabled]]"></form-contact>
 		     </div>
 		     <div class="preview">
 			    <h3>Add/Edit Category Filled</h3>
-			    <edit-category disabled$="[[disabled]]" name="The Train" color="red"></edit-category>
+			    <form-contact disabled$="[[disabled]]"
+			    	name="Hugo"
+			    	company="Polyfill"
+			    	birthday="1990/9/5"
+			    	category="A"
+			    	addressList="[{'street':'Direkt', 'zip':999, 'city':'HTML'}]"></form-contact>
+	     	 </div>
+	     </div>
+
+	     <div>
+	      	 <div class="preview">
+			    <h3>Add/Edit Category Empty</h3>
+			    <form-category modus="new"></form-category>
+		     </div>
+		     <div class="preview">
+			    <h3>Add/Edit Category Filled</h3>
+			    <form-category name="The Train" color="red"></form-category>
 		     </div>
 	     </div>
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit Address Empty</h3>
-		     	<edit-address disabled$="[[disabled]]"></edit-address>
+		     	<form-address modus="new"></form-address>
 		     </div>
 		     <div class="preview">
 		     	<h3>Add/Edit Address Filled</h3>
-		     	<edit-address disabled$="[[disabled]]" street="Expressweg 15" city="Polymer" postcode="4242"></edit-address>
+		     	<form-address street="Expressweg 15" city="Polymer" postcode="4242"></form-address>
 		     </div>
 	     </div>
 	     <div>
+	     	<div class="preview">
+	     		<h3>Add/Edit Phone Number New</h3>
+			    <form-phone-number modus="new"></form-phone-number>
+		     </div>
 		     <div class="preview">
-		     	<h3>Add/Edit Phone Number Empty</h3>
-		     	<edit-phone-number disabled$="[[disabled]]"></edit-phone-number>
-		     </div>
-	 		 <div class="preview">
-		     	<h3>Add/Edit Phone Number Filled</h3>
-		     	<edit-phone-number disabled$="[[disabled]]" number="+49 41424344"></edit-phone-number>
-		     </div>
+			    <h3>Add/Edit Phone Number Filled</h3>
+			    <form-phone-number number="+49 41424344"></form-phone-number>
+	     	</div>
 	     </div>
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Empty</h3>
-		     	<edit-email disabled$="[[disabled]]"></edit-phone-number>
+		     	<form-email modus="new"></form-email>
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Filled</h3>
-		     	<edit-email disabled$="[[disabled]]" address="fahr.gast@polymer-express.de"></edit-phone-number>
+		     	<form-email address="fahr.gast@polymer-express.de"></form-email>
+		     </div>
+	     </div>
+	     <div>
+		     <div class="preview">
+		     	<h3>Show Companies Dummy Empty</h3>
+		     	<show-companies></show-companies>
+		     </div>
+	 		 <div class="preview">
+		     	<h3>Show Companies Address Filled</h3>
+		     	<show-companies company-list='["Company A", "Company B", "Company C"]' ></show-companies>
 		     </div>
 	     </div>
 
@@ -108,6 +137,14 @@
 	        	reflectToAttribute: true,
 	        	notify: true
 	        },
+
+	        addresses: {
+	            type: Array,
+	            value: [{street:'New', zip:'666', city:'Test'}],
+	            reflectToAttribute: true,
+	        	notify: true
+        	}
+
 		}
     });
   </script>

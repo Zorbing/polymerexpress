@@ -4,10 +4,9 @@
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 
 <link rel="import" href="/src/forms/shared-styles.html">
-<link rel="import" href="/src/forms/icon-button-delete.html">
-<link rel="import" href="/src/forms/button-save.html">
+<link rel="import" href="/src/forms/forms-behavior.html">
 
-<dom-module id="edit-address">
+<dom-module id="fields-address">
 <template>
 	<style include="shared-styles"></style>
 	<style>
@@ -17,20 +16,16 @@
 
 	</style>
 
-
-	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>
-
 	<iron-icon icon="icons:home"></iron-icon>
 
-	<paper-input readonly$="[[disabled]]" label="street address" value="{{street}}" required auto-validate error-message="[[error]]"></paper-input>
-	<paper-input readonly$="[[disabled]]" label="postcode" value="{{postcode}}" required auto-validate allowed-pattern="[0-9]" error-message="[[error]]"></paper-input>
-	<paper-input readonly$="[[disabled]]" label="city" value="{{city}}"required auto-validate error-message="[[error]]"></paper-input>
+	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="street address" value="{{street}}" required auto-validate error-message="[[error]]"></paper-input>
+	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="postcode" value="{{postcode}}" required auto-validate allowed-pattern="[0-9]" error-message="[[error]]"></paper-input>
+	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="city" value="{{city}}"required auto-validate error-message="[[error]]"></paper-input>
 
-	<button-save hide$="[[disabled]]"></button-save>
 </template>
 <script>
 	Polymer({
-		is: 'edit-address',
+		is: 'fields-address',
 
 		properties: {
 			street: {
@@ -51,13 +46,12 @@
 			error: {
 				type: String,
 				value: "Required!"
-			},
-			disabled: {
-	        	type: Boolean,
-	        	reflectToAttribute: true,
-	        	notify: true
-	        }
-		}
+			}
+		},
+
+		behaviors: [
+      		FormsBehavior
+	   ]
 	});
 </script>
 

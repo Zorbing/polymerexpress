@@ -1,0 +1,46 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/src/forms/shared-styles.html">
+
+<link rel="import" href="/src/forms/forms-behavior.html">
+<link rel="import" href="/src/forms/fields-address.html">
+<link rel="import" href="/src/forms/form-editable.html">
+
+<dom-module id="form-address">
+<template>
+	<style include="shared-styles"></style>
+		<form-editable modus="{{modus}}">
+			<fields-address modus="[[modus]]" street="{{street}}" postcode="{{postcode}}" city="{{city}}"></fields-address>
+		</form-editable>
+
+</template>
+<script>
+	Polymer({
+		is: 'form-address',
+
+		properties: {
+
+			street: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			} ,
+			postcode: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			} ,
+			city: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			}
+	    },
+
+		behaviors: [
+      		FormsBehavior
+    	]
+	});
+</script>
+
+</dom-module>
