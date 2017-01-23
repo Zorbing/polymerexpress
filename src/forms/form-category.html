@@ -1,0 +1,44 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<link rel="import" href="/src/forms/shared-styles.html">
+
+<link rel="import" href="/src/forms/forms-behavior.html">
+<link rel="import" href="/src/forms/fields-category.html">
+<link rel="import" href="/src/forms/form-editable.html">
+
+<dom-module id="form-category">
+<template>
+	<style include="shared-styles"></style>		
+		<form-editable modus="{{modus}}">
+			<fields-category modus="[[modus]]" color="{{color}}" name="{{name}}"></fields-category>
+		</form-editable>
+
+</template>
+<script>
+	Polymer({
+		is: 'form-category',
+		
+		properties: {
+
+			color: {
+				type: String,
+				value: "MediumSlateBlue",
+				reflectToAttribute: true,
+				notify: true,
+			},
+			
+			name: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			} 
+
+	    },
+
+		behaviors: [
+      		FormsBehavior
+    	]
+	});
+</script>
+
+</dom-module>

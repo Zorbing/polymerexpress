@@ -1,0 +1,50 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<script>
+	FormsBehavior = {
+		
+		properties: {
+			
+			/**
+			 * Modi: show, edit, new 
+			 */	        
+	        modus: {
+	        	type: String,
+	        	value: 'show',	        	
+	        	notify: true,
+	        	reflectToAttribute: true
+	        }
+	    },
+		
+		
+	    /**
+	     * Enable on Edit (Delete Button)
+	     */
+	    _disableDeleteButton: function(modus) {
+	        if(modus === 'edit') {
+	        	 return !true;
+	        }
+	        return !false;
+	    },
+	    
+	    /**
+	     * Disable on Show (Fields & Save Button)
+	     */	    
+	    _disableFieldsSaveButton: function(modus) {
+	        if(modus === 'show') {
+	        	 return !false;
+	        }
+	        return !true;
+	    },
+	    
+	    /**
+	     * Enable on Show (Edit-Button) 
+	     */
+	    _disableEditButton: function(modus) {
+	        if(modus === 'show') {
+	        	 return !true;
+	        }
+	        return !false;
+	    }
+	}	
+</script>

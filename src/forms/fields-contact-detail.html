@@ -10,31 +10,26 @@
 <link rel="import" href="/bower_components/paper-date-picker/paper-date-picker.html">
 <link rel="import" href="/bower_components/paper-date-picker-item/paper-date-picker-item.html">
 <link rel="import" href="/bower_components/paper-input-date-picker/paper-input-date-picker.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="/src/forms/shared-styles.html">
-<link rel="import" href="/src/forms/icon-button-delete.html">
-<link rel="import" href="/src/forms/button-save.html">
+<link rel="import" href="/src/forms/forms-behavior.html">
 
-<dom-module id="edit-contact">
+<dom-module id="fields-contact-detail">
 <template>
 	<style include="shared-styles"></style>
-	<style>
 		
-	</style>	
-		
-	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>
-		
-	<paper-input readonly$="[[disabled]]" label="name" required auto-validate error-message="Required!" value="{{name}}">
+	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="name" required auto-validate error-message="Required!" value="{{name}}">
 		<iron-icon icon="social:person" prefix></iron-icon>
 	</paper-input>
 		
 	<div class="dropdownWithInput">
-		<paper-input readonly$="[[disabled]]" label="company name" required auto-validate error-message="Required!" value="{{company}}">
+		<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="company name" required auto-validate error-message="Required!" value="{{company}}">
 			  <iron-icon icon="social:domain" prefix></iron-icon>
 		</paper-input>
 		
-		<paper-menu-button>
-	  		<paper-icon-button icon="icons:arrow-drop-down" class="dropdown-trigger"></paper-icon-button>
+		<paper-menu-button disabled$="[[_disableFieldsSaveButton(modus)]]">
+	  		<paper-icon-button  icon="icons:arrow-drop-down" class="dropdown-trigger"></paper-icon-button>
 		  	<div class="dropdown-content">
 			    <paper-input no-label-float label="Search" type="search"></paper-input>
 			    <paper-menu attr-for-selected="value" selected="{{company}}"> 
@@ -46,22 +41,21 @@
 		</paper-menu-button>
 	</div>	
 		
-	<paper-dropdown-menu label="category">
-	  <paper-listbox attr-for-selected="value" class="dropdown-content">
+	<paper-dropdown-menu disabled$="[[_disableFieldsSaveButton(modus)]]" label="category">
+	  <paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{category}}">
 	    <template is="dom-repeat" items="{{categoryList}}">
 			<paper-item value="{{item}}">{{item}}</paper-item>
 		</template>
 	  </paper-listbox>
 	</paper-dropdown-menu>
 		
-	<paper-input-date-picker label="birthday" locale="en"></paper-input-date-picker>
+	<paper-input-date-picker disabled$="[[_disableFieldsSaveButton(modus)]]"  value="{{birthday}}" label="birthday" locale="en"></paper-input-date-picker>	
 	
-	<button-save hide$="[[disabled]]"></button-save>
 </template>
 
 <script>
 	Polymer({
-		is: 'edit-contact',
+		is: 'fields-contact-detail',
 		
 		properties: {
 
@@ -70,6 +64,13 @@
 				reflectToAttribute: true,
 				notify: true
 			} ,
+			
+			birthday: {
+				type: Date,
+				reflectToAttribute: true,
+				notify: true
+			},
+			
 			company: {
 				type: String,
 				reflectToAttribute: true,
@@ -94,14 +95,12 @@
 				value: function () { 
 					return ['A', 'B', 'C'];
 				}
-			},
-			
-			disabled: {
-	        	type: Boolean,
-	        	reflectToAttribute: true,
-	        	notify: true
-	        }
-		}
+			}
+		},
+		
+		behaviors: [
+      		FormsBehavior
+    	]
 	});
 </script>
 
