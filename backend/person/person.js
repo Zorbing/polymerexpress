@@ -139,13 +139,17 @@ router.get("/", function (req, res) {
         } else {
             // Group the addresses by person
             results.forEach(function (result) {
+                let address = {
+                    id: result.id,
+                    address: result.address
+                };
                 if (!addressMap.has(result.person_id)) {
                     // Initialize address list for this person
-                    addressMap.set(result.person_id, [result.address]);
+                    addressMap.set(result.person_id, [address]);
                 } else {
                     // Add to existing list for this person
                     let addressList = addressMap.get(result.person_id);
-                    addressList.push(result.address);
+                    addressList.push(address);
                 }
             });
 
@@ -165,6 +169,7 @@ router.get("/", function (req, res) {
             // Group the phone numbers by person
             results.forEach(function (result) {
                 let phone = {
+                    id: result.id,
                     type: result.type,
                     number: result.number
                 };
@@ -195,6 +200,7 @@ router.get("/", function (req, res) {
             // Group the email addresses by person
             results.forEach(function (result) {
                 let email = {
+                    id: result.id,
                     type: result.type,
                     address: result.address
                 };
