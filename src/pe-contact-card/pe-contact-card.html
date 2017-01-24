@@ -41,6 +41,10 @@ SOFTWARE.
 	display: inline-block;
 	margin: .2rem .1rem;
 }
+paper-card
+{
+	width: 280px;
+}
 h4
 {
 	margin-bottom: .4rem;
@@ -80,18 +84,25 @@ h4
 {
 	margin-left: 28px;
 }
+.card-actions
+{
+	text-align: center;
+}
 		</style>
 		<paper-card heading="[[contact.name]]" class="cyan">
 			<div class="card-content">
-				<div class="company">
-					<iron-icon icon="communication:business"></iron-icon>
-					<span>Company: [[contact.company]]</span>
-				</div>
 				<div class="date-of-birth">
 					<iron-icon icon="social:cake"></iron-icon>
-					<span>Date of birth: [[computeDateOfBirth(contact.dateOfBirth)]]</span>
+					<!--<span>Date of birth: [[computeDateOfBirth(contact.dateOfBirth)]]</span>-->
+					<span>[[computeDateOfBirth(contact.dateOfBirth)]]</span>
+				</div>
+				<div class="company">
+					<iron-icon icon="communication:business"></iron-icon>
+					<!--<span>Company: [[contact.company]]</span>-->
+					<span>[[contact.company]]</span>
 				</div>
 
+				<!--
 				<h4>Phone numbers</h4>
 				<template is="dom-repeat" items="[[contact.phoneNumbers]]" as="phoneNumber">
 					<div class="phone">
@@ -118,6 +129,7 @@ h4
 						</div>
 					</div>
 				</template>
+				-->
 			</div>
 			<div class="card-actions">
 				<paper-button on-tap="handleEdit">
