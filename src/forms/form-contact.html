@@ -8,7 +8,9 @@
 <link rel="import" href="/bower_components/paper-menu-button/paper-menu-button.html">
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="/bower_components/paper-date-picker/paper-date-picker.html">
+<!--
 <link rel="import" href="/bower_components/paper-date-picker-item/paper-date-picker-item.html">
+-->
 <link rel="import" href="/bower_components/paper-input-date-picker/paper-input-date-picker.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 
@@ -21,29 +23,29 @@
 <dom-module id="form-contact">
 <template>
 	<style include="shared-styles"></style>
-		
-	<form-contact-detail></form-contact-detail>	
-		
+
+	<form-contact-detail></form-contact-detail>
+
 	<div>
-		<h2>Phone Numbers 
+		<h2>Phone Numbers
 			<paper-icon-button icon="icons:add-circle"></paper-icon-button>
 		</h2>
 		<template is="dom-repeat" items="{{phoneNumberList}}">
 			<form-phone-number number="{{item}}"></form-phone-number>
 		</template>
 	</div>
-	
+
 	<div>
-		<h2>E-Mail Addresses 
+		<h2>E-Mail Addresses
 			<paper-icon-button icon="icons:add-circle"></paper-icon-button>
 		</h2>
 		<template is="dom-repeat" items="{{emailList}}">
 			<form-email address="{{item}}"></form-email>
 		</template>
 	</div>
-	
+
 	<div>
-		<h2>Adresses 
+		<h2>Adresses
 			<paper-icon-button icon="icons:add-circle"></paper-icon-button>
 		</h2>
 		<template is="dom-repeat" items="{{addressList}}">
@@ -51,13 +53,13 @@
 		</template>
 	</div>
 
-	
+
 </template>
 
 <script>
 	Polymer({
 		is: 'form-contact',
-		
+
 		properties: {
 
 			name: {
@@ -65,57 +67,57 @@
 				reflectToAttribute: true,
 				notify: true
 			} ,
-			
+
 			phoneNumberList: {
 				type:Array,
 				reflectToAttribute: true,
 				value: ['345678', '98877665423'],
 			},
-			
+
 			emailList: {
 				type:Array,
 				reflectToAttribute: true,
 				value: ['test@bla.dia', 'star@gate.atlantis'],
 			},
-			
+
 			addressList: {
 				type: Array,
 				value: [{street:'A', zip:'234', city:'B'}, {street:'Y', zip:'444', city:'Z'}],
-				reflectToAttribute: true,			
+				reflectToAttribute: true,
 			},
-			
+
 			birthday: {
 				type: Date,
 				reflectToAttribute: true,
 				notify: true
 			},
-			
+
 			company: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
 			},
-			
+
 			companyList: {
 				type: Array,
-				value: function () { 
+				value: function () {
 					return ['A', 'B', 'C'];
 				}
 			},
-			
+
 			category: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
 			},
-			
+
 			categoryList: {
 				type: Array,
-				value: function () { 
+				value: function () {
 					return ['A', 'B', 'C'];
 				}
 			},
-			
+
 			disabled: {
 	        	type: Boolean,
 	        	reflectToAttribute: true,

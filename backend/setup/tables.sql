@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS contact_person (
 	name VARCHAR(128) NOT NULL,
 	company_id INT NOT NULL,
 	category_id INT NOT NULL,
+	date_of_bith VARCHAR(10) NOT NULL,
 	PRIMARY KEY (id),
 	INDEX (company_id),
 	INDEX (category_id),

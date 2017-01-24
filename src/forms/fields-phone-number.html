@@ -8,7 +8,7 @@
 
 <dom-module id="fields-phone-number">
 <template>
-	<style include="shared-styles"></style>		
+	<style include="shared-styles"></style>
 	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="phone number" required auto-validate allowed-pattern="[0-9+/ ]" error-message="Required!" value="{{number}}">
 		  <iron-icon icon="maps:local-phone" prefix></iron-icon>
 	</paper-input>
@@ -16,7 +16,7 @@
 <script>
 	Polymer({
 		is: 'fields-phone-number',
-		
+
 		properties: {
 
 			number: {
@@ -25,7 +25,7 @@
 				notify: true
 			}
 	   },
-	   
+
 	   behaviors: [
       		FormsBehavior
 	   ]

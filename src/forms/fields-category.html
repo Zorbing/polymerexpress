@@ -11,7 +11,7 @@
 <dom-module id="fields-category">
 <template>
 	<style include="shared-styles"></style>
-	<style is="custom-style">		
+	<style is="custom-style">
 		:host paper-swatch-picker {
 			margin: 0;
 			top: 16px;
@@ -19,7 +19,7 @@
 			/*left: 7px;*/
 			--paper-swatch-picker-color-size: 20px;
 		}
-		
+
 		div.picker {
 			display: inline-block;
 		}
@@ -27,7 +27,7 @@
 
 	<!-- colorlist-array by @bobspace -->
 	<paper-swatch-picker color="{{color}}" column-count="20" autofill-columns disabled$="[[_disableFieldsSaveButton(modus)]]"
-		color-list='[					
+		color-list='[
 					"AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige",
 					"Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown",
 					"BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral",
@@ -53,19 +53,19 @@
 					"Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue",
 					"SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan",
 					"Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke",
-					"Yellow","YellowGreen"								
+					"Yellow","YellowGreen"
 					]'>
 	</paper-swatch-picker>
-		
+
 	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="category name" required auto-validate error-message="Required!" value="{{name}}">
 		  <iron-icon icon="label" style$="color: {{color}};" prefix></iron-icon>
 	</paper-input>
-	
+
 </template>
 <script>
 	Polymer({
 		is: 'fields-category',
-		
+
 		properties: {
 			color: {
 				type: String,
@@ -73,15 +73,15 @@
 				reflectToAttribute: true,
 				notify: true,
 			},
-			
+
 			name: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
 			} ,
-			
+
 		},
-		
+
 		behaviors: [
       		FormsBehavior
     	]

@@ -13,21 +13,21 @@
 		paper-input {
 			display: block;
 		}
-		
+
 	</style>
-			
+
 	<iron-icon icon="icons:home"></iron-icon>
 
 	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="street address" value="{{street}}" required auto-validate error-message="[[error]]"></paper-input>
 	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="postcode" value="{{postcode}}" required auto-validate allowed-pattern="[0-9]" error-message="[[error]]"></paper-input>
 	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="city" value="{{city}}"required auto-validate error-message="[[error]]"></paper-input>
-	
+
 </template>
 <script>
 	Polymer({
 		is: 'fields-address',
-		
-		properties: {			
+
+		properties: {
 			street: {
 				type: String,
 				reflectToAttribute: true,
@@ -46,9 +46,9 @@
 			error: {
 				type: String,
 				value: "Required!"
-			}			
+			}
 		},
-		
+
 		behaviors: [
       		FormsBehavior
 	   ]

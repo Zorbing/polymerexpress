@@ -11,30 +11,30 @@
 <template>
 	<style is="costum-style">
 		:host paper-input {
-			display: block;			
-		}
-		
-		div.delete,
-		div.edit {	
-			color: darkgrey;		
 			display: block;
-			float: right;    
+		}
+
+		div.delete,
+		div.edit {
+			color: darkgrey;
+			display: block;
+			float: right;
 		    padding: 0px;
 		}
-		
+
 		div.delete paper-icon-button,
 		div.edit paper-icon-button {
-			margin: auto;		
+			margin: auto;
 		}
-		
+
 		div.delete paper-icon-button:hover {
 			color: red;
 		}
-		
+
 		div.edit paper-icon-button:hover {
 			color: green;
 		}
-		
+
 		div.save paper-button {
 			background-color: rgba(100,250,100,0.4);
 			--paper-button-ink-color: Green;
@@ -42,19 +42,19 @@
 			margin-bottom: 10px;
 		}
 	</style>
-		
+
 	<div class="delete" hidden$="[[_disableDeleteButton(modus)]]">
 		<paper-icon-button on-tap="_onDeleteButtonDown" icon="icons:delete-forever"></paper-icon-button>
 		<paper-tooltip animation-delay=0>Delete</paper-tooltip>
 	</div>
-	
+
 	<div class="edit" hidden$="[[_disableEditButton(modus)]]">
 		<paper-icon-button on-tap="_onEditButtonDown" icon="icons:create"></paper-icon-button>
 		<paper-tooltip animation-delay=0>Edit</paper-tooltip>
 	</div>
 	Modus: {{modus}}
 	<content></content>
-		
+
 	<div class="save" hidden$="[[_disableFieldsSaveButton(modus)]]">
 		<paper-button raised on-tap="_onSaveButtonDown">Save</paper-button>
 		</div>
@@ -66,12 +66,12 @@
 			console.log('Edit Button Down');
 			this.set('modus', 'edit');
 		},
-		
+
 		_onSaveButtonDown: function(event) {
 			console.log('Save Button Down');
 			this.set('modus', 'show');
 		},
-		
+
 		_onDeleteButtonDown: function(event) {
 			console.log('Delete Button Down');
 			this.set('modus', 'new');

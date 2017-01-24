@@ -2,21 +2,21 @@
 
 <script>
 	FormsBehavior = {
-		
+
 		properties: {
-			
+
 			/**
-			 * Modi: show, edit, new 
-			 */	        
+			 * Modi: show, edit, new
+			 */
 	        modus: {
 	        	type: String,
-	        	value: 'show',	        	
+	        	value: 'show',
 	        	notify: true,
 	        	reflectToAttribute: true
 	        }
 	    },
-		
-		
+
+
 	    /**
 	     * Enable on Edit (Delete Button)
 	     */
@@ -26,19 +26,19 @@
 	        }
 	        return !false;
 	    },
-	    
+
 	    /**
 	     * Disable on Show (Fields & Save Button)
-	     */	    
+	     */
 	    _disableFieldsSaveButton: function(modus) {
 	        if(modus === 'show') {
 	        	 return !false;
 	        }
 	        return !true;
 	    },
-	    
+
 	    /**
-	     * Enable on Show (Edit-Button) 
+	     * Enable on Show (Edit-Button)
 	     */
 	    _disableEditButton: function(modus) {
 	        if(modus === 'show') {
@@ -46,5 +46,5 @@
 	        }
 	        return !false;
 	    }
-	}	
+	}
 </script>

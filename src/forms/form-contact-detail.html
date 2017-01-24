@@ -8,10 +8,10 @@
 
 <dom-module id="form-contact-detail">
 <template>
-	<style include="shared-styles"></style>		
+	<style include="shared-styles"></style>
 		<form-editable modus="{{modus}}">
-			<fields-contact-detail 
-				modus="[[modus]]" 
+			<fields-contact-detail
+				modus="[[modus]]"
 				name="{{name}}"
 				birthday="{{birthday}}"
 				company="{{company}}"
@@ -26,7 +26,7 @@
 <script>
 	Polymer({
 		is: 'form-contact-detail',
-		
+
 		properties: {
 
 			name: {
@@ -34,35 +34,35 @@
 				reflectToAttribute: true,
 				notify: true
 			} ,
-			
+
 			birthday: {
 				type: Date,
 				reflectToAttribute: true,
 				notify: true
 			},
-			
+
 			company: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
 			},
-			
+
 			companyList: {
 				type: Array,
-				value: function () { 
+				value: function () {
 					return ['A', 'B', 'C'];
 				}
 			},
-			
+
 			category: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
 			},
-			
+
 			categoryList: {
 				type: Array,
-				value: function () { 
+				value: function () {
 					return ['A', 'B', 'C'];
 				}
 			}

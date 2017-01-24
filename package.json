@@ -12,6 +12,11 @@
     "url": "git+https://github.com/Zorbing/polymerexpress.git"
   },
   "author": "Martin Boekhoff <boekhoffmartin@gmail.com>",
+  "contributors": [
+    "Max Bachmann <max.bachmann@student.uni-luebeck.de>",
+    "Bastian Schmeier <bastianschmeier@gmail.com>",
+    "Jennifer Wilde <wilde.jennifer@web.de>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Zorbing/polymerexpress/issues"

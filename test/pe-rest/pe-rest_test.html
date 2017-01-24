@@ -1,0 +1,285 @@
+<!--
+The MIT License (MIT)
+
+Copyright 2017 Martin Boekhoff
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>pe-rest test</title>
+
+		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../../web-component-tester/browser.js"></script>
+
+		<link rel="import" href="../../src/pe-rest/pe-rest.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<pe-rest></pe-rest>
+			</template>
+		</test-fixture>
+
+		<script>
+suite('<pe-rest>', function ()
+{
+	let server;
+	const responseHeaders = {
+		json: { 'Content-Type': 'application/json' }
+	};
+	let element;
+	setup(function ()
+	{
+		server = sinon.fakeServer.create();
+		server.respondWith(
+			'GET'
+			, /\/test-resource/
+			, [
+				200
+				, responseHeaders.json
+				, `{"success":true,"method":"GET"}`
+			]
+		);
+		server.respondWith(
+			'POST'
+			, /\/test-resource/
+			, (request) =>
+			{
+				request.respond(
+					200
+					, responseHeaders.json
+					, request.requestBody
+				);
+			}
+		);
+		server.respondWith(
+			'PATCH'
+			, /\/test-resource/
+			, (request) =>
+			{
+				request.respond(
+					200
+					, responseHeaders.json
+					, request.requestBody
+				);
+			}
+		);
+		server.respondWith(
+			'DELETE'
+			, /\/test-resource/
+			, [
+				200
+				, responseHeaders.json
+				, `{"success":true,"method":"DELETE"}`
+			]
+		);
+		server.respondWith(
+			'GET'
+			, /\/test-resource\/[^\/]+$/
+			, [
+				200
+				, responseHeaders.json
+				, `{"success":true,"method":"GET","sub":true}`
+			]
+		);
+		server.respondWith(
+			'GET'
+			, /\/test-resource\/[^\/]+\/sub-sub$/
+			, [
+				200
+				, responseHeaders.json
+				, `{"success":true,"method":"GET","subSub":true}`
+			]
+		);
+
+		element = fixture('basic');
+		element.resource = 'test-resource';
+	});
+	teardown(function ()
+	{
+		server.restore();
+	});
+	this.timeout(100);
+
+	test('instantiating the element works', function ()
+	{
+		assert.equal(element.is, 'pe-rest');
+	});
+
+	suite('reading from the rest interface', function ()
+	{
+		test('reading returns a promise', function ()
+		{
+			const promise = element.read();
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('read returns 200', function ()
+		{
+			const promise = element.read();
+			server.respond();
+			return promise;
+		});
+		test('read returns the correct data', function ()
+		{
+			const promise = element.read();
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response.success).to.be.true;
+				return true;
+			});
+		});
+		test('read returns 404', function ()
+		{
+			element.resource = 'test-reject';
+			const promise = element.read();
+			server.respond();
+			return promise.catch((error) =>
+			{
+				expect(error).to.be.an('error');
+				expect(error.message).to.be.equal('The request failed with status code: 404');
+				return true;
+			});
+		});
+	});
+
+	suite('creating something via rest interface', function ()
+	{
+		const testData = {
+			name: 'Made up resource'
+			, success: 'true'
+		};
+
+		test('creating returns a promise', function ()
+		{
+			const promise = element.create({});
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('create returns 200', function ()
+		{
+			const promise = element.create(testData);
+			server.respond();
+			return promise;
+		});
+		test('create returns the sent data', function ()
+		{
+			const promise = element.create(testData);
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response).to.be.deep.equal(testData);
+				return true;
+			});
+		});
+	});
+
+	suite('updating something via rest interface', function ()
+	{
+		const testData = {
+			name: 'Updated resource'
+			, success: 'true'
+		};
+
+		test('updating returns a promise', function ()
+		{
+			const promise = element.update({});
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('update returns 200', function ()
+		{
+			const promise = element.update(testData);
+			server.respond();
+			return promise;
+		});
+	});
+
+	suite('deleting something via rest interface', function ()
+	{
+		test('deleting returns a promise', function ()
+		{
+			const promise = element.delete({});
+			expect(promise).to.exist;
+			expect(promise).to.be.a('promise');
+		});
+		test('update returns 200', function ()
+		{
+			const promise = element.delete();
+			server.respond();
+			return promise;
+		});
+	});
+
+	suite('setting sub resource', function ()
+	{
+		test('returns an HTMLElement', function ()
+		{
+			const proxy = element.sub('123');
+			expect(proxy).to.exist;
+			expect(proxy).to.be.an.instanceof(HTMLElement);
+		});
+		test('reading sub', function ()
+		{
+			const promise = element.sub('123').read();
+			server.respond();
+			return promise;
+		});
+		test('reading sub resource returns success object', function ()
+		{
+			const promise = element.sub('123').read();
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response.method).to.be.equal('GET');
+				expect(response.sub).to.be.true;
+				return true;
+			});
+		});
+		test('reading sub-sub resource returns success object', function ()
+		{
+			const promise = element.sub('123').sub('sub-sub').read();
+			server.respond();
+			return promise.then((response) =>
+			{
+				expect(response).to.be.ok;
+				expect(response).to.be.an('object');
+				expect(response.method).to.be.equal('GET');
+				expect(response.subSub).to.be.true;
+				return true;
+			});
+		});
+	});
+});
+		</script>
+	</body>
+</html>
