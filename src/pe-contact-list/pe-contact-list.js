@@ -25,7 +25,33 @@
 'use strict';
 
 Polymer({
-	is: 'pe-app'
+	is: 'pe-contact-list'
 
-	, properties: {}
+	, properties: {
+		list: {
+			type: Array
+			, value: []
+		}
+	}
+
+	, handleDelete: function (event, contact)
+	{
+		// remove element from list
+		const index = this.list.indexOf(contact);
+		if (index !== -1)
+		{
+			this.splice('list', index, 1);
+		}
+	}
+	, handleEdit: function (event, contact)
+	{
+		console.log('args:', arguments);
+		// TODO: update some sort filter
+	}
+	, ready: function ()
+	{
+		this.$.restContact.list()
+			.then(list => this.list = list)
+		;
+	}
 });

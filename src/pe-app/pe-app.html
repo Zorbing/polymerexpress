@@ -22,17 +22,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
 <link rel="import" href="../pe-categories/pe-categories.html">
+<link rel="import" href="../pe-contact-list/pe-contact-list.html">
 
 <dom-module id="pe-app">
 	<template>
 		<style>
-			:host {
-				display: block;
-			}
+:host
+{
+	display: block;
+	padding: 1.2rem;
+}
+h2:not(:first-child)
+{
+	margin-top: 1.2rem;
+}
+h2:not(:last-child)
+{
+	margin-bottom: 0.4rem;
+}
 		</style>
-		<h2>Hello [[prop1]]</h2>
+		<h2>Contact list</h2>
+		<pe-contact-list></pe-contact-list>
+
+		<h2>Category list</h2>
 		<pe-categories></pe-categories>
 	</template>
 

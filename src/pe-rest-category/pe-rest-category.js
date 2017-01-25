@@ -111,24 +111,24 @@ Polymer({
 	}
 	, delete: function (id)
 	{
-		return this.$.rest.deleteSub(id);
+		return this.$.rest.sub(id).delete();
 	}
 	, edit: function (id, newName, newColor)
 	{
-		return this.$.rest.replaceSub(id, {
+		return this.$.rest.sub(id).replace({
 			name: newName
 			, color: newColor
 		});
 	}
 	, editColor: function (id, newColor)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			color: newColor
 		});
 	}
 	, editName: function (id, newName)
 	{
-		return this.$.rest.updateSub(id, {
+		return this.$.rest.sub(id).update({
 			name: newName
 		});
 	}

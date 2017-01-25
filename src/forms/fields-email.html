@@ -4,39 +4,31 @@
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 
 <link rel="import" href="/src/forms/shared-styles.html">
-<link rel="import" href="/src/forms/icon-button-delete.html">
-<link rel="import" href="/src/forms/button-save.html">
+<link rel="import" href="/src/forms/forms-behavior.html">
 
-
-<dom-module id="edit-email">
+<dom-module id="fields-email">
 <template>
 	<style include="shared-styles"></style>
-
-	<icon-button-delete hide$="[[disabled]]"></icon-button-delete>
-
-	<paper-input readonly$="[[disabled]]" label="email address" required auto-validate type="email" error-message="Required!" value="{{address}}">
+	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="email address" required auto-validate type="email" error-message="Required!" value="{{address}}">
 		  <iron-icon icon="communication:mail-outline" prefix></iron-icon>
 	</paper-input>
-	
-	<button-save hide$="[[disabled]]"></button-save>
 </template>
 <script>
 	Polymer({
-		is: 'edit-email',
-		
+		is: 'fields-email',
+
 		properties: {
 
 			address: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
-			} ,
-			disabled: {
-	        	type: Boolean,
-	        	reflectToAttribute: true,
-	        	notify: true
-	        }
-		}
+			}
+		},
+
+		behaviors: [
+      		FormsBehavior
+    	]
 	});
 </script>
 
