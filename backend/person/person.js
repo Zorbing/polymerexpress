@@ -409,7 +409,6 @@ router.post("/", function (req, res) {
     let collector = function() {
         transactionCounter++;
         if (transactionCounter !== requestCounter) {
-            console.log("requestCounter = " + requestCounter + ", transactionCounter = " + transactionCounter);
             return;
         }
 
@@ -421,7 +420,6 @@ router.post("/", function (req, res) {
     };
 
     let afterPerson = function(personId) {
-        console.log("afterPerson");
         savedPersonId = personId;
         let transactionError = false;
 
@@ -493,7 +491,6 @@ router.post("/", function (req, res) {
     };
 
     let afterCompany = function(companyId) {
-        console.log("afterCompany");
         // Store person in db
         let pQuery = 'INSERT INTO ' + db.personTable + ' SET';
         pQuery += ' name = ' + conn.escape(body.name);
@@ -511,7 +508,6 @@ router.post("/", function (req, res) {
     };
 
     // Company
-    console.log("Company");
     if (body.company.hasOwnProperty('id') && !Number.isNaN(body.company.id)) {
         afterCompany(body.company.id);
     } else if (body.company.hasOwnProperty('name') && body.company.name !== '') {
