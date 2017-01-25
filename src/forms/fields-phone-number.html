@@ -9,7 +9,7 @@
 <dom-module id="fields-phone-number">
 <template>
 	<style include="shared-styles">
-.field
+#inputField
 {
 	margin: -1.5rem 0 -1.5rem 0;
 	--paper-input-container-disabled: 
@@ -19,16 +19,26 @@
 	--paper-input-container-underline-disabled:
 	{
 		opacity: 0;
-	}
+	};
 }
+.true
+{
+	--paper-input-container-input: 
+	{
+		font-size: 24px;
+		font-weight: 400;;
+	}; 
+}
+
 .fieldIcon
 {
 	color: grey;
 }
 
+
 	</style>
-	<paper-input id="inputField" class="field" disabled$="[[!editMode]]" auto-validate allowed-pattern="[[pattern]]" type="[[type]]" value="{{number}}">
-		  <iron-icon class="fieldIcon" icon="[[icon]]" prefix></iron-icon>
+	<paper-input on-blur="leavingField" id="inputField" class$="[[extraClass]]" maxlength="[[maxlength]]" disabled$="[[!editMode]]" auto-validate allowed-pattern="[[pattern]]" type="[[type]]" value="{{number}}">
+		  <iron-icon hidden$="[[extraClass]]" class="fieldIcon" icon="[[icon]]" prefix></iron-icon>
 	</paper-input>
 </template>
 <script>
@@ -37,30 +47,49 @@
 
 		properties: {
 
+
 			number:
 			{
-				type: String,
-				reflectToAttribute: true,
-				notify: true
+				type: String
+				, reflectToAttribute: true
+				, notify: true
+			}
+			, id:
+			{
+				type: Number
+			}
+			, arrayName:
+			{
+				type: String
 			}
 			, type:
 			{
-				type: String,
-				value: ''
+				type: String
+				, value: ''
 			}
 			, editMode:
 			{
-				type: Boolean,
-				value: false
+				type: Boolean
+				, value: false
 			}
 			, pattern:
 			{
-				type: String,
-				value: ''
+				type: String
+				, value: ''
 			}
 			, icon:
 			{
 				type: String
+				, value: ''
+			}
+			, maxlength:
+			{
+				type: Number
+			}
+			, extraClass:
+			{
+				type: Boolean
+				, value: false
 			}
 		}
 
@@ -71,6 +100,15 @@
 		, isValid: function ()
 		{
 			return (this.isEmpty() || this.$.inputField.validate());
+		}
+		, leavingField: function (event)
+		{
+			if (this.isEmpty())
+				this.fire('lineremove', {id: this.id, arrayName: this.arrayName});
+		}
+		, focus: function ()
+		{
+			this.$.inputField.focus();
 		}
 
 		, behaviors:
