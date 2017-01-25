@@ -84,6 +84,7 @@ router.get("/", function (req, res) {
                     },
                     category: {
                         id: pRecord.categoryId,
+                        name: pRecord.categoryName,
                         color: pRecord.categoryColor
                     }
                 };
@@ -253,6 +254,7 @@ router.get("/:id", function (req, res) {
                 },
                 category: {
                     id: personRecord[0].categoryId,
+                    name: personRecord[0].categoryName,
                     color: personRecord[0].categoryColor
                 },
                 addresses: addressRecord,
