@@ -51,8 +51,6 @@
 			number:
 			{
 				type: String
-				, reflectToAttribute: true
-				, notify: true
 			}
 			, id:
 			{
@@ -108,7 +106,7 @@
 		}
 		, focus: function ()
 		{
-			this.$.inputField.focus();
+			this.$.inputField.inputElement.focus();
 		}
 
 		, behaviors:

@@ -83,19 +83,22 @@ Polymer({
 		this.editMode = !this.editMode;
 		this.viewMode = true;
 		
-		this._showProgressNotifier();
-		this.restContact.edit(this.contact)
-			.then(() =>
-			{
-				this.fire('edit', this.contact);
-				this._hideProgressNotifier();
-			})
-			.catch((error) =>
-			{
-				console.error('error while editing contact %d:', this.contact.id, error);
-				this._hideProgressNotifier();
-			})
-		;
+		if (!this.editMode)
+		{
+			this._showProgressNotifier();
+			this.restContact.edit(this.contact)
+				.then(() =>
+				{
+					this.fire('edit', this.contact);
+					this._hideProgressNotifier();
+				})
+				.catch((error) =>
+				{
+					console.error('error while editing contact %d:', this.contact.id, error);
+					this._hideProgressNotifier();
+				})
+			;
+		}
 	}
 	, handleLineremove: function (event, whatAndWhere)
 	{
@@ -113,11 +116,16 @@ Polymer({
 		if (event.target.tagName == 'IRON-ICON')
 		{
 			dataArgs = event.target.parentNode.getAttribute('data-args').split(' ')
-		} else {
+		}
+		else
+		{
 			dataArgs = event.target.getAttribute('data-args').split(' ')
 		}
 		this.push('contact.' + dataArgs[0], '');
-		this.$$('.' + dataArgs[1] + ' fields-phone-number:last-of-type').focus();
+		setTimeout(() =>
+		{
+			this.$$('.' + dataArgs[1] + ' fields-phone-number:last-of-type').focus();
+		});
 	}
 	, ready: function ()
 	{
@@ -133,11 +141,14 @@ Polymer({
 		{
 			return mode ? 'Close' : 'Open';
 
-		} else if (button == 'edit')
+		}
+		else if (button == 'edit')
 		{
 			return mode ? 'Save' : 'Edit';
 
-		} else {
+		}
+		else
+		{
 			console.error('Translation not available for ' + button);
 			return '???';
 		}
