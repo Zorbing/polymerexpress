@@ -74,12 +74,12 @@ Polymer({
 	}
 	, handleView: function ()
 	{
-		console.info('Entered View Mode');
+		console.info('Switched View Mode');
 		this.viewMode = !this.viewMode;
 	}
 	, handleEdit: function ()
 	{
-		console.info('Entered Edit Mode');
+		console.info('Switched Edit Mode');
 		this.editMode = !this.editMode;
 		this.viewMode = true;
 		
@@ -97,6 +97,28 @@ Polymer({
 			})
 		;
 	}
+	, handleLineremove: function (event, whatAndWhere)
+	{
+		console.info('attempt to delete ID ' + whatAndWhere.id + ' in ' + this.get(whatAndWhere.arrayName).length + '-length array ' + whatAndWhere.arrayName);
+		if (this.get(whatAndWhere.arrayName).length > 1)
+		{
+			this.splice(whatAndWhere.arrayName, whatAndWhere.id, 1);
+			console.log('hopefully removed!')
+		}
+	}
+	, handleNew: function (event)
+	{
+		console.log(event);
+		let dataArgs;
+		if (event.target.tagName == 'IRON-ICON')
+		{
+			dataArgs = event.target.parentNode.getAttribute('data-args').split(' ')
+		} else {
+			dataArgs = event.target.getAttribute('data-args').split(' ')
+		}
+		this.push('contact.' + dataArgs[0], '');
+		this.$$('.' + dataArgs[1] + ' fields-phone-number:last-of-type').focus();
+	}
 	, ready: function ()
 	{
 		this.restContact = this.$.restContact.id(this.contact.id);
@@ -109,11 +131,11 @@ Polymer({
 	{
 		if (button == 'view')
 		{
-			return mode ? 'Open Contact' : 'Close Contact';
+			return mode ? 'Close' : 'Open';
 
 		} else if (button == 'edit')
 		{
-			return mode ? 'Save Contact' : 'Edit Contact';
+			return mode ? 'Save' : 'Edit';
 
 		} else {
 			console.error('Translation not available for ' + button);

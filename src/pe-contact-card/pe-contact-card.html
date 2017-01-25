@@ -86,43 +86,64 @@ h4
 {
 	position: absolute;
 	top: 0.7rem;
-	left: 46.5rem;
+	left: 41.5rem;
+}
+.new-item-button
+{
+	position: absolute;
+	margin-left: 17rem;
+	margin-top: -2.2rem;
 }
 .card-actions
 {
 	text-align: center;
 }
+.action-buttons
+{
+	width: 20rem;
+}
+
 .card-content
 {
-	transition: all 2s;
+	transition: all 1s;
+	overflow: hidden;
+	max-height: 6rem;
 }
 .card
 {
-	width: 50rem;
+	width: 45rem;
 }
 .small-card
 {
-	max-height: 6rem;
+	/*max-height: 6rem;*/
 }
 .big-card
 {
-	max-height: 200rem;
+	max-height: 30rem;
 }
 .main-info-block
 {
 	display: inline-block;
-	width: 23rem;
+	width: 21rem;
 	vertical-align: top;
 }
 .details-block
 {
 	display: inline-block;
-	width: 23rem;
+	width: 21rem;
 	vertical-align: top;
+}
+.contact-name
+{
+	padding: 16px;
+	font-size: 24px;
 }
 
 		</style>
-		<paper-card heading="[[contact.name]]" class="card">
+		<paper-card class="card">
+			<div class="contact-name">
+			<fields-phone-number extra-class="true" maxlength="40" edit-mode="[[editMode]]" number="{{contact.name}}"></fields-phone-number>
+			</div>
 			<!-- Delete Button -->
 			<div class="delete-button" hidden$="[[!editMode]]">
 				<paper-icon-button on-tap="handleDelete" icon="icons:delete-forever"></paper-icon-button>
@@ -132,43 +153,51 @@ h4
 				<!-- Main Information Block-->
 				<div class="main-info-block">
 					<!-- Business -->
-					<fields-phone-number icon="communication:business" edit-mode="[[editMode]]" number="[[contact.company]]"></fields-phone-number>
-					<!-- Category contact.category.name -->
-					<fields-phone-number icon="icons:label" edit-mode="[[editMode]]" number="CATEGORY To-do"></fields-phone-number>
+					<fields-phone-number icon="communication:business" edit-mode="[[editMode]]" number="{{contact.company}}"></fields-phone-number>
+					<!-- Category -->
+					<fields-phone-number icon="icons:label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>
 					<!-- Date of Birth -->
-					<fields-phone-number icon="social:cake" pattern="[0-9\.\-]" edit-mode="[[editMode]]" number="[[computeDateOfBirth(contact.dateOfBirth)]]"></fields-phone-number>
+					<fields-phone-number icon="social:cake" pattern="[0-9.-/]" edit-mode="[[editMode]]" number="{{computeDateOfBirth(contact.dateOfBirth)}}"></fields-phone-number>
 				</div>
-				<!-- Detail Block -->
+				<!-- Details Block -->
 				<div hidden$="[[!viewMode]]" class="details-block">
 					<!-- Phone Numbers -->
-					<h4>Phone Numbers</h4>
-					<template is="dom-repeat" items="[[contact.phoneNumbers]]" as="phoneNumber">
-						<fields-phone-number icon="maps:local-phone" pattern="[0-9+/ ]" edit-mode="[[editMode]]" number="[[phoneNumber]]"></fields-phone-number>
-					</template>
-					<!-- E-mail Adresses -->
-					<h4>E-mail Addresses</h4>
-					<template is="dom-repeat" items="[[contact.emailAddresses]]" as="emailAddress">
-						<fields-phone-number icon="communication:email" edit-mode="[[editMode]]" type="email" number="[[emailAddress]]"></fields-phone-number>
-					</template>
-					<!-- Post Addresses -->
-					<h4>Post Addresses</h4>
-					<template is="dom-repeat" items="[[contact.addresses]]" as="address">
-						<div class="address">
-							<iron-icon icon="icons:home"></iron-icon>
-							<div class="text-block">
-								<span>[[address.street]]</span><br>
-								<span>[[address.zip]] [[address.city]]</span>
-							</div>
+					<div class="phone-numbers-fields">
+						<template is="dom-repeat" items="[[contact.phoneNumbers]]" as="phoneNumber">
+							<fields-phone-number id="[[index]]" array-name="contact.phoneNumbers" on-lineremove="handleLineremove" icon="maps:local-phone" pattern="[0-9+/ ]" edit-mode="[[editMode]]" number="{{phoneNumber}}"></fields-phone-number>
+						</template>
+						<div class="new-item-button" hidden$="[[!editMode]]">
+							<paper-icon-button data-args="phoneNumbers phone-numbers-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
 						</div>
-					</template>
+					</div>
+					<!-- E-mail Adresses -->
+					<h4> </h4>
+					<div class="email-addresses-fields">
+						<template is="dom-repeat" items="[[contact.emailAddresses]]" as="emailAddress">
+							<fields-phone-number id="[[index]]" array-name="contact.emailAddresses" on-lineremove="handleLineremove" icon="communication:email" edit-mode="[[editMode]]" type="email" number="{{emailAddress}}"></fields-phone-number>
+						</template>
+						<div class="new-item-button" hidden$="[[!editMode]]">
+							<paper-icon-button data-args="emailAddresses email-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+						</div>
+					</div>
+					<!-- Post Addresses -->
+					<h4> </h4>
+					<div class="post-addresses-fields">
+						<template is="dom-repeat" items="[[contact.addresses]]" as="address">
+							<fields-phone-number id="[[index]]" array-name="contact.addresses" on-lineremove="handleLineremove" icon="icons:home" edit-mode="[[editMode]]" number="{{address}}"></fields-phone-number>
+						</template>
+						<div class="new-item-button" hidden$="[[!editMode]]">
+							<paper-icon-button data-args="addresses post-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="card-actions">
-				<paper-button on-tap="handleView">
+				<paper-button class="action-buttons" disabled$="[[editMode]]" on-tap="handleView">
 					<iron-icon icon="icons:visibility"></iron-icon>
 					[[translateActionButton('view', viewMode)]]
 				</paper-button>
-				<paper-button on-tap="handleEdit">
+				<paper-button class="action-buttons" on-tap="handleEdit">
 					<iron-icon icon="icons:create"></iron-icon>
 					[[translateActionButton('edit', editMode)]]
 				</paper-button>
