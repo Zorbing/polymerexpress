@@ -29,8 +29,10 @@ const HTTP_DELETE = 'DELETE';
 const HTTP_GET = 'GET';
 const HTTP_PATCH = 'PATCH';
 const HTTP_POST = 'POST';
+const HTTP_PUT = 'PUT';
 const request2Deferred = new WeakMap();
 
+let subResources = [];
 Polymer({
 	is: 'pe-rest'
 
@@ -52,9 +54,34 @@ Polymer({
 	{
 		return this._request(HTTP_GET);
 	}
-	, update: function (updatedResource)
+	, replace: function (updatedResource)
 	{
-		return this._request(HTTP_PATCH, updatedResource);
+		return this._request(HTTP_PUT, updatedResource);
+	}
+	, sub: function (resource)
+	{
+		const subs = subResources.concat([resource]);
+		const subHandler = {
+			get: function (target, name)
+			{
+				if (typeof target[name] === 'function')
+				{
+					return (...args) =>
+					{
+						subResources = subs;
+						const ret = target[name](...args);
+						subResources = [];
+						return ret;
+					};
+				}
+				return target[name];
+			}
+		};
+		return new Proxy(this, subHandler);
+	}
+	, update: function (updatedPartialResource)
+	{
+		return this._request(HTTP_PATCH, updatedPartialResource);
 	}
 
 
@@ -63,12 +90,12 @@ Polymer({
 	 * private methods
 	 */
 
-	, _computeUrl: function ()
+	, _computeUrl: function (subResource)
 	{
-		const encodedResource = this.resource
-			.split('/')
+		const encodedResource = [this.resource]
+			.concat(subResources)
 			.map(s => encodeURIComponent(s))
-			.reduce((p, c) => p + '/' + c)
+			.join('/')
 		;
 		return apiBase + '/' + encodedResource;
 	}
@@ -94,12 +121,12 @@ Polymer({
 			deferred.resolve(request.response);
 		}
 	}
-	, _request: function (method, params = {})
+	, _request: function (method, body = null)
 	{
 		const requester = this.$.requester;
 		requester.url = this._computeUrl();
 		requester.method = method;
-		requester.params = params;
+		requester.body = body;
 		const request = requester.generateRequest();
 		return new Promise((resolve, reject) =>
 		{

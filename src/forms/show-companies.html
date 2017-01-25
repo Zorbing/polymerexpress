@@ -1,0 +1,35 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/src/forms/shared-styles.html">
+
+<dom-module id="show-companies">
+<style include="shared-styles"></style>
+<style is="custom-style">
+	:host paper-item {
+		--paper-item-disabled-color: black;
+	}
+</style>
+<template>
+	<div>
+		<template is="dom-repeat" items="{{companyList}}">
+			<paper-item disabled>{{item}}</paper-item>
+		</template>
+	</div>
+
+</template>
+<script>
+	Polymer({
+		is: 'show-companies',
+
+		properties: {
+
+			companyList: {
+				type: Array
+			},
+		}
+	});
+</script>
+
+</dom-module>

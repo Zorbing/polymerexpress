@@ -24,12 +24,23 @@ SOFTWARE.
 
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
-<link rel="import" href="../pe-rest/pe-rest.html">
+<link rel="import" href="../pe-contact-card/pe-contact-card.html">
+<link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
 
-<dom-module id="pe-rest-company">
+<dom-module id="pe-contact-list">
 	<template>
-		<pe-rest id="rest" resource="company"></pe-rest>
+		<style>
+:host
+{
+	display: block;
+}
+		</style>
+		<template is="dom-repeat" items="[[list]]">
+			<pe-contact-card contact="[[item]]" on-delete="handleDelete" on-edit="handleEdit"></pe-contact-card>
+		</template>
+
+		<pe-rest-contact id="restContact"></pe-rest-contact>
 	</template>
 
-	<script type="text/javascript" src="pe-rest-company.js"></script>
+	<script type="text/javascript" src="pe-contact-list.js"></script>
 </dom-module>

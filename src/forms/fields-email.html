@@ -1,0 +1,35 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+
+<link rel="import" href="/src/forms/shared-styles.html">
+<link rel="import" href="/src/forms/forms-behavior.html">
+
+<dom-module id="fields-email">
+<template>
+	<style include="shared-styles"></style>
+	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="email address" required auto-validate type="email" error-message="Required!" value="{{address}}">
+		  <iron-icon icon="communication:mail-outline" prefix></iron-icon>
+	</paper-input>
+</template>
+<script>
+	Polymer({
+		is: 'fields-email',
+
+		properties: {
+
+			address: {
+				type: String,
+				reflectToAttribute: true,
+				notify: true
+			}
+		},
+
+		behaviors: [
+      		FormsBehavior
+    	]
+	});
+</script>
+
+</dom-module>

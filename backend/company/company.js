@@ -21,28 +21,30 @@
  */
 
 
-// Operate in strict mode.
-// See http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
 "use strict";
 
-// Setup express
 let express = require("express");
-let app = express();
-let port = 3000;
+let router = express.Router();
+let db = require('../database/connector');
+let conn = db.connection;
+let errorHandler = require('../database/error_handler');
 
-// Middleware
-let bodyParser = require('body-parser');
-app.use(bodyParser.raw({type:'*/*'}));
+/**
+ * Fetches a list of all companies from the database.
+ */
+router.get("/", function (req, res) {
+    // List all records in db
+    let query = 'SELECT * FROM `' + db.companyTable + '`';
 
-// Load route modules
-let categoryHandler = require("./category/category");
-let companyHandler = require("./company/company");
-let personHandler = require("./person/person");
-app.use("/category", categoryHandler);
-app.use("/company", companyHandler);
-app.use("/person", personHandler);
+    let handler = function (error, results) {
+        if (error) {
+            errorHandler.handleDatabaseError(error, res);
+        } else {
+            res.send(JSON.stringify(results));
+        }
+    };
 
-// Start the express web server.
-app.listen(port, function () {
-    console.log("Contacts backend listening on port " + port + ".");
+    conn.query(query, handler);
 });
+
+module.exports = router;

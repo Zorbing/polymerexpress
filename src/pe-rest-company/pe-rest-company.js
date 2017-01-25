@@ -24,7 +24,6 @@
 
 'use strict';
 
-const companyResource = 'company';
 const stubCompanyList = [
 	'Gleichner-Bins', 'Lakin and Sons', 'Schmidt Group', 'Quitzon Group', 'Homenick LLC'
 	, 'Nikolaus, Shanahan and Kemmer', 'Wunsch-Berge', 'Kohler LLC', 'Yundt-Mohr', 'Hammes, Kreiger and Gorczany'
@@ -44,36 +43,12 @@ Polymer({
 
 	, properties: {}
 
-	, create: function (name)
-	{
-		const rest = this.$.rest;
-		rest.resource = companyResource;
-		return rest.create({
-			name: name
-		});
-	}
-	, delete: function (id)
-	{
-		const rest = this.$.rest;
-		rest.resource = companyResource + '/' + id;
-		return rest.delete();
-	}
-	, edit: function (id, name)
-	{
-		const rest = this.$.rest;
-		rest.resource = companyResource + '/' + id;
-		return rest.update({
-			name: name
-		});
-	}
 	, list: function (testData = true)
 	{
 		if (testData)
 		{
 			return Promise.resolve(stubCompanyList);
 		}
-		const rest = this.$.rest;
-		rest.resource = companyResource;
-		return rest.read();
+		return this.$.rest.read();
 	}
 });

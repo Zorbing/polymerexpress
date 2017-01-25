@@ -27,10 +27,5 @@
 Polymer({
 	is: 'pe-app'
 
-	, properties: {
-		prop1: {
-			type: String
-			, value: 'pe-app'
-		}
-	}
+	, properties: {}
 });

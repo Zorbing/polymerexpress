@@ -28,50 +28,40 @@ SOFTWARE.
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-		<title>pe-rest-category test</title>
+		<title>pe-rest-contact test</title>
 
 		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
 		<script src="../../../web-component-tester/browser.js"></script>
 
-		<link rel="import" href="../../src/pe-rest-category/pe-rest-category.html">
+		<link rel="import" href="../../src/pe-rest-contact/pe-rest-contact.html">
 	</head>
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<pe-rest-category></pe-rest-category>
+				<pe-rest-contact></pe-rest-contact>
 			</template>
 		</test-fixture>
 
 		<script>
-suite('<pe-rest-category>', function ()
+suite('<pe-rest-contact>', function ()
 {
 	let server;
 	const responseHeaders = {
 		json: { 'Content-Type': 'application/json' }
 	};
-	const stubCategoryList = [
-		{
-			id: 2
-			, name: 'Family'
-			, color: 'green'
-		}
-		, {
-			id: 0
-			, name: 'Friends'
-			, color: 'blue'
-		}
-	];
+	// TODO: add some stub data
+	const stubContactList = [];
 	let element;
 	setup(function ()
 	{
 		server = sinon.fakeServer.create();
 		server.respondWith(
 			'GET'
-			, /\/category$/
+			, /\/person$/
 			, [
 				200
 				, responseHeaders.json
-				, JSON.stringify(stubCategoryList)
+				, JSON.stringify(stubContactList)
 			]
 		);
 
@@ -85,10 +75,10 @@ suite('<pe-rest-category>', function ()
 
 	test('instantiating the element works', function ()
 	{
-		assert.equal(element.is, 'pe-rest-category');
+		assert.equal(element.is, 'pe-rest-contact');
 	});
 
-	suite('read category list', function ()
+	suite('list contacts', function ()
 	{
 		test('reading returns a promise', function ()
 		{
@@ -97,7 +87,7 @@ suite('<pe-rest-category>', function ()
 			expect(promise).to.be.a('promise');
 			expect(promise).to.be.instanceof(Promise);
 		});
-		test('the read promise fulfills', function ()
+		test('the returned list is from server', function ()
 		{
 			const promise = element.list(false);
 			server.respond();
@@ -105,7 +95,7 @@ suite('<pe-rest-category>', function ()
 			{
 				expect(response).to.be.ok;
 				expect(response).to.be.an('array');
-				expect(response).to.be.deep.equal(stubCategoryList);
+				expect(response).to.be.deep.equal(stubContactList);
 			});
 		});
 	});

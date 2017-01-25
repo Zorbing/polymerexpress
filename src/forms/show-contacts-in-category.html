@@ -1,0 +1,130 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/social-icons.html">
+<link rel="import" href="/bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
+
+<link rel="import" href="/src/forms/shared-styles.html">
+
+
+<dom-module id="show-contacts-in-category">
+<style include="shared-styles"></style>
+<style is="custom-style">
+	div.button {
+		color: darkgrey;
+		display: inline;
+		float: right;   
+	    padding: 0px;
+	    width: 50px;
+	}
+	div.button paper-icon-button {
+		margin: auto;
+		padding: 0px;
+		height: 20px;
+	}
+	div.button paper-icon-button:hover {
+		color: green;
+	}
+	div.categoryHeader {
+		border-style: solid;
+		border-radius: 8px;
+		border-width: 3px;
+		cursor: pointer;
+		font-size: 20px;
+	}
+	
+	div.categoryHeader div{		
+		display: inline;
+	}
+	
+	div.name{
+		width: 100%;
+		
+	}
+	
+	iron-collapse div {
+		padding: 15px;
+		border-top: 0px;
+		border-left: 2px;
+		border-right: 0px;
+		border-bottom: 0px;
+		border-style:solid;
+	}
+	
+	iron-collapse div:hover {
+		background-color: darkgrey;
+	}
+	
+</style>
+<template>
+	<div>
+		<div class="categoryHeader" on-click="toggle" style$="border-color: {{categoryColor}};">
+			<div class="name">
+				<iron-icon id="arrow" icon="chevron-right"></iron-icon>
+				<iron-icon icon="label" style$="color: {{categoryColor}};"></iron-icon>
+				[[categoryName]]
+			</div>
+			
+			
+			<div class="button">
+				<paper-icon-button icon="icons:create"></paper-icon-button>
+				<paper-tooltip animation-delay=0>Edit</paper-tooltip>
+			</div>
+			<div class="button">
+				<paper-icon-button icon="communication:contact-mail"></paper-icon-button>
+				<paper-tooltip animation-delay=0>Send Mail</paper-tooltip>
+			</div>				
+		</div>
+		
+		
+		<iron-collapse id="collapse" opened="{{opened}}">
+			<template is="dom-repeat" items="{{contactList}}">
+				<div on-click="clickOnContact" style$="border-color: {{categoryColor}};">{{item}}</div>
+			</template>
+		</iron-collapse>
+	</div>
+
+</template>
+<script>
+	Polymer({
+		is: 'show-contacts-in-category',
+		properties: {
+
+			contactList: {
+				type: Array,
+				value: ['Hans', 'Franz'],
+			},
+			
+			categoryName: {
+				type: String,
+				notify: true,
+				value: "Friends",
+			}, 
+			
+			categoryColor: {
+				type: String,
+				notify: true,
+				value: "blue",
+			}, 
+			
+			opened: Boolean,
+		},
+		
+		toggle: function() {	  	
+		  	if(this.opened) {
+		  		this.$.arrow.icon = "chevron-right";
+		  	}
+		  	else {
+		  		this.$.arrow.icon = "expand-more";
+		  	}
+		  	
+		  	this.$.collapse.toggle();
+		},
+		
+		clickOnContact: function() {
+			console.log("Clicked on Contact");
+		}
+	});
+</script>

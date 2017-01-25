@@ -3,34 +3,30 @@
 <link rel="import" href="/bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
-<link rel="import" href="/bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="/src/forms/shared-styles.html">
+<link rel="import" href="/src/forms/forms-behavior.html">
 
-<!-- colorlist-array by @bobspace -->
 
-<dom-module id="edit-category">
+<dom-module id="fields-category">
 <template>
 	<style include="shared-styles"></style>
 	<style is="custom-style">
-		:host {
-			display: block;
-		}
-		
-		:host paper-input {
-			width: 250px;
-			display: inline-block;
-			
-		}
-		
 		:host paper-swatch-picker {
-			top: 18px;
-			left: 7px;
+			margin: 0;
+			top: 16px;
+			vertical-align:top;
 			--paper-swatch-picker-color-size: 20px;
+		}
+
+		div.picker {
+			display: inline-block;
 		}
 	</style>
 
-	<paper-swatch-picker color="{{selectedColor}}" column-count="20" autofill-columns	
-		color-list='[					
+	<!-- colorlist-array by @bobspace -->
+	<paper-swatch-picker color="{{color}}" column-count="20" autofill-columns hidden$="[[_disableFieldsSaveButton(modus)]]" disabled$="[[_disableFieldsSaveButton(modus)]]"
+		color-list='[
 					"AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige",
 					"Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown",
 					"BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral",
@@ -52,36 +48,42 @@
 					"MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive",
 					"OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen",
 					"PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink",
-					"Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown",
+					"Plum","PowderBlue","Purple","Rebeccapurple", "Red","RosyBrown","RoyalBlue","SaddleBrown",
 					"Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue",
 					"SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan",
 					"Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke",
-					"Yellow","YellowGreen", "Rebeccapurple"									
+					"Yellow","YellowGreen"
 					]'>
 	</paper-swatch-picker>
-		
-	<paper-input label="category name" required auto-validate error-message="Required!" value="{{name}}">
-		  <iron-icon icon="label" style="fill:{{selectedColor}}" prefix></iron-icon>
+
+	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="category name" required auto-validate error-message="Required!" value="{{name}}">
+		  <iron-icon icon="label" style$="color: {{color}};" prefix></iron-icon>
 	</paper-input>
-	<div><paper-button raised class="save">Save</paper-button></div>
+
 </template>
 <script>
 	Polymer({
-		is: 'edit-category',
-		
+		is: 'fields-category',
+
 		properties: {
-			selectedColor: {
+			color: {
 				type: String,
-				value: 'Green',
-				reflectToAttribute: true
+				value: "MediumSlateBlue",
+				reflectToAttribute: true,
+				notify: true,
 			},
-			
+
 			name: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
-			} 
-		}
+			} ,
+
+		},
+
+		behaviors: [
+      		FormsBehavior
+    	]
 	});
 </script>
 

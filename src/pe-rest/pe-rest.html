@@ -22,14 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="pe-rest">
 	<template>
 		<iron-ajax
-			id="requester"
+			content-type="application/json"
 			handle-as="json"
+			id="requester"
 			on-error="_handleError"
 			on-response="_handleResponse">
 		</iron-ajax>

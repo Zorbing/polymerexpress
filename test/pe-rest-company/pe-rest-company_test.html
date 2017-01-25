@@ -56,7 +56,7 @@ suite('<pe-rest-company>', function ()
 		server = sinon.fakeServer.create();
 		server.respondWith(
 			'GET'
-			, /\/company/
+			, /\/company$/
 			, [
 				200
 				, responseHeaders.json
