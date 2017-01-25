@@ -409,7 +409,6 @@ router.post("/", function (req, res) {
     let collector = function() {
         transactionCounter++;
         if (transactionCounter !== requestCounter) {
-            console.log("requestCounter = " + requestCounter + ", transactionCounter = " + transactionCounter);
             return;
         }
 
@@ -421,7 +420,6 @@ router.post("/", function (req, res) {
     };
 
     let afterPerson = function(personId) {
-        console.log("afterPerson");
         savedPersonId = personId;
         let transactionError = false;
 
@@ -493,7 +491,6 @@ router.post("/", function (req, res) {
     };
 
     let afterCompany = function(companyId) {
-        console.log("afterCompany");
         // Store person in db
         let pQuery = 'INSERT INTO ' + db.personTable + ' SET';
         pQuery += ' name = ' + conn.escape(body.name);
@@ -511,7 +508,6 @@ router.post("/", function (req, res) {
     };
 
     // Company
-    console.log("Company");
     if (body.company.hasOwnProperty('id') && !Number.isNaN(body.company.id)) {
         afterCompany(body.company.id);
     } else if (body.company.hasOwnProperty('name') && body.company.name !== '') {
@@ -541,8 +537,222 @@ router.patch("/:id", function (req, res) {
  * Changes one person identified by an id in the database.
  */
 router.put("/:id", function (req, res) {
-    // TODO Edit person with id
-    res.send("EXCHANGE person with id " + req.params.id);
+    // Assert MIME type
+    if (!req.is('application/json')) {
+        respondWithError(res, "Wrong MIME. Requests have to use 'application/json'");
+        return;
+    }
+
+    // Parse request body
+    let body = "";
+    try {
+        body = JSON.parse(req.body);
+    } catch (error) {
+        respondWithError(res, "Invalid JSON.");
+        return;
+    }
+
+    // Assert parameters
+    if (!body.hasOwnProperty('id') || Number.isNaN(body.id)) {
+        respondWithError(res, "Invalid id.");
+        return;
+    }
+    if (!body.hasOwnProperty('name') || body.name === '') {
+        respondWithError(res, "Invalid name.");
+        return;
+    }
+    if (!body.hasOwnProperty('dateOfBirth') || body.dateOfBirth === '') {
+        respondWithError(res, "Invalid date of birth.");
+        return;
+    }
+    if (!body.hasOwnProperty('category') || !body.category.hasOwnProperty('id') || Number.isNaN(body.category.id)) {
+        respondWithError(res, "Invalid category.");
+        return;
+    }
+    if (!body.hasOwnProperty('company') || !body.company.hasOwnProperty('name') || body.company.name === '') {
+        respondWithError(res, "Invalid company.");
+        return;
+    }
+
+    // 4. Update the person record and return success
+    let afterCompany = function(companyId) {
+        let pQuery = 'UPDATE ' + db.personTable + ' SET';
+        pQuery += ' name = ' + conn.escape(body.name);
+        pQuery += ', date_of_birth = ' + conn.escape(body.dateOfBirth);
+        pQuery += ', category_id = ' + conn.escape(body.category.id);
+        pQuery += ', company_id = ' + conn.escape(companyId);
+        pQuery += ' WHERE id = ' + conn.escape(req.params.id);
+        pQuery += ' LIMIT 1';
+        let handler = function(error, results) {
+            if (error) {
+                respondWithError(res, error);
+                return;
+            }
+
+            let details = {
+                changed: results.affectedRows
+            };
+            respondWithOk(res, details);
+        };
+        conn.query(pQuery, handler);
+    };
+
+    // 3.2 Check if a company was found and create one else
+    let afterCompanySearch = function(companyId) {
+        if (companyId === -1) {
+            // Create new company
+            let cQuery = 'INSERT INTO ' + db.companyTable + ' SET';
+            cQuery += ' name = ' + conn.escape(body.company.name);
+            let handler = function(error, results) {
+                if (error) {
+                    respondWithError(res, error);
+                    return;
+                }
+
+                afterCompany(results.insertId);
+            };
+            conn.query(cQuery, handler);
+        } else {
+            afterCompany(companyId);
+        }
+    };
+
+    // 3. Update the company. If there is a company id, use it.
+    //    Else, look for the company name and create one if none is found.
+    let afterInsert = function() {
+        if (body.company.hasOwnProperty('id') && !Number.isNaN(body.company.id)) {
+            afterCompanySearch(body.company.id);
+            return;
+        }
+
+        let cQuery = 'SELECT * FROM ' + db.companyTable;
+        cQuery += ' WHERE name = ' + conn.escape(body.company.name) + " LIMIT 1";
+        let handler = function(error, results) {
+            if (error) {
+                respondWithError(res, error);
+                return;
+            }
+
+            if (results.length > 0) {
+                afterCompanySearch(results[0].id);
+            } else {
+                afterCompanySearch(-1);
+            }
+        };
+        conn.query(cQuery, handler);
+    };
+
+    // 2. Insert the new addresses, phone numbers and email addresses
+    let afterDrop = function() {
+        let queryCount = 0;
+        if (body.hasOwnProperty('addresses') && Array.isArray(body.addresses)) {
+            queryCount += body.addresses.length;
+        }
+        if (body.hasOwnProperty('phoneNumbers') && Array.isArray(body.phoneNumbers)) {
+            queryCount += body.phoneNumbers.length;
+        }
+        if (body.hasOwnProperty('emailAddresses') && Array.isArray(body.emailAddresses)) {
+            queryCount += body.emailAddresses.length;
+        }
+        let transactionCount = 0;
+        let transactionError = false;
+
+        let collector = function() {
+            transactionCount++;
+            if (transactionCount === queryCount && !transactionError) {
+                afterInsert();
+            }
+        };
+
+        let handler = function (error) {
+            if (error && !transactionError) {
+                respondWithError(res, error);
+                transactionError = true;
+            } else {
+                collector();
+            }
+        };
+
+        // Addresses
+        if (body.hasOwnProperty('addresses') && Array.isArray(body.addresses)) {
+            for (let address of body.addresses) {
+                if (transactionError) {
+                    return;
+                }
+                if (!address.hasOwnProperty('address')) {
+                    collector();
+                    continue; // Skip faulty addresses
+                }
+                let aQuery = 'INSERT INTO ' + db.addressTable + ' SET';
+                aQuery += ' address = ' + conn.escape(address.address);
+                aQuery += ', person_id = ' + conn.escape(body.id);
+                conn.query(aQuery, handler);
+            }
+        }
+
+        // Phone numbers
+        if (body.hasOwnProperty('phoneNumbers') && Array.isArray(body.phoneNumbers)) {
+            for (let phone of body.phoneNumbers) {
+                if (transactionError) {
+                    return;
+                }
+                if (!phone.hasOwnProperty('number')) {
+                    collector();
+                    continue; // Skip faulty phone numbers
+                }
+                let phQuery = 'INSERT INTO ' + db.phoneTable + ' SET';
+                phQuery += ' number = ' + conn.escape(phone.number);
+                phQuery += ', type = '  + (phone.hasOwnProperty('type') ? conn.escape(phone.type) : '""');
+                phQuery += ', person_id = ' + conn.escape(body.id);
+                conn.query(phQuery, handler);
+            }
+        }
+
+        // Email addresses
+        if (body.hasOwnProperty('emailAddresses') && Array.isArray(body.emailAddresses)) {
+            for (let email of body.emailAddresses) {
+                if (transactionError) {
+                    return;
+                }
+                if (!email.hasOwnProperty('address')) {
+                    collector();
+                    continue; // Skip faulty addresses
+                }
+                let phQuery = 'INSERT INTO ' + db.emailTable + ' SET';
+                phQuery += ' address = '  + conn.escape(email.address);
+                phQuery += ', type = '  + (email.hasOwnProperty('type') ? conn.escape(email.type) : '""');
+                phQuery += ', person_id = ' + conn.escape(body.id);
+                conn.query(phQuery, handler);
+            }
+        }
+
+        collector();
+    };
+
+    // 1. Delete old addresses, phone numbers and email addresses
+    let dropAQuery = "DELETE FROM " + db.addressTable + " WHERE person_id = " + conn.escape(req.params.id);
+    let dropPQuery = "DELETE FROM " + db.phoneTable + " WHERE person_id = " + conn.escape(req.params.id);
+    let dropEQuery = "DELETE FROM " + db.emailTable + " WHERE person_id = " + conn.escape(req.params.id);
+    let dropQueries = 3;
+    let dropTransactions = 0;
+    let transactionError = false;
+    let collector = function() {
+        dropTransactions++;
+        if (dropTransactions === dropQueries && !transactionError) {
+            afterDrop();
+        }
+    };
+    let handler = function(error) {
+        if (error && !transactionError) {
+            respondWithError(res, error);
+            transactionError = true;
+            return;
+        }
+        collector();
+    };
+    conn.query(dropAQuery, handler);
+    conn.query(dropPQuery, handler);
+    conn.query(dropEQuery, handler);
 });
 
 module.exports = router;
