@@ -16,7 +16,6 @@
 			margin: 0;
 			top: 16px;
 			vertical-align:top;
-			/*left: 7px;*/
 			--paper-swatch-picker-color-size: 20px;
 		}
 
@@ -26,7 +25,7 @@
 	</style>
 
 	<!-- colorlist-array by @bobspace -->
-	<paper-swatch-picker color="{{color}}" column-count="20" autofill-columns disabled$="[[_disableFieldsSaveButton(modus)]]"
+	<paper-swatch-picker color="{{color}}" column-count="20" autofill-columns hidden$="[[_disableFieldsSaveButton(modus)]]" disabled$="[[_disableFieldsSaveButton(modus)]]"
 		color-list='[
 					"AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige",
 					"Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown",

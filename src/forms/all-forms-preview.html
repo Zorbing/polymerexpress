@@ -12,6 +12,7 @@
 <link rel="import" href="form-contact.html"/>
 <link rel="import" href="show-companies.html"/>
 <link rel="import" href="form-email.html"/>
+<link rel="import" href="show-contact-list.html"/>
 
 <dom-module id="all-forms-preview">
 	<template>
@@ -49,21 +50,24 @@
 	      		width: 400px;
 	      		display: inline-block;
 	      	}
+	      	
+	      	:host div.wide {
+	      		width: 800px;
+	      	}
 
 		</style>
 
 	     <h2>All Forms</h2>
 
-	     <paper-toggle-button checked="{{disabled}}">Disable</paper-toggle-button>
-
-
+		 <div>
+		     <div class="preview wide">
+			    <h3>Show Contacts / Landing Page</h3>
+			    <show-contact-list></show-contact-list>
+	     	 </div>
+	     </div>
 
 	     <div>
-	     	<div class="preview">
-	     		<h3>Add/Edit Contact Empty</h3>
-			    <form-contact disabled$="[[disabled]]"></form-contact>
-		     </div>
-		     <div class="preview">
+		     <div class="preview wide">
 			    <h3>Add/Edit Category Filled</h3>
 			    <form-contact disabled$="[[disabled]]"
 			    	name="Hugo"

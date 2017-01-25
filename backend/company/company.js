@@ -29,6 +29,9 @@ let db = require('../database/connector');
 let conn = db.connection;
 let errorHandler = require('../database/error_handler');
 
+/**
+ * Fetches a list of all companies from the database.
+ */
 router.get("/", function (req, res) {
     // List all records in db
     let query = 'SELECT * FROM `' + db.companyTable + '`';

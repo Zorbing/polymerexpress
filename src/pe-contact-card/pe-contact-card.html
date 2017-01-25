@@ -43,6 +43,10 @@ SOFTWARE.
 	display: inline-block;
 	margin: .2rem .1rem;
 }
+paper-card
+{
+	width: 280px;
+}
 h4
 {
 	margin-bottom: .4rem;
@@ -109,6 +113,12 @@ h4
 	overflow: hidden;
 	max-height: 6rem;
 }
+.phone-numbers-fields,
+.email-addresses-fields,
+.post-addresses-fields
+{
+	margin: 0 0 1rem;
+}
 .card
 {
 	width: 45rem;
@@ -171,7 +181,6 @@ h4
 						</div>
 					</div>
 					<!-- E-mail Adresses -->
-					<h4> </h4>
 					<div class="email-addresses-fields">
 						<template is="dom-repeat" items="[[contact.emailAddresses]]" as="emailAddress">
 							<fields-phone-number id="[[index]]" array-name="contact.emailAddresses" on-lineremove="handleLineremove" icon="communication:email" edit-mode="[[editMode]]" type="email" number="{{emailAddress}}"></fields-phone-number>
@@ -181,7 +190,6 @@ h4
 						</div>
 					</div>
 					<!-- Post Addresses -->
-					<h4> </h4>
 					<div class="post-addresses-fields">
 						<template is="dom-repeat" items="[[contact.addresses]]" as="address">
 							<fields-phone-number id="[[index]]" array-name="contact.addresses" on-lineremove="handleLineremove" icon="icons:home" edit-mode="[[editMode]]" number="{{address}}"></fields-phone-number>
