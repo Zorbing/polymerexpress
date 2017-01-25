@@ -81,8 +81,8 @@ const stubContactList = [
 			, name: 'Coole Leute'
 		}
 		, addresses: ['Am Bauhof, 3 Bobhausen']
-		, phoneNumbers: []
-		, emailAddresses: []
+		, phoneNumbers: ['']
+		, emailAddresses: ['']
 	}
 	, {
 		id: 4
@@ -94,9 +94,9 @@ const stubContactList = [
 			, color: 'deepskyblue'
 			, name: 'Coole Leute'
 		}
-		, addresses: []
-		, phoneNumbers: []
-		, emailAddresses: []
+		, addresses: ['']
+		, phoneNumbers: ['']
+		, emailAddresses: ['']
 	}
 	, {
 		id: 5
@@ -108,9 +108,9 @@ const stubContactList = [
 			, color: 'forestgreen'
 			, name: 'Uncoole Leute'
 		}
-		, addresses: []
-		, phoneNumbers: []
-		, emailAddresses: []
+		, addresses: ['']
+		, phoneNumbers: ['']
+		, emailAddresses: ['']
 	}
 	, {
 		id: 6
@@ -122,9 +122,9 @@ const stubContactList = [
 			, color: 'forestgreen'
 			, name: 'Uncoole Leute'
 		}
-		, addresses: []
-		, phoneNumbers: []
-		, emailAddresses: []
+		, addresses: ['']
+		, phoneNumbers: ['']
+		, emailAddresses: ['']
 	}
 	, {
 		id: 7
@@ -136,9 +136,9 @@ const stubContactList = [
 			, color: 'deeppink'
 			, name: 'Wer ist das?'
 		}
-		, addresses: []
-		, phoneNumbers: []
-		, emailAddresses: []
+		, addresses: ['']
+		, phoneNumbers: ['']
+		, emailAddresses: ['']
 	}
 	, {
 		id: 8
@@ -150,9 +150,9 @@ const stubContactList = [
 			, color: 'deeppink'
 			, name: 'Wer ist das?'
 		}
-		, addresses: []
-		, phoneNumbers: []
-		, emailAddresses: []
+		, addresses: ['']
+		, phoneNumbers: ['']
+		, emailAddresses: ['']
 	}
 ];
 
