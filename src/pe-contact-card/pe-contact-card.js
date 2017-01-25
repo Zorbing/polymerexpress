@@ -31,6 +31,16 @@ Polymer({
 		contact: {
 			type: Object
 		}
+		, viewMode:
+		{
+			type: Boolean,
+			value: false
+		} 
+		, editMode:
+		{
+			type: Boolean,
+			value: false
+		} 
 	}
 	, restContact: null
 
@@ -62,8 +72,17 @@ Polymer({
 			})
 		;
 	}
+	, handleView: function ()
+	{
+		console.info('Entered View Mode');
+		this.viewMode = !this.viewMode;
+	}
 	, handleEdit: function ()
 	{
+		console.info('Entered Edit Mode');
+		this.editMode = !this.editMode;
+		this.viewMode = true;
+		
 		this._showProgressNotifier();
 		this.restContact.edit(this.contact)
 			.then(() =>
@@ -81,6 +100,25 @@ Polymer({
 	, ready: function ()
 	{
 		this.restContact = this.$.restContact.id(this.contact.id);
+	}
+	, computeClass: function (mode)
+	{
+		return mode ? 'big-card' : 'small-card';
+	}
+	, translateActionButton: function (button, mode)
+	{
+		if (button == 'view')
+		{
+			return mode ? 'Open Contact' : 'Close Contact';
+
+		} else if (button == 'edit')
+		{
+			return mode ? 'Save Contact' : 'Edit Contact';
+
+		} else {
+			console.error('Translation not available for ' + button);
+			return '???';
+		}
 	}
 
 

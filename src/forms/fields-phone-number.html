@@ -8,9 +8,27 @@
 
 <dom-module id="fields-phone-number">
 <template>
-	<style include="shared-styles"></style>
-	<paper-input readonly$="[[_disableFieldsSaveButton(modus)]]" label="phone number" required auto-validate allowed-pattern="[0-9+/ ]" error-message="Required!" value="{{number}}">
-		  <iron-icon icon="maps:local-phone" prefix></iron-icon>
+	<style include="shared-styles">
+.field
+{
+	margin: -1.5rem 0 -1.5rem 0;
+	--paper-input-container-disabled: 
+	{
+		opacity: 1;
+	};
+	--paper-input-container-underline-disabled:
+	{
+		opacity: 0;
+	}
+}
+.fieldIcon
+{
+	color: grey;
+}
+
+	</style>
+	<paper-input id="inputField" class="field" disabled$="[[!editMode]]" auto-validate allowed-pattern="[[pattern]]" type="[[type]]" value="{{number}}">
+		  <iron-icon class="fieldIcon" icon="[[icon]]" prefix></iron-icon>
 	</paper-input>
 </template>
 <script>
@@ -19,16 +37,46 @@
 
 		properties: {
 
-			number: {
+			number:
+			{
 				type: String,
 				reflectToAttribute: true,
 				notify: true
 			}
-	   },
+			, type:
+			{
+				type: String,
+				value: ''
+			}
+			, editMode:
+			{
+				type: Boolean,
+				value: false
+			}
+			, pattern:
+			{
+				type: String,
+				value: ''
+			}
+			, icon:
+			{
+				type: String
+			}
+		}
 
-	   behaviors: [
-      		FormsBehavior
-	   ]
+		, isEmpty: function ()
+		{
+			return (this.$.inputField.value == '');
+		}
+		, isValid: function ()
+		{
+			return (this.isEmpty() || this.$.inputField.validate());
+		}
+
+		, behaviors:
+		[
+			FormsBehavior
+		]
 	});
 </script>
 
