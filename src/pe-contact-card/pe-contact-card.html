@@ -1,0 +1,219 @@
+<!--
+The MIT License (MIT)
+
+Copyright 2017 Martin Boekhoff
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="/bower_components/iron-icons/social-icons.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
+
+<link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
+<link rel="import" href="../forms/fields-phone-number.html">
+
+<dom-module id="pe-contact-card">
+	<template>
+		<style>
+:host
+{
+	display: inline-block;
+	margin: .2rem .1rem;
+}
+paper-card
+{
+	width: 280px;
+}
+h4
+{
+	margin-bottom: .4rem;
+	margin-top: .8rem;
+}
+.company,
+.date-of-birth,
+.phone,
+.email,
+.address
+{
+	line-height: 24px;
+}
+.company > span,
+.date-of-birth > span,
+.phone > span,
+.email > span,
+.address > div
+{
+	cursor: text;
+	user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+}
+.card-content iron-icon
+{
+	color: gray;
+	cursor: default;
+	vertical-align: top;
+}
+.address iron-icon
+{
+	float: left;
+}
+.address .text-block
+{
+	margin-left: 28px;
+}
+.delete-button
+{
+	position: absolute;
+	top: 0.7rem;
+	left: 41.5rem;
+}
+.new-item-button
+{
+	position: absolute;
+	margin-left: 17rem;
+	margin-top: -2.2rem;
+}
+.card-actions
+{
+	text-align: center;
+}
+.action-buttons
+{
+	width: 20rem;
+}
+
+.card-content
+{
+	transition: all 1s;
+	overflow: hidden;
+	max-height: 6rem;
+}
+.phone-numbers-fields,
+.email-addresses-fields,
+.post-addresses-fields
+{
+	margin: 0 0 1rem;
+}
+.card
+{
+	width: 45rem;
+}
+.small-card
+{
+	/*max-height: 6rem;*/
+}
+.big-card
+{
+	max-height: 30rem;
+}
+.main-info-block
+{
+	display: inline-block;
+	width: 21rem;
+	vertical-align: top;
+}
+.details-block
+{
+	display: inline-block;
+	width: 21rem;
+	vertical-align: top;
+}
+.contact-name
+{
+	padding: 16px;
+	font-size: 24px;
+}
+
+		</style>
+		<paper-card class="card">
+			<div class="contact-name">
+			<fields-phone-number extra-class="true" maxlength="40" edit-mode="[[editMode]]" number="{{contact.name}}"></fields-phone-number>
+			</div>
+			<!-- Delete Button -->
+			<div class="delete-button" hidden$="[[!editMode]]">
+				<paper-icon-button on-tap="handleDelete" icon="icons:delete-forever"></paper-icon-button>
+				<paper-tooltip animation-delay=0>delete contact</paper-tooltip>
+			</div>
+			<div class$="card-content [[computeClass(viewMode)]]">
+				<!-- Main Information Block-->
+				<div class="main-info-block">
+					<!-- Business -->
+					<fields-phone-number icon="communication:business" edit-mode="[[editMode]]" number="{{contact.company}}"></fields-phone-number>
+					<!-- Category -->
+					<fields-phone-number icon="icons:label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>
+					<!-- Date of Birth -->
+					<fields-phone-number icon="social:cake" pattern="[0-9.-/]" edit-mode="[[editMode]]" number="{{computeDateOfBirth(contact.dateOfBirth)}}"></fields-phone-number>
+				</div>
+				<!-- Details Block -->
+				<div hidden$="[[!viewMode]]" class="details-block">
+					<!-- Phone Numbers -->
+					<div class="phone-numbers-fields">
+						<template is="dom-repeat" items="[[contact.phoneNumbers]]" as="phoneNumber">
+							<fields-phone-number id="[[index]]" array-name="contact.phoneNumbers" on-lineremove="handleLineremove" icon="maps:local-phone" pattern="[0-9+/ ]" edit-mode="[[editMode]]" number="{{phoneNumber}}"></fields-phone-number>
+						</template>
+						<div class="new-item-button" hidden$="[[!editMode]]">
+							<paper-icon-button data-args="phoneNumbers phone-numbers-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+						</div>
+					</div>
+					<!-- E-mail Adresses -->
+					<div class="email-addresses-fields">
+						<template is="dom-repeat" items="[[contact.emailAddresses]]" as="emailAddress">
+							<fields-phone-number id="[[index]]" array-name="contact.emailAddresses" on-lineremove="handleLineremove" icon="communication:email" edit-mode="[[editMode]]" type="email" number="{{emailAddress}}"></fields-phone-number>
+						</template>
+						<div class="new-item-button" hidden$="[[!editMode]]">
+							<paper-icon-button data-args="emailAddresses email-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+						</div>
+					</div>
+					<!-- Post Addresses -->
+					<div class="post-addresses-fields">
+						<template is="dom-repeat" items="[[contact.addresses]]" as="address">
+							<fields-phone-number id="[[index]]" array-name="contact.addresses" on-lineremove="handleLineremove" icon="icons:home" edit-mode="[[editMode]]" number="{{address}}"></fields-phone-number>
+						</template>
+						<div class="new-item-button" hidden$="[[!editMode]]">
+							<paper-icon-button data-args="addresses post-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-actions">
+				<paper-button class="action-buttons" disabled$="[[editMode]]" on-tap="handleView">
+					<iron-icon icon="icons:visibility"></iron-icon>
+					[[translateActionButton('view', viewMode)]]
+				</paper-button>
+				<paper-button class="action-buttons" on-tap="handleEdit">
+					<iron-icon icon="icons:create"></iron-icon>
+					[[translateActionButton('edit', editMode)]]
+				</paper-button>
+			</div>
+		</paper-card>
+
+		<pe-rest-contact id="restContact"></pe-rest-contact>
+	</template>
+
+	<script type="text/javascript" src="pe-contact-card.js"></script>
+</dom-module>

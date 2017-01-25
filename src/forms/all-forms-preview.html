@@ -1,7 +1,9 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<!--
 <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+-->
 <link rel="import" href="/bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
 <link rel="import" href="form-category.html">
@@ -10,20 +12,21 @@
 <link rel="import" href="form-contact.html"/>
 <link rel="import" href="show-companies.html"/>
 <link rel="import" href="form-email.html"/>
+<link rel="import" href="show-contact-list.html"/>
 
 <dom-module id="all-forms-preview">
 	<template>
-		<style>			
+		<style>
 			:host {
 		    	--app-primary-color: #4285f4;
 		        --app-secondary-color: black;
-		
+
 	        	display: block;
 	      	}
 	      	.drawer-list {
 	        	margin: 0 20px;
 	      	}
-	
+
 	      	.drawer-list a {
 		        display: block;
 		        padding: 0 16px;
@@ -31,16 +34,16 @@
 		        color: var(--app-secondary-color);
 		        line-height: 40px;
 	      	}
-	
+
 	      	.drawer-list a.iron-selected {
 		        color: black;
 		        font-weight: bold;
 	      	}
-	      	
+
 	      	.drawer-list a:hover {
 	      		color: blue;
 	      	}
-	      	
+
 	      	:host div.preview {
 	      		background-color: rgba(0,0,0,0.05);
 	      		margin: 10px;
@@ -48,30 +51,33 @@
 	      		display: inline-block;
 	      	}
 	      	
+	      	:host div.wide {
+	      		width: 800px;
+	      	}
+
 		</style>
-			
+
 	     <h2>All Forms</h2>
-	     
-	     <paper-toggle-button checked="{{disabled}}">Disable</paper-toggle-button>
-	     
-	     
-	     
-	     <div>
-	     	<div class="preview">
-	     		<h3>Add/Edit Contact Empty</h3>
-			    <form-contact disabled$="[[disabled]]"></form-contact>
-		     </div>
-		     <div class="preview">
-			    <h3>Add/Edit Category Filled</h3>
-			    <form-contact disabled$="[[disabled]]" 
-			    	name="Hugo" 
-			    	company="Polyfill" 
-			    	birthday="1990/9/5" 
-			    	category="A"
-			    	addressList="'[{"street":"Direkt", "zip":"999", "city":"HTML"}]'></form-contact>
+
+		 <div>
+		     <div class="preview wide">
+			    <h3>Show Contacts / Landing Page</h3>
+			    <show-contact-list></show-contact-list>
 	     	 </div>
 	     </div>
-	     
+
+	     <div>
+		     <div class="preview wide">
+			    <h3>Add/Edit Category Filled</h3>
+			    <form-contact disabled$="[[disabled]]"
+			    	name="Hugo"
+			    	company="Polyfill"
+			    	birthday="1990/9/5"
+			    	category="A"
+			    	address-list='[{"street":"Direkt","zip":999,"city":"HTML"}]'></form-contact>
+	     	 </div>
+	     </div>
+
 	     <div>
 	      	 <div class="preview">
 			    <h3>Add/Edit Category Empty</h3>
@@ -105,31 +111,31 @@
 	     <div>
 		     <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Empty</h3>
-		     	<form-email modus="new"></form-email>	     	
+		     	<form-email modus="new"></form-email>
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Add/Edit E-Mail Address Filled</h3>
-		     	<form-email address="fahr.gast@polymer-express.de"></form-email>	     	
+		     	<form-email address="fahr.gast@polymer-express.de"></form-email>
 		     </div>
 	     </div>
 	     <div>
 		     <div class="preview">
 		     	<h3>Show Companies Dummy Empty</h3>
-		     	<show-companies></show-companies>	     	
+		     	<show-companies></show-companies>
 		     </div>
 	 		 <div class="preview">
 		     	<h3>Show Companies Address Filled</h3>
-		     	<show-companies company-list='["Company A", "Company B", "Company C"]' ></show-companies>	     	
+		     	<show-companies company-list='["Company A", "Company B", "Company C"]' ></show-companies>
 		     </div>
 	     </div>
-	     
-	     
+
+
 	</template>
 
 	<script>
     Polymer({
-      is: 'all-forms-preview' , 
-      
+      is: 'all-forms-preview' ,
+
       properties: {
 			disabled: {
 	        	type: Boolean,
@@ -137,15 +143,15 @@
 	        	reflectToAttribute: true,
 	        	notify: true
 	        },
-	        
+
 	        addresses: {
 	            type: Array,
 	            value: [{street:'New', zip:'666', city:'Test'}],
 	            reflectToAttribute: true,
 	        	notify: true
         	}
-	        
-		} 
+
+		}
     });
   </script>
 </dom-module>

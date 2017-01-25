@@ -1,7 +1,5 @@
-/**
- * The MIT License (MIT)
- *
- * Copyright 2017 Martin Boekhoff
+/*
+ * Copyright 2017 Max Bachmann
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -10,8 +8,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -22,15 +20,29 @@
  * SOFTWARE.
  */
 
-'use strict';
 
-Polymer({
-	is: 'polymerexpress-app'
+// Operate in strict mode.
+// See http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/
+"use strict";
 
-	, properties: {
-		prop1: {
-			type: String
-			, value: 'polymerexpress-app'
-		}
-	}
+// Setup express
+let express = require("express");
+let app = express();
+let port = 3000;
+
+// Middleware
+let bodyParser = require('body-parser');
+app.use(bodyParser.raw({type:'*/*'}));
+
+// Load route modules
+let categoryHandler = require("./category/category");
+let companyHandler = require("./company/company");
+let personHandler = require("./person/person");
+app.use("/category", categoryHandler);
+app.use("/company", companyHandler);
+app.use("/person", personHandler);
+
+// Start the express web server.
+app.listen(port, function () {
+    console.log("Contacts backend listening on port " + port + ".");
 });

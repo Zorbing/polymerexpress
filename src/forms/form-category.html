@@ -8,7 +8,7 @@
 
 <dom-module id="form-category">
 <template>
-	<style include="shared-styles"></style>		
+	<style include="shared-styles"></style>
 		<form-editable modus="{{modus}}">
 			<fields-category modus="[[modus]]" color="{{color}}" name="{{name}}"></fields-category>
 		</form-editable>
@@ -17,7 +17,7 @@
 <script>
 	Polymer({
 		is: 'form-category',
-		
+
 		properties: {
 
 			color: {
@@ -26,12 +26,12 @@
 				reflectToAttribute: true,
 				notify: true,
 			},
-			
+
 			name: {
 				type: String,
 				reflectToAttribute: true,
 				notify: true
-			} 
+			}
 
 	    },
 

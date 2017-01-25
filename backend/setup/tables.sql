@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS contact_person (
 	name VARCHAR(128) NOT NULL,
 	company_id INT NOT NULL,
 	category_id INT NOT NULL,
+	date_of_birth VARCHAR(10) NOT NULL,
 	PRIMARY KEY (id),
 	INDEX (company_id),
 	INDEX (category_id),
@@ -41,10 +42,7 @@ COLLATE utf8_bin;
 CREATE TABLE IF NOT EXISTS contact_address (
 	id INT AUTO_INCREMENT,
 	person_id INT NOT NULL,
-	zip INT NOT NULL,
-	town VARCHAR(128) NOT NULL,
-	country VARCHAR(128) NOT NULL,
-	street VARCHAR(128) NOT NULL,
+	address TEXT NOT NULL,
 	PRIMARY KEY (id),
 	INDEX (person_id),
 	FOREIGN KEY (person_id)
