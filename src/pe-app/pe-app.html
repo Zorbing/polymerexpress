@@ -65,22 +65,23 @@ h2:not(:last-child)
 .content
 {
 	display: table-row-group;
-	height: calc(100% - 170px);
 }
 .left
 {
 	background-color: #4D2538;
 	color: #8E6076;
 	display: table-cell;
+	vertical-align: top;
 	width: 30rem;
-	padding: 2rem 3rem;
+	padding: 1rem 2rem;
 }
 .right
 {
 	background-color: #443855;
 	display: table-cell;
-	width: 50rem;
-	padding: 2rem 3rem;
+	width: 38rem;
+	padding: 1rem 2rem;
+	overflow-x: hidden;
 }
 		</style>
 		<paper-input type="text" value="{{searchString}}">
@@ -93,12 +94,17 @@ h2:not(:last-child)
 			</header>
 			<div class="content">
 				<nav class="content-block left">
+					<h2 style="color: #2C0719">Filter by text input</h2>
+					<paper-input type="text" value="{{searchString}}">
+						<iron-icon icon="icons:search" suffix></iron-icon>
+					</paper-input>
 					<h2 style="color: #2C0719">Category list</h2>
 					<pe-categories></pe-categories>
 				</nav>
-				
+
 				<main class="content-block right">
-		<pe-contact-list search-string="[[searchString]]"></pe-contact-list>
+					<!--<h2 style="color: #605274;">Contact list</h2>-->
+					<pe-contact-list search-string="[[searchString]]"></pe-contact-list>
 				</main>
 			</div>
 		</div>
