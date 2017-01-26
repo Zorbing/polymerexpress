@@ -27,5 +27,10 @@
 Polymer({
 	is: 'pe-app'
 
-	, properties: {}
+	, properties: {
+		searchString: {
+			type: String
+			, value: ''
+		}
+	}
 });
