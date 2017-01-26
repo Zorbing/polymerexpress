@@ -82,9 +82,10 @@ Polymer({
 	}
 	, handleEdit: function (event, contact)
 	{
-		console.log('args:', arguments);
-		// TODO: update some sort filter
-		this.notifyPath('searchString');
+		// update some sort filter
+		const string = this.get('searchString');
+		this.set('searchString', '');
+		this.set('searchString', string);
 	}
 	, ready: function ()
 	{
