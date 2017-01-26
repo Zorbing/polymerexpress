@@ -125,6 +125,7 @@ Polymer({
 	, ready: function ()
 	{
 		this.restContact = this.$.restContact.id(this.contact.id);
+		this.computeColor('initial coloring');
 	}
 	, computeClass: function (mode)
 	{
@@ -147,6 +148,11 @@ Polymer({
 			console.error('Translation not available for ' + button);
 			return '???';
 		}
+	}
+	, computeColor: function(event)
+	{
+		console.log(event, this.contact.category.color)
+		this.customStyle['--category-color'] = this.contact.category.color;
 	}
 
 

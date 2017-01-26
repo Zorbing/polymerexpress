@@ -83,6 +83,10 @@ h2:not(:last-child)
 	padding: 1rem 2rem;
 	overflow-x: hidden;
 }
+.filter-search
+{
+	--paper-input-container-input-color: #8E6076;
+}
 		</style>
 		<div class="center-it">
 			<header class="header">
@@ -92,7 +96,7 @@ h2:not(:last-child)
 			<div class="content">
 				<nav class="content-block left">
 					<h2 style="color: #2C0719">Filter by text input</h2>
-					<paper-input type="text" value="{{searchString}}">
+					<paper-input class="filter-search" type="text" value="{{searchString}}">
 						<iron-icon icon="icons:search" suffix></iron-icon>
 					</paper-input>
 					<h2 style="color: #2C0719">Category list</h2>
