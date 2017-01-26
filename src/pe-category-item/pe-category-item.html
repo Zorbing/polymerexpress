@@ -75,7 +75,8 @@ h4
 {
 	position: absolute;
 	top: 0rem;
-	left: 17rem;
+	/*left: 17rem;*/
+	right: .5rem;
 }
 
 .card-actions
@@ -111,6 +112,7 @@ h4
 			<div class="card-actions">
 				<paper-button class="action-buttons" on-tap="handleConfig">
 					<iron-icon icon="icons:create"></iron-icon>
+					[[translateActionButton(configMode)]]
 				</paper-button>
 			</div>
 		</paper-card>

@@ -47,7 +47,6 @@ Polymer({
 
 	, handleConfig: function ()
 	{
-		console.info('Switched Config Mode');
 		this.configMode = !this.configMode;
 	}
 
@@ -58,8 +57,12 @@ Polymer({
 	}
 	, computeColor: function(event)
 	{
-		console.log(event, this.item.color)
 		this.customStyle['--category-color'] = this.item.color;
+		this.updateStyles();
+	}
+	, translateActionButton: function (mode)
+	{
+		return mode ? 'Save' : 'Edit';
 	}
 
 

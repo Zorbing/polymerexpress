@@ -46,7 +46,7 @@ Polymer({
 		if (str)
 		{
 			// return a filter function for the current search string
-			str = str.toLowerCase();
+			str = str.trim().toLowerCase();
 			textSearch = (contact) =>
 			{
 				return contact.name.toLowerCase().indexOf(str) !== -1 ||

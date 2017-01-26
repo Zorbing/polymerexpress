@@ -176,7 +176,7 @@ h4
 							<fields-phone-number id="[[index]]" array-name="contact.phoneNumbers" on-lineremove="handleLineremove" icon="maps:local-phone" pattern="[0-9+/ ]" edit-mode="[[editMode]]" number="{{phoneNumber}}"></fields-phone-number>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
-							<paper-icon-button data-args="phoneNumbers phone-numbers-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+							<paper-icon-button data-list="phoneNumbers" data-class="phone-numbers-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
 						</div>
 					</div>
 					<!-- E-mail Adresses -->
@@ -185,7 +185,7 @@ h4
 							<fields-phone-number id="[[index]]" array-name="contact.emailAddresses" on-lineremove="handleLineremove" icon="communication:email" edit-mode="[[editMode]]" type="email" number="{{emailAddress}}"></fields-phone-number>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
-							<paper-icon-button data-args="emailAddresses email-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+							<paper-icon-button data-list="emailAddresses" data-class="email-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
 						</div>
 					</div>
 					<!-- Post Addresses -->
@@ -194,7 +194,7 @@ h4
 							<fields-phone-number id="[[index]]" array-name="contact.addresses" on-lineremove="handleLineremove" icon="icons:home" edit-mode="[[editMode]]" number="{{address}}"></fields-phone-number>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
-							<paper-icon-button data-args="addresses post-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+							<paper-icon-button data-list="addresses" data-class="post-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
 						</div>
 					</div>
 				</div>
