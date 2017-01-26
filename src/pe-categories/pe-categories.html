@@ -25,6 +25,7 @@ SOFTWARE.
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
 <link rel="import" href="../pe-rest-category/pe-rest-category.html">
+<link rel="import" href="../pe-category-item/pe-category-item.html">
 
 <dom-module id="pe-categories">
 	<template>
@@ -33,27 +34,15 @@ SOFTWARE.
 {
 	display: block;
 }
-ul li
-{
-	list-style: none;
-	padding: 0 .8rem;
-	position: relative;
-}
-ul li::before
-{
-	content: '[' attr(data-id) ']';
-	display: inline-block;
-	margin-left: .4rem;
-	margin-right: .6rem;
-	text-align: center;
-	width: 2rem;
-}
+
 		</style>
-		<ul>
-			<template is="dom-repeat" items="[[list]]">
-				<li data-id$="[[item.id]]">[[item.name]] <span style="background-color: [[item.color]];">([[item.color]])</span></li>
-			</template>
-		</ul>
+
+
+		<template is="dom-repeat" items="[[list]]">
+			<pe-category-item item="{{item}}" on-delete="handleDelete" on-edit="handleEdit"></pe-category-item>
+		</template>
+		<div on-tap="handleNew">new!</div>
+
 		<pe-rest-category id="restCategory"></pe-rest-category>
 	</template>
 

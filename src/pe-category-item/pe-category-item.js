@@ -25,31 +25,42 @@
 'use strict';
 
 Polymer({
-	is: 'pe-categories'
+	is: 'pe-category-item'
 
 	, properties: {
-		list: {
-			type: Array
-			, value: []
+		item: {
+			type: Object
+		}
+
+		, configMode:
+		{
+			type: Boolean,
+			value: false
 		}
 	}
 
+
+	, handleDelete: function ()
+	{
+		this.fire('delete', this.item);
+	}
+
+	, handleConfig: function ()
+	{
+		console.info('Switched Config Mode');
+		this.configMode = !this.configMode;
+	}
+
+
 	, ready: function ()
 	{
-		this.$.restCategory.list()
-			.then(list => this.set('list', list))
-		;
+		this.computeColor('initial coloring');
 	}
-	, handleNew: function (event)
+	, computeColor: function(event)
 	{
-		console.debug(event);
+		console.log(event, this.item.color)
+		this.customStyle['--category-color'] = this.item.color;
 	}
-	, handleDelete: function (event)
-	{
-		console.debug(event);
-	}
-	, handleEdit: function (event)
-	{
-		console.debug(event);
-	}
+
+
 });
