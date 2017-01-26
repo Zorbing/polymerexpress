@@ -42,6 +42,10 @@ app.use("/category", categoryHandler);
 app.use("/company", companyHandler);
 app.use("/person", personHandler);
 
+// Serve static files, such as the frontend
+let path = require('path');
+app.use('/', express.static(path.join(__dirname, 'static')));
+
 // Start the express web server.
 app.listen(port, function () {
     console.log("Contacts backend listening on port " + port + ".");
