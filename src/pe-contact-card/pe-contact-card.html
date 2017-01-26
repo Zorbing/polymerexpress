@@ -43,6 +43,7 @@ SOFTWARE.
 	display: inline-block;
 	margin: .2rem .1rem;
 	width: 20rem;
+	--category-color: pink;
 }
 paper-card
 {
@@ -123,6 +124,7 @@ h4
 .card
 {
 	width: 40rem;
+	--paper-card-background-color: var(--category-color);
 }
 .small-card
 {
@@ -167,7 +169,7 @@ h4
 					<!-- Business -->
 					<fields-phone-number icon="communication:business" edit-mode="[[editMode]]" number="{{contact.company}}"></fields-phone-number>
 					<!-- Category -->
-					<fields-phone-number icon="icons:label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>
+					<fields-phone-number on-change="computeColor" icon="icons:label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>
 					<!-- Date of Birth -->
 					<fields-phone-number icon="social:cake" pattern="[0-9.-/]" edit-mode="[[editMode]]" number="{{contact.dateOfBirth}}"></fields-phone-number>
 				</div>
