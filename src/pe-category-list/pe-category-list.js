@@ -25,7 +25,7 @@
 'use strict';
 
 Polymer({
-	is: 'pe-categories'
+	is: 'pe-category-list'
 
 	, properties: {
 		list: {
