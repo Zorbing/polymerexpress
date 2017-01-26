@@ -28,36 +28,48 @@ Polymer({
 	is: 'pe-contact-list'
 
 	, properties: {
-		searchString: {
+		categoryList: {
+			type: Array
+		}
+		, searchString: {
 			type: String
-			, value: ''
 		}
 
 	}
 	, list: []
 
-	, computeFilter: function (str)
+	, computeFilter: function (str, categoryList)
 	{
-		if (!str)
+		let textSearch = () => true;
+		let categoryFilter = () => true;
+
+		if (str)
 		{
-			// set filter to null to disable filtering
-			return null;
+			// return a filter function for the current search string
+			str = str.toLowerCase();
+			textSearch = (contact) =>
+			{
+				return contact.name.toLowerCase().indexOf(str) !== -1 ||
+					contact.dateOfBirth.toLowerCase().indexOf(str) !== -1 ||
+					contact.company.toLowerCase().indexOf(str) !== -1 ||
+					contact.category.color.toLowerCase().indexOf(str) !== -1 ||
+					contact.category.name.toLowerCase().indexOf(str) !== -1 ||
+					contact.addresses.some(a => a.toLowerCase().indexOf(str) !== -1) ||
+					contact.phoneNumbers.some(p => p.toLowerCase().indexOf(str) !== -1) ||
+					contact.emailAddresses.some(e => e.toLowerCase().indexOf(str) !== -1)
+				;
+			};
+		}
+		if (categoryList.length > 0)
+		{
+			categoryList = categoryList.map(s => s.toLowerCase());
+			categoryFilter = (contact) =>
+			{
+				return categoryList.indexOf(contact.category.name.toLowerCase()) !== -1;
+			};
 		}
 
-		// return a filter function for the current search string
-		str = str.toLowerCase();
-		return function (contact)
-		{
-			return contact.name.toLowerCase().indexOf(str) != -1 ||
-				contact.dateOfBirth.toLowerCase().indexOf(str) != -1 ||
-				contact.company.toLowerCase().indexOf(str) != -1 ||
-				contact.category.color.toLowerCase().indexOf(str) != -1 ||
-				contact.category.name.toLowerCase().indexOf(str) != -1 ||
-				contact.addresses.some(a => a.toLowerCase().indexOf(str) != -1) ||
-				contact.phoneNumbers.some(p => p.toLowerCase().indexOf(str) != -1) ||
-				contact.emailAddresses.some(e => e.toLowerCase().indexOf(str) != -1)
-			;
-		};
+		return (contact) => textSearch(contact) && categoryFilter(contact);
 	}
 	, handleDelete: function (event, contact)
 	{

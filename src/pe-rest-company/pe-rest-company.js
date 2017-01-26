@@ -49,6 +49,14 @@ Polymer({
 		{
 			return Promise.resolve(stubCompanyList);
 		}
-		return this.$.rest.read();
+		return this.$.rest.read()
+			.then((resultList) =>
+			{
+				return resultList.map((result) =>
+				{
+					return this.$.rest.fromServer.company(result);
+				});
+			})
+		;
 	}
 });
