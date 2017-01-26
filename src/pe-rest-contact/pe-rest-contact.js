@@ -221,15 +221,15 @@ class Contact
 	 * edit
 	 */
 
-	edit(newName, newDateOfBirth, newCompany, newAddresses, newPhoneNumbers, newEmailAddresses)
+	edit(newContact)
 	{
 		return this.rest.replace({
-			name: newName
-			, dateOfBirth: newDateOfBirth
-			, company: this.toServer.company(newCompany)
-			, addresses: this.toServer.addressList(newAddresses)
-			, phoneNumbers: this.toServer.phoneNumberList(newPhoneNumbers)
-			, emailAddresses: this.toServer.emailAddressList(newEmailAddresses)
+			name: newContact.name
+			, dateOfBirth: newContact.dateOfBirth
+			, company: this.toServer.company(newContact.company)
+			, addresses: this.toServer.addressList(newContact.addresses)
+			, phoneNumbers: this.toServer.phoneNumberList(newContact.phoneNumbers)
+			, emailAddresses: this.toServer.emailAddressList(newContact.emailAddresses)
 		});
 	}
 	editAddress(addressId, newAddress)
