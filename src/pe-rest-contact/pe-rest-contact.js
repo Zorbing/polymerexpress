@@ -31,7 +31,7 @@ const stubContactList = [
 	{
 		id: 0
 		, name: 'Cond Uctor'
-		, dateOfBirth: -8757576
+		, dateOfBirth: '1942-2-4'
 		, company: 'Polybahn'
 		, category: {
 			id: 0
@@ -45,7 +45,7 @@ const stubContactList = [
 	, {
 		id: 1
 		, name: 'Bernd Schmidt'
-		, dateOfBirth: 6932700
+		, dateOfBirth: '1991-12-21'
 		, company: 'ynapmoC'
 		, category: {
 			id: 0
@@ -59,7 +59,7 @@ const stubContactList = [
 	, {
 		id: 2
 		, name: 'Peter Pan'
-		, dateOfBirth: 0
+		, dateOfBirth: '1970-2-6'
 		, company: 'Polybahn'
 		, category: {
 			id: 1
@@ -73,7 +73,7 @@ const stubContactList = [
 	, {
 		id: 3
 		, name: 'Bob Baumeister'
-		, dateOfBirth: 0
+		, dateOfBirth: '1970-2-2'
 		, company: 'Hot Animation Studios'
 		, category: {
 			id: 1
@@ -87,7 +87,7 @@ const stubContactList = [
 	, {
 		id: 4
 		, name: 'Giesela Schmidt'
-		, dateOfBirth: 0
+		, dateOfBirth: '1970-2-3'
 		, company: 'ynapmoC'
 		, category: {
 			id: 1
@@ -101,7 +101,7 @@ const stubContactList = [
 	, {
 		id: 5
 		, name: 'Bernd Brot'
-		, dateOfBirth: 0
+		, dateOfBirth: '1970-2-5'
 		, company: 'KiKA-Lounge'
 		, category: {
 			id: 2
@@ -115,7 +115,7 @@ const stubContactList = [
 	, {
 		id: 6
 		, name: 'Bibi Range'
-		, dateOfBirth: 0
+		, dateOfBirth: '1970-2-12'
 		, company: 'TheirTube'
 		, category: {
 			id: 2
@@ -128,8 +128,8 @@ const stubContactList = [
 	}
 	, {
 		id: 7
-		, name: 'Womas Tinkler'
-		, dateOfBirth: -28382436
+		, name: 'Wilmer Tinkler'
+		, dateOfBirth: '1880-2-13'
 		, company: 'SIMI'
 		, category: {
 			id: 3
@@ -143,7 +143,7 @@ const stubContactList = [
 	, {
 		id: 8
 		, name: 'Dieter Brooksdandern'
-		, dateOfBirth: 0
+		, dateOfBirth: '1970-2-14'
 		, company: 'SIMI'
 		, category: {
 			id: 3
@@ -163,6 +163,8 @@ class Contact
 	constructor(id, rest)
 	{
 		this.rest = rest.sub(id);
+		this.fromServer = this.rest.fromServer;
+		this.toServer = this.rest.toServer;
 	}
 
 
@@ -174,19 +176,19 @@ class Contact
 	addAddress(newAddress)
 	{
 		return this.rest.sub(addressSubPath).create({
-			address: newAddress
+			address: this.toServer.address(newAddress)
 		});
 	}
 	addEmailAddress(newEmailAddress)
 	{
 		return this.rest.sub(emailAdressSubPath).create({
-			emailAddress: newEmailAddress
+			emailAddress: this.toServer.emailAddress(newEmailAddress)
 		});
 	}
 	addPhoneNumber(contactId, newPhoneNumber)
 	{
 		return this.rest.sub(phoneNumberSubPath).create({
-			phoneNumber: newPhoneNumber
+			phoneNumber: this.toServer.phoneNumber(newPhoneNumber)
 		});
 	}
 
@@ -219,33 +221,33 @@ class Contact
 	 * edit
 	 */
 
-	edit(newName, newDateOfBirth, newCompany, newAddresses, newPhoneNumbers, newEmailAddresses)
+	edit(newContact)
 	{
 		return this.rest.replace({
-			name: newName
-			, dateOfBirth: newDateOfBirth
-			, company: newCompany
-			, addresses: newAddresses
-			, phoneNumbers: newPhoneNumbers
-			, emailAddresses: newEmailAddresses
+			name: newContact.name
+			, dateOfBirth: newContact.dateOfBirth
+			, company: this.toServer.company(newContact.company)
+			, addresses: this.toServer.addressList(newContact.addresses)
+			, phoneNumbers: this.toServer.phoneNumberList(newContact.phoneNumbers)
+			, emailAddresses: this.toServer.emailAddressList(newContact.emailAddresses)
 		});
 	}
 	editAddress(addressId, newAddress)
 	{
 		return this.rest.sub(addressSubPath).sub(addressId).update({
-			address: newAddress
+			address: this.toServer.address(newAddress)
 		});
 	}
 	editAddresses(newAddresses)
 	{
 		return this.rest.update({
-			addresses: newAddresses
+			addresses: this.toServer.addressList(newAddresses)
 		});
 	}
 	editCompany(newCompany)
 	{
 		return this.rest.update({
-			company: newCompany
+			company: this.toServer.company(newCompany)
 		});
 	}
 	editDateOfBirth(newDateOfBirth)
@@ -257,13 +259,13 @@ class Contact
 	editEmailAddress(emailAddressId, newEmailAddress)
 	{
 		return this.rest.sub(emailAdressSubPath).sub(emailAddressId).update({
-			emailAddress: newEmailAddress
+			emailAddress: this.toServer.emailAddress(newEmailAddress)
 		});
 	}
 	editEmailAddresses(newEmailAddresses)
 	{
 		return this.rest.update({
-			emailAddresses: newEmailAddresses
+			emailAddresses: this.toServer.emailAddressList(newEmailAddresses)
 		});
 	}
 	editName(newName)
@@ -275,13 +277,13 @@ class Contact
 	editPhoneNumber(phoneNumberId, newPhoneNumber)
 	{
 		return this.rest.sub(phoneNumberSubPath).sub(phoneNumberId).update({
-			phoneNumber: newPhoneNumber
+			phoneNumber: this.toServer.phoneNumber(newPhoneNumber)
 		});
 	}
 	editPhoneNumbers(newPhoneNumbers)
 	{
 		return this.rest.update({
-			phoneNumbers: newPhoneNumbers
+			phoneNumbers: this.toServer.phoneNumberList(newPhoneNumbers)
 		});
 	}
 
@@ -293,7 +295,16 @@ class Contact
 
 	get()
 	{
-		return this.rest.read();
+		return this.rest.read()
+			.then((result) =>
+			{
+				result.company = this.fromServer.company(result.company);
+				result.addresses = this.fromServer.addressList(result.addresses);
+				result.phoneNumbers = this.fromServer.phoneNumberList(result.phoneNumbers);
+				result.emailAddresses = this.fromServer.emailAddressList(result.emailAddresses);
+				return result;
+			})
+		;
 	}
 }
 
@@ -307,10 +318,10 @@ Polymer({
 		return this.$.rest.create({
 			name: name
 			, dateOfBirth: dateOfBirth
-			, company: company
-			, addresses: addresses
-			, phoneNumbers: phoneNumbers
-			, emailAddresses: emailAddresses
+			, company: this.$.rest.toServer.company(company)
+			, addresses: this.$.rest.toServer.addressList(addresses)
+			, phoneNumbers: this.$.rest.toServer.phoneNumberList(phoneNumbers)
+			, emailAddresses: this.$.rest.toServer.emailAddressList(emailAddresses)
 		});
 	}
 	, id: function (contactId)
@@ -323,6 +334,23 @@ Polymer({
 		{
 			return Promise.resolve(stubContactList);
 		}
-		return this.$.rest.read();
+		return this.$.rest.read()
+			.then((resultList) =>
+			{
+				return resultList.map((result) =>
+				{
+					return {
+						id: result.id
+						, name: result.name
+						, dateOfBirth: result.dateOfBirth
+						, company: this.$.rest.fromServer.company(result.company)
+						, category: result.category
+						, addresses: this.$.rest.fromServer.addressList(result.addresses)
+						, phoneNumbers: this.$.rest.fromServer.phoneNumberList(result.phoneNumbers)
+						, emailAddresses: this.$.rest.fromServer.emailAddressList(result.emailAddresses)
+					};
+				});
+			})
+		;
 	}
 });

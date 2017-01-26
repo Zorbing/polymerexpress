@@ -25,41 +25,58 @@
 'use strict';
 
 Polymer({
-	is: 'pe-app'
+	is: 'pe-category-item'
 
 	, properties: {
-		filterCategories: {
-			type: Array
-			, value: []
+		category: {
+			type: Object
 		}
-		, searchString: {
-			type: String
-			, value: ''
+
+		, configMode:
+		{
+			type: Boolean,
+			value: false
 		}
-		, enableBirthdayFilter: {
-			type: Boolean
-			, value: false
+		, enableFilter:
+		{
+			type: Boolean,
+			value: false,
+			observer: 'filterChanged'
 		}
 	}
 
-	, handleAddFilter: function (event, category)
+
+	, handleDelete: function ()
 	{
-		const index = this.filterCategories.indexOf(category);
-		if (index === -1)
+		this.fire('delete', this.category);
+	}
+
+	, handleConfig: function ()
+	{
+		this.configMode = !this.configMode;
+	}
+
+
+	, ready: function ()
+	{
+		this.computeColor('initial coloring');
+	}
+	, computeColor: function(event)
+	{
+		this.customStyle['--category-color'] = this.category.color;
+		this.updateStyles();
+	}
+	, translateActionButton: function (mode)
+	{
+		return mode ? 'Save' : 'Edit';
+	}
+	, filterChanged: function (newValue, oldValue)
+	{
+		if (oldValue !== undefined)
 		{
-			// set the whole array to trigger the observer
-			this.set('filterCategories', this.get('filterCategories').concat([category]));
+			this.fire((this.enableFilter ? 'add' : 'remove') + '-filter', this.category);
 		}
 	}
-	, handleRemoveFilter: function (event, category)
-	{
-		const index = this.filterCategories.indexOf(category);
-		if (index !== -1)
-		{
-			// set the whole array to trigger the observer
-			const arr = this.get('filterCategories').slice(0);
-			arr.splice(index, 1);
-			this.set('filterCategories', arr);
-		}
-	}
+
+
 });

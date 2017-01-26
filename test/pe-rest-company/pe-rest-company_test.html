@@ -49,7 +49,14 @@ suite('<pe-rest-company>', function ()
 	const responseHeaders = {
 		json: { 'Content-Type': 'application/json' }
 	};
-	const stubCompanyList = ['Lakin and Sons', 'Schmidt Group', 'Wunsch-Berge', 'Zulauf-Streich', 'Schuppe-Beer'];
+	const stubCompanyList = [
+		{ name: 'Lakin and Sons' }
+		, { name: 'Schmidt Group' }
+		, { name: 'Wunsch-Berge' }
+		, { name: 'Zulauf-Streich' }
+		, { name: 'Schuppe-Beer' }
+	];
+	const stubCompanyListAfter = stubCompanyList.map(c => c.name);
 	let element;
 	setup(function ()
 	{
@@ -94,7 +101,7 @@ suite('<pe-rest-company>', function ()
 			{
 				expect(response).to.be.ok;
 				expect(response).to.be.an('array');
-				expect(response).to.be.deep.equal(stubCompanyList);
+				expect(response).to.be.deep.equal(stubCompanyListAfter);
 			});
 		});
 	});

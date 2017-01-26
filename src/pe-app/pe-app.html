@@ -23,8 +23,10 @@ SOFTWARE.
 -->
 
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
 
-<link rel="import" href="../pe-categories/pe-categories.html">
+<link rel="import" href="../pe-category-list/pe-category-list.html">
 <link rel="import" href="../pe-contact-list/pe-contact-list.html">
 
 <dom-module id="pe-app">
@@ -32,8 +34,6 @@ SOFTWARE.
 		<style>
 :host
 {
-	display: block;
-	padding: 1.2rem;
 }
 h2:not(:first-child)
 {
@@ -43,12 +43,83 @@ h2:not(:last-child)
 {
 	margin-bottom: 0.4rem;
 }
-		</style>
-		<h2>Contact list</h2>
-		<pe-contact-list></pe-contact-list>
 
-		<h2>Category list</h2>
-		<pe-categories></pe-categories>
+.center-it
+{
+	display: table;
+	width: 80rem;
+	margin: auto;
+	height: 100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.header
+{
+	display: table-caption;
+	background-color: #2D213F;
+	color: #605274;
+	height: 150px;
+	padding: 10px 3rem;
+	font-size: 3.5rem;
+	vertical-align: top;
+}
+.content
+{
+	display: table-row-group;
+}
+.left
+{
+	background-color: #4D2538;
+	color: #8E6076;
+	display: table-cell;
+	vertical-align: top;
+	width: 30rem;
+	padding: 1rem 2rem;
+}
+.right
+{
+	background-color: #443855;
+	display: table-cell;
+	width: 38rem;
+	padding: 1rem 2rem;
+	overflow-x: hidden;
+}
+.content-block.left h2
+{
+	color: rgba(255, 255, 255, 0.8);
+}
+.filter-search
+{
+	/*--paper-input-container-input-color: #8E6076;*/
+	--paper-input-container-input-color: rgba(228, 103, 162, 1);
+	--paper-input-container-color: rgba(255, 255, 255, 0.5);
+}
+.filter-birthday
+{
+	--paper-toggle-button-label-color: rgba(255, 255, 255, 0.8);
+}
+		</style>
+		<div class="center-it">
+			<header class="header">
+				<img src="/images/pe-logo.png" alt="Logo" />
+				<div style="display: inline-block; position: relative; left: 3rem; top: -3rem;">Contact Application: PolymerExpress</div>
+			</header>
+			<div class="content">
+				<nav class="content-block left">
+					<h2>Filter by text input</h2>
+					<paper-input class="filter-search" type="text" value="{{searchString}}" placeholder="search">
+						<iron-icon icon="icons:search" suffix></iron-icon>
+					</paper-input>
+					<paper-toggle-button class="filter-birthday" checked="{{enableBirthdayFilter}}">Display all people whose birthday happens in the next ten days</paper-toggle-button>
+					<h2>Category list</h2>
+					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter"></pe-category-list>
+				</nav>
+
+				<main class="content-block right">
+					<!--<h2 style="color: #605274;">Contact list</h2>-->
+					<pe-contact-list search-string="[[searchString]]" filter-categories="[[filterCategories]]" birthday-filter="[[enableBirthdayFilter]]"></pe-contact-list>
+				</main>
+			</div>
+		</div>
 	</template>
 
 	<script type="text/javascript" src="pe-app.js"></script>

@@ -22,46 +22,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+<link rel="import" href="/bower_components/polymer/polymer.html">
 
-		<title>pe-categories test</title>
+<link rel="import" href="../pe-rest-category/pe-rest-category.html">
+<link rel="import" href="../pe-category-item/pe-category-item.html">
 
-		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
-		<script src="../../../web-component-tester/browser.js"></script>
-
-		<link rel="import" href="../../src/pe-categories/pe-categories.html">
-	</head>
-	<body>
-		<test-fixture id="basic">
-			<template>
-				<pe-categories></pe-categories>
-			</template>
-		</test-fixture>
-
-		<script>
-suite('<pe-categories>', function()
+<dom-module id="pe-category-list">
+	<template>
+		<style>
+:host
 {
-	const testList = ['First', 'second'];
-	let element;
-	setup(function ()
-	{
-		element = fixture('basic');
-	});
+	display: block;
+}
 
-	test('instantiating the element works', function ()
-	{
-		assert.equal(element.is, 'pe-categories');
-	});
-	test('setting the category list works', function ()
-	{
-		element.list = testList;
-		assert.equal(element.list, testList);
-	});
-});
-		</script>
-	</body>
-</html>
+		</style>
+
+
+		<template is="dom-repeat" items="[[list]]">
+			<pe-category-item category="{{item}}" on-delete="handleDelete" on-edit="handleEdit"></pe-category-item>
+		</template>
+		<div on-tap="handleNew">new!</div>
+
+		<pe-rest-category id="restCategory"></pe-rest-category>
+	</template>
+
+	<script type="text/javascript" src="pe-category-list.js"></script>
+</dom-module>

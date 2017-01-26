@@ -25,7 +25,7 @@
 'use strict';
 
 Polymer({
-	is: 'pe-categories'
+	is: 'pe-category-list'
 
 	, properties: {
 		list: {
@@ -37,7 +37,19 @@ Polymer({
 	, ready: function ()
 	{
 		this.$.restCategory.list()
-			.then(list => this.list = list)
+			.then(list => this.set('list', list))
 		;
+	}
+	, handleNew: function (event)
+	{
+		console.debug(event);
+	}
+	, handleDelete: function (event)
+	{
+		console.debug(event);
+	}
+	, handleEdit: function (event)
+	{
+		console.debug(event);
 	}
 });

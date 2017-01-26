@@ -46,54 +46,39 @@ const colorKeywords = [
 ];
 const stubCategoryList = [
 	{
+		id: 0
+		, color: 'mintcream'
+		, name: 'Test'
+	}
+	, {
 		id: 1
-		, name: 'Friend'
-		, color: 'floralwhite'
+		, color: 'deepskyblue'
+		, name: 'Coole Leute'
 	}
 	, {
 		id: 2
-		, name: 'Acquaintances'
-		, color: 'lightgoldenrodyellow'
+		, color: 'forestgreen'
+		, name: 'Uncoole Leute'
 	}
 	, {
 		id: 3
-		, name: 'Family'
-		, color: 'ghostwhite'
+		, color: 'deeppink'
+		, name: 'Wer ist das?'
 	}
 	, {
 		id: 4
-		, name: 'Enemies'
-		, color: 'darkmagenta'
-	}
-	, {
-		id: 5
-		, name: 'School'
-		, color: 'darkolivegreen'
-	}
-	, {
-		id: 6
 		, name: 'Supplier'
 		, color: 'darkorange'
 	}
 	, {
-		id: 7
+		id: 5
 		, name: 'Business'
 		, color: 'dimgray'
 	}
 	, {
-		id: 8
+		id: 6
 		, name: 'Work'
 		, color: 'skyblue'
-	}
-	, {
-		id: 9
-		, name: 'Customer'
-		, color: 'brown'
-	}
-	, {
-		id: 10
-		, name: 'VIP'
-		, color: 'darkblue'
 	}
 ];
 

@@ -42,10 +42,8 @@ SOFTWARE.
 {
 	display: inline-block;
 	margin: .2rem .1rem;
-}
-paper-card
-{
-	width: 280px;
+	width: 20rem;
+	--category-color: pink;
 }
 h4
 {
@@ -74,7 +72,6 @@ h4
 }
 .card-content iron-icon
 {
-	color: gray;
 	cursor: default;
 	vertical-align: top;
 }
@@ -90,7 +87,7 @@ h4
 {
 	position: absolute;
 	top: 0.7rem;
-	left: 41.5rem;
+	left: 36.5rem;
 }
 .new-item-button
 {
@@ -104,7 +101,7 @@ h4
 }
 .action-buttons
 {
-	width: 20rem;
+	width: 18rem;
 }
 
 .card-content
@@ -121,7 +118,8 @@ h4
 }
 .card
 {
-	width: 45rem;
+	width: 40rem;
+	--paper-card-background-color: var(--category-color);
 }
 .small-card
 {
@@ -134,19 +132,20 @@ h4
 .main-info-block
 {
 	display: inline-block;
-	width: 21rem;
+	width: 18rem;
 	vertical-align: top;
 }
 .details-block
 {
 	display: inline-block;
-	width: 21rem;
+	width: 18rem;
 	vertical-align: top;
 }
 .contact-name
 {
+	text-align: center;
 	padding: 16px;
-	font-size: 24px;
+	font-size: 30px;
 }
 
 		</style>
@@ -165,9 +164,9 @@ h4
 					<!-- Business -->
 					<fields-phone-number icon="communication:business" edit-mode="[[editMode]]" number="{{contact.company}}"></fields-phone-number>
 					<!-- Category -->
-					<fields-phone-number icon="icons:label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>
+					<fields-phone-number on-change="computeColor" icon="icons:label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>
 					<!-- Date of Birth -->
-					<fields-phone-number icon="social:cake" pattern="[0-9.-/]" edit-mode="[[editMode]]" number="{{computeDateOfBirth(contact.dateOfBirth)}}"></fields-phone-number>
+					<fields-phone-number icon="social:cake" pattern="[0-9.-/]" edit-mode="[[editMode]]" number="{{contact.dateOfBirth}}"></fields-phone-number>
 				</div>
 				<!-- Details Block -->
 				<div hidden$="[[!viewMode]]" class="details-block">
@@ -177,7 +176,7 @@ h4
 							<fields-phone-number id="[[index]]" array-name="contact.phoneNumbers" on-lineremove="handleLineremove" icon="maps:local-phone" pattern="[0-9+/ ]" edit-mode="[[editMode]]" number="{{phoneNumber}}"></fields-phone-number>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
-							<paper-icon-button data-args="phoneNumbers phone-numbers-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+							<paper-icon-button data-list="phoneNumbers" data-class="phone-numbers-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
 						</div>
 					</div>
 					<!-- E-mail Adresses -->
@@ -186,7 +185,7 @@ h4
 							<fields-phone-number id="[[index]]" array-name="contact.emailAddresses" on-lineremove="handleLineremove" icon="communication:email" edit-mode="[[editMode]]" type="email" number="{{emailAddress}}"></fields-phone-number>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
-							<paper-icon-button data-args="emailAddresses email-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+							<paper-icon-button data-list="emailAddresses" data-class="email-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
 						</div>
 					</div>
 					<!-- Post Addresses -->
@@ -195,7 +194,7 @@ h4
 							<fields-phone-number id="[[index]]" array-name="contact.addresses" on-lineremove="handleLineremove" icon="icons:home" edit-mode="[[editMode]]" number="{{address}}"></fields-phone-number>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
-							<paper-icon-button data-args="addresses post-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
+							<paper-icon-button data-list="addresses" data-class="post-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
 						</div>
 					</div>
 				</div>

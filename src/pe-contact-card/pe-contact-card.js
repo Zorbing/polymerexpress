@@ -30,25 +30,21 @@ Polymer({
 	, properties: {
 		contact: {
 			type: Object
+			, observer: 'contactChanged'
 		}
 		, viewMode:
 		{
 			type: Boolean,
 			value: false
-		} 
+		}
 		, editMode:
 		{
 			type: Boolean,
 			value: false
-		} 
+		}
 	}
 	, restContact: null
 
-	, computeDateOfBirth: function (dateOfBirth)
-	{
-		const dt = new Date(dateOfBirth * 1e5);
-		return dt.toLocaleDateString('en');
-	}
 	, handleDelete: function ()
 	{
 		this._showProgressNotifier();
@@ -74,15 +70,13 @@ Polymer({
 	}
 	, handleView: function ()
 	{
-		console.info('Switched View Mode');
 		this.viewMode = !this.viewMode;
 	}
 	, handleEdit: function ()
 	{
-		console.info('Switched Edit Mode');
 		this.editMode = !this.editMode;
 		this.viewMode = true;
-		
+
 		if (!this.editMode)
 		{
 			this._showProgressNotifier();
@@ -102,34 +96,29 @@ Polymer({
 	}
 	, handleLineremove: function (event, whatAndWhere)
 	{
-		console.info('attempt to delete ID ' + whatAndWhere.id + ' in ' + this.get(whatAndWhere.arrayName).length + '-length array ' + whatAndWhere.arrayName);
 		if (this.get(whatAndWhere.arrayName).length > 1)
 		{
 			this.splice(whatAndWhere.arrayName, whatAndWhere.id, 1);
-			console.log('hopefully removed!')
 		}
 	}
 	, handleNew: function (event)
 	{
-		console.log(event);
-		let dataArgs;
-		if (event.target.tagName == 'IRON-ICON')
+		let el = event.target;
+		if (el.tagName == 'IRON-ICON')
 		{
-			dataArgs = event.target.parentNode.getAttribute('data-args').split(' ')
+			el = el.parentNode;
 		}
-		else
-		{
-			dataArgs = event.target.getAttribute('data-args').split(' ')
-		}
-		this.push('contact.' + dataArgs[0], '');
+
+		this.push('contact.' + el.dataset.list, '');
 		setTimeout(() =>
 		{
-			this.$$('.' + dataArgs[1] + ' fields-phone-number:last-of-type').focus();
+			this.$$('.' + el.dataset.class + ' fields-phone-number:last-of-type').focus();
 		});
 	}
 	, ready: function ()
 	{
 		this.restContact = this.$.restContact.id(this.contact.id);
+		this.computeColor('initial coloring');
 	}
 	, computeClass: function (mode)
 	{
@@ -151,6 +140,18 @@ Polymer({
 		{
 			console.error('Translation not available for ' + button);
 			return '???';
+		}
+	}
+	, computeColor: function(event)
+	{
+		this.customStyle['--category-color'] = this.contact.category.color;
+		this.updateStyles();
+	}
+	, contactChanged: function (newContact, oldContact)
+	{
+		if (oldContact !== undefined && newContact.category.name !== oldContact.category.name)
+		{
+			this.computeColor('changed triggered');
 		}
 	}
 

@@ -22,40 +22,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-<link rel="import" href="/bower_components/polymer/polymer.html">
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-<link rel="import" href="../pe-rest-category/pe-rest-category.html">
+		<title>pe-category-list test</title>
 
-<dom-module id="pe-categories">
-	<template>
-		<style>
-:host
-{
-	display: block;
-}
-ul li
-{
-	list-style: none;
-	padding: 0 .8rem;
-	position: relative;
-}
-ul li::before
-{
-	content: '[' attr(data-id) ']';
-	display: inline-block;
-	margin-left: .4rem;
-	margin-right: .6rem;
-	text-align: center;
-	width: 2rem;
-}
-		</style>
-		<ul>
-			<template is="dom-repeat" items="[[list]]">
-				<li data-id$="[[item.id]]">[[item.name]] <span style="background-color: [[item.color]];">([[item.color]])</span></li>
+		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../../web-component-tester/browser.js"></script>
+
+		<link rel="import" href="../../src/pe-category-list/pe-category-list.html">
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<pe-category-list></pe-category-list>
 			</template>
-		</ul>
-		<pe-rest-category id="restCategory"></pe-rest-category>
-	</template>
+		</test-fixture>
 
-	<script type="text/javascript" src="pe-categories.js"></script>
-</dom-module>
+		<script>
+suite('<pe-category-list>', function()
+{
+	const testList = ['First', 'second'];
+	let element;
+	setup(function ()
+	{
+		element = fixture('basic');
+	});
+
+	test('instantiating the element works', function ()
+	{
+		assert.equal(element.is, 'pe-category-list');
+	});
+	test('setting the category list works', function ()
+	{
+		element.list = testList;
+		assert.equal(element.list, testList);
+	});
+});
+		</script>
+	</body>
+</html>

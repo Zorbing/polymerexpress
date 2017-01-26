@@ -28,12 +28,76 @@ Polymer({
 	is: 'pe-contact-list'
 
 	, properties: {
-		list: {
+		birthdayFilter: {
+			type: Boolean
+		}
+		, birthdayFilterDays: {
+			type: Number
+			, value: 10
+		}
+		, filterCategories: {
 			type: Array
-			, value: []
+		}
+		, searchString: {
+			type: String
 		}
 	}
+	, list: []
 
+	, computeFilter: function (str, categoryList, birthday)
+	{
+		if (birthday)
+		{
+			return (contact) =>
+			{
+				const now = new Date();
+				const dt = new Date();
+				const split = contact.dateOfBirth.split('-');
+				if (split.length !== 3)
+				{
+					return false;
+				}
+				dt.setDate(parseInt(split[2], 10));
+				dt.setMonth(parseInt(split[1], 10) - 1);
+				if (dt.getTime() < now.getTime())
+				{
+					dt.setFullYear(dt.getFullYear()+1);
+				}
+				return Math.floor((dt.getTime() - now.getTime()) / 1000 / 60 / 60 / 24) <= this.birthdayFilterDays;
+			};
+		}
+
+		let textSearch = () => true;
+		let categoryFilter = () => true;
+
+		if (str)
+		{
+			// return a filter function for the current search string
+			str = str.trim().toLowerCase();
+			textSearch = (contact) =>
+			{
+				return contact.name.toLowerCase().indexOf(str) !== -1 ||
+					contact.dateOfBirth.toLowerCase().indexOf(str) !== -1 ||
+					contact.company.toLowerCase().indexOf(str) !== -1 ||
+					contact.category.color.toLowerCase().indexOf(str) !== -1 ||
+					contact.category.name.toLowerCase().indexOf(str) !== -1 ||
+					contact.addresses.some(a => a.toLowerCase().indexOf(str) !== -1) ||
+					contact.phoneNumbers.some(p => p.toLowerCase().indexOf(str) !== -1) ||
+					contact.emailAddresses.some(e => e.toLowerCase().indexOf(str) !== -1)
+				;
+			};
+		}
+		if (categoryList.length > 0)
+		{
+			categoryList = categoryList.map(s => s.name.toLowerCase());
+			categoryFilter = (contact) =>
+			{
+				return categoryList.indexOf(contact.category.name.toLowerCase()) !== -1;
+			};
+		}
+
+		return (contact) => textSearch(contact) && categoryFilter(contact);
+	}
 	, handleDelete: function (event, contact)
 	{
 		// remove element from list
@@ -45,13 +109,15 @@ Polymer({
 	}
 	, handleEdit: function (event, contact)
 	{
-		console.log('args:', arguments);
-		// TODO: update some sort filter
+		// update some sort filter
+		const string = this.get('searchString');
+		this.set('searchString', '');
+		this.set('searchString', string);
 	}
 	, ready: function ()
 	{
 		this.$.restContact.list()
-			.then(list => this.list = list)
+			.then(list => this.set('list', list))
 		;
 	}
 });
