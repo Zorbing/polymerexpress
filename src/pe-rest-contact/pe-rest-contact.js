@@ -163,6 +163,8 @@ class Contact
 	constructor(id, rest)
 	{
 		this.rest = rest.sub(id);
+		this.fromServer = this.rest.fromServer;
+		this.toServer = this.rest.toServer;
 	}
 
 
@@ -174,19 +176,19 @@ class Contact
 	addAddress(newAddress)
 	{
 		return this.rest.sub(addressSubPath).create({
-			address: newAddress
+			address: this.toServer.address(newAddress)
 		});
 	}
 	addEmailAddress(newEmailAddress)
 	{
 		return this.rest.sub(emailAdressSubPath).create({
-			emailAddress: newEmailAddress
+			emailAddress: this.toServer.emailAddress(newEmailAddress)
 		});
 	}
 	addPhoneNumber(contactId, newPhoneNumber)
 	{
 		return this.rest.sub(phoneNumberSubPath).create({
-			phoneNumber: newPhoneNumber
+			phoneNumber: this.toServer.phoneNumber(newPhoneNumber)
 		});
 	}
 
@@ -224,28 +226,28 @@ class Contact
 		return this.rest.replace({
 			name: newName
 			, dateOfBirth: newDateOfBirth
-			, company: newCompany
-			, addresses: newAddresses
-			, phoneNumbers: newPhoneNumbers
-			, emailAddresses: newEmailAddresses
+			, company: this.toServer.company(newCompany)
+			, addresses: this.toServer.addressList(newAddresses)
+			, phoneNumbers: this.toServer.phoneNumberList(newPhoneNumbers)
+			, emailAddresses: this.toServer.emailAddressList(newEmailAddresses)
 		});
 	}
 	editAddress(addressId, newAddress)
 	{
 		return this.rest.sub(addressSubPath).sub(addressId).update({
-			address: newAddress
+			address: this.toServer.address(newAddress)
 		});
 	}
 	editAddresses(newAddresses)
 	{
 		return this.rest.update({
-			addresses: newAddresses
+			addresses: this.toServer.addressList(newAddresses)
 		});
 	}
 	editCompany(newCompany)
 	{
 		return this.rest.update({
-			company: newCompany
+			company: this.toServer.company(newCompany)
 		});
 	}
 	editDateOfBirth(newDateOfBirth)
@@ -257,13 +259,13 @@ class Contact
 	editEmailAddress(emailAddressId, newEmailAddress)
 	{
 		return this.rest.sub(emailAdressSubPath).sub(emailAddressId).update({
-			emailAddress: newEmailAddress
+			emailAddress: this.toServer.emailAddress(newEmailAddress)
 		});
 	}
 	editEmailAddresses(newEmailAddresses)
 	{
 		return this.rest.update({
-			emailAddresses: newEmailAddresses
+			emailAddresses: this.toServer.emailAddressList(newEmailAddresses)
 		});
 	}
 	editName(newName)
@@ -275,13 +277,13 @@ class Contact
 	editPhoneNumber(phoneNumberId, newPhoneNumber)
 	{
 		return this.rest.sub(phoneNumberSubPath).sub(phoneNumberId).update({
-			phoneNumber: newPhoneNumber
+			phoneNumber: this.toServer.phoneNumber(newPhoneNumber)
 		});
 	}
 	editPhoneNumbers(newPhoneNumbers)
 	{
 		return this.rest.update({
-			phoneNumbers: newPhoneNumbers
+			phoneNumbers: this.toServer.phoneNumberList(newPhoneNumbers)
 		});
 	}
 
@@ -293,7 +295,16 @@ class Contact
 
 	get()
 	{
-		return this.rest.read();
+		return this.rest.read()
+			.then((result) =>
+			{
+				result.company = this.fromServer.company(result.company);
+				result.addresses = this.fromServer.addressList(result.addresses);
+				result.phoneNumbers = this.fromServer.phoneNumberList(result.phoneNumbers);
+				result.emailAddresses = this.fromServer.emailAddressList(result.emailAddresses);
+				return result;
+			})
+		;
 	}
 }
 
@@ -307,10 +318,10 @@ Polymer({
 		return this.$.rest.create({
 			name: name
 			, dateOfBirth: dateOfBirth
-			, company: company
-			, addresses: addresses
-			, phoneNumbers: phoneNumbers
-			, emailAddresses: emailAddresses
+			, company: this.$.rest.toServer.company(company)
+			, addresses: this.$.rest.toServer.addressList(addresses)
+			, phoneNumbers: this.$.rest.toServer.phoneNumberList(phoneNumbers)
+			, emailAddresses: this.$.rest.toServer.emailAddressList(emailAddresses)
 		});
 	}
 	, id: function (contactId)
@@ -323,6 +334,23 @@ Polymer({
 		{
 			return Promise.resolve(stubContactList);
 		}
-		return this.$.rest.read();
+		return this.$.rest.read()
+			.then((resultList) =>
+			{
+				return resultList.map((result) =>
+				{
+					return {
+						id: result.id
+						, name: result.name
+						, dateOfBirth: result.dateOfBirth
+						, company: this.$.rest.fromServer.company(result.company)
+						, category: result.category
+						, addresses: this.$.rest.fromServer.addressList(result.addresses)
+						, phoneNumbers: this.$.rest.fromServer.phoneNumberList(result.phoneNumbers)
+						, emailAddresses: this.$.rest.fromServer.emailAddressList(result.emailAddresses)
+					};
+				});
+			})
+		;
 	}
 });

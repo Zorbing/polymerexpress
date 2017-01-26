@@ -41,6 +41,74 @@ Polymer({
 			type: String
 		}
 	}
+	, fromServer: {
+		address: function (addressObject)
+		{
+			return addressObject.address;
+		}
+		, addressList: function (list)
+		{
+			return this.genericList(list) || list.map(a => this.address(a));
+		}
+		, company: function (companyObject)
+		{
+			return companyObject.name;
+		}
+		, emailAddress: function (emailObject)
+		{
+			return emailObject.address;
+		}
+		, emailAddressList: function (list)
+		{
+			return this.genericList(list) || list.map(e => this.emailAddress(e));
+		}
+		, genericList: function (list)
+		{
+			return list.length === 0 ? [''] : undefined;
+		}
+		, phoneNumber: function (phoneObject)
+		{
+			return phoneObject.number;
+		}
+		, phoneNumberList: function (list)
+		{
+			return this.genericList(list) || list.map(p => this.phoneNumber(p));
+		}
+	}
+	, toServer: {
+		address: function (addressString)
+		{
+			return { address: addressString };
+		}
+		, addressList: function (list)
+		{
+			return this.genericList(list) || list.map(a => this.address(a));
+		}
+		, company: function (companyName)
+		{
+			return { name: companyName };
+		}
+		, emailAddress: function (emailString)
+		{
+			return { address: emailString };
+		}
+		, emailAddressList: function (list)
+		{
+			return this.genericList(list) || list.map(e => this.emailAddress(e));
+		}
+		, genericList: function (list)
+		{
+			return (list.length === 1 && list[0] === '') ? [] : undefined;
+		}
+		, phoneNumber: function (phoneString)
+		{
+			return { number: phoneString };
+		}
+		, phoneNumberList: function (list)
+		{
+			return this.genericList(list) || list.map(p => this.phoneNumber(p));
+		}
+	}
 
 	, create: function (newResource)
 	{
