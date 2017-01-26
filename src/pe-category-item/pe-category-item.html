@@ -42,7 +42,6 @@ SOFTWARE.
 {
 	display: inline-block;
 	margin: .2rem .1rem;
-	width: 20rem;
 	--category-color: pink;
 }
 h4
@@ -90,7 +89,8 @@ h4
 
 .card
 {
-	width: 20rem;
+	/*width: 20rem;*/
+	width: calc(30rem - .2rem);
 	--paper-card-background-color: var(--category-color);
 }
 
@@ -103,8 +103,9 @@ h4
 				<paper-tooltip animation-delay=0>delete category</paper-tooltip>
 			</div>
 			<div class$="card-content">
-				<!-- Business -->
+				<!-- Category name -->
 				<fields-phone-number icon="icons:label" edit-mode="[[configMode]]" number="{{item.name}}"></fields-phone-number>
+				<!-- Color keyword -->
 				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{item.color}}"></fields-phone-number>
 			</div>
 			<div class="card-actions">
