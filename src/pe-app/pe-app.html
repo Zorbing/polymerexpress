@@ -93,6 +93,10 @@ h2:not(:last-child)
 	--paper-input-container-input-color: rgba(228, 103, 162, 1);
 	--paper-input-container-color: rgba(255, 255, 255, 0.5);
 }
+.filter-birthday
+{
+	--paper-toggle-button-label-color: rgba(255, 255, 255, 0.8);
+}
 		</style>
 		<div class="center-it">
 			<header class="header">
@@ -105,13 +109,14 @@ h2:not(:last-child)
 					<paper-input class="filter-search" type="text" value="{{searchString}}" placeholder="search">
 						<iron-icon icon="icons:search" suffix></iron-icon>
 					</paper-input>
+					<paper-toggle-button class="filter-birthday" checked="{{enableBirthdayFilter}}">Display all people whose birthday happens in the next ten days</paper-toggle-button>
 					<h2>Category list</h2>
 					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter"></pe-category-list>
 				</nav>
 
 				<main class="content-block right">
 					<!--<h2 style="color: #605274;">Contact list</h2>-->
-					<pe-contact-list search-string="[[searchString]]" filter-categories="[[filterCategories]]"></pe-contact-list>
+					<pe-contact-list search-string="[[searchString]]" filter-categories="[[filterCategories]]" birthday-filter="[[enableBirthdayFilter]]"></pe-contact-list>
 				</main>
 			</div>
 		</div>

@@ -36,6 +36,10 @@ Polymer({
 			type: String
 			, value: ''
 		}
+		, enableBirthdayFilter: {
+			type: Boolean
+			, value: false
+		}
 	}
 
 	, handleAddFilter: function (event, category)

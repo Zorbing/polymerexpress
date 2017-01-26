@@ -31,7 +31,7 @@ const stubContactList = [
 	{
 		id: 0
 		, name: 'Cond Uctor'
-		, dateOfBirth: '4/2/1942'
+		, dateOfBirth: '1942-2-4'
 		, company: 'Polybahn'
 		, category: {
 			id: 0
@@ -45,7 +45,7 @@ const stubContactList = [
 	, {
 		id: 1
 		, name: 'Bernd Schmidt'
-		, dateOfBirth: '12/21/1991'
+		, dateOfBirth: '1991-12-21'
 		, company: 'ynapmoC'
 		, category: {
 			id: 0
@@ -59,7 +59,7 @@ const stubContactList = [
 	, {
 		id: 2
 		, name: 'Peter Pan'
-		, dateOfBirth: '1/1/1970'
+		, dateOfBirth: '1970-2-6'
 		, company: 'Polybahn'
 		, category: {
 			id: 1
@@ -73,7 +73,7 @@ const stubContactList = [
 	, {
 		id: 3
 		, name: 'Bob Baumeister'
-		, dateOfBirth: '1/1/1970'
+		, dateOfBirth: '1970-2-2'
 		, company: 'Hot Animation Studios'
 		, category: {
 			id: 1
@@ -87,7 +87,7 @@ const stubContactList = [
 	, {
 		id: 4
 		, name: 'Giesela Schmidt'
-		, dateOfBirth: '1/1/1970'
+		, dateOfBirth: '1970-2-3'
 		, company: 'ynapmoC'
 		, category: {
 			id: 1
@@ -101,7 +101,7 @@ const stubContactList = [
 	, {
 		id: 5
 		, name: 'Bernd Brot'
-		, dateOfBirth: '1/1/1970'
+		, dateOfBirth: '1970-2-5'
 		, company: 'KiKA-Lounge'
 		, category: {
 			id: 2
@@ -115,7 +115,7 @@ const stubContactList = [
 	, {
 		id: 6
 		, name: 'Bibi Range'
-		, dateOfBirth: '1/1/1970'
+		, dateOfBirth: '1970-2-12'
 		, company: 'TheirTube'
 		, category: {
 			id: 2
@@ -129,7 +129,7 @@ const stubContactList = [
 	, {
 		id: 7
 		, name: 'Wilmer Tinkler'
-		, dateOfBirth: '1/22/1880'
+		, dateOfBirth: '1880-2-13'
 		, company: 'SIMI'
 		, category: {
 			id: 3
@@ -143,7 +143,7 @@ const stubContactList = [
 	, {
 		id: 8
 		, name: 'Dieter Brooksdandern'
-		, dateOfBirth: '1/1/1970'
+		, dateOfBirth: '1970-2-14'
 		, company: 'SIMI'
 		, category: {
 			id: 3
