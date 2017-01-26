@@ -39,7 +39,7 @@ SOFTWARE.
 
 
 		<template is="dom-repeat" items="[[list]]">
-			<pe-category-item item="{{item}}" on-delete="handleDelete" on-edit="handleEdit"></pe-category-item>
+			<pe-category-item category="{{item}}" on-delete="handleDelete" on-edit="handleEdit"></pe-category-item>
 		</template>
 		<div on-tap="handleNew">new!</div>
 

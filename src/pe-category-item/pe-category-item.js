@@ -28,7 +28,7 @@ Polymer({
 	is: 'pe-category-item'
 
 	, properties: {
-		item: {
+		category: {
 			type: Object
 		}
 
@@ -42,7 +42,7 @@ Polymer({
 
 	, handleDelete: function ()
 	{
-		this.fire('delete', this.item);
+		this.fire('delete', this.category);
 	}
 
 	, handleConfig: function ()
@@ -57,7 +57,7 @@ Polymer({
 	}
 	, computeColor: function(event)
 	{
-		this.customStyle['--category-color'] = this.item.color;
+		this.customStyle['--category-color'] = this.category.color;
 		this.updateStyles();
 	}
 	, translateActionButton: function (mode)

@@ -28,7 +28,7 @@ Polymer({
 	is: 'pe-contact-list'
 
 	, properties: {
-		categoryList: {
+		filterCategories: {
 			type: Array
 		}
 		, searchString: {

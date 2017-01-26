@@ -105,9 +105,9 @@ h4
 			</div>
 			<div class$="card-content">
 				<!-- Category name -->
-				<fields-phone-number icon="icons:label" edit-mode="[[configMode]]" number="{{item.name}}"></fields-phone-number>
+				<fields-phone-number icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></fields-phone-number>
 				<!-- Color keyword -->
-				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{item.color}}"></fields-phone-number>
+				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{category.color}}"></fields-phone-number>
 			</div>
 			<div class="card-actions">
 				<paper-button class="action-buttons" on-tap="handleConfig">
