@@ -555,10 +555,6 @@ router.put("/:id", function (req, res) {
     }
 
     // Assert parameters
-    if (!body.hasOwnProperty('id') || Number.isNaN(body.id)) {
-        respondWithError(res, "Invalid id.");
-        return;
-    }
     if (!body.hasOwnProperty('name') || body.name === '') {
         respondWithError(res, "Invalid name.");
         return;
@@ -687,7 +683,7 @@ router.put("/:id", function (req, res) {
                 }
                 let aQuery = 'INSERT INTO ' + db.addressTable + ' SET';
                 aQuery += ' address = ' + conn.escape(address.address);
-                aQuery += ', person_id = ' + conn.escape(body.id);
+                aQuery += ', person_id = ' + conn.escape(req.params.id);
                 conn.query(aQuery, handler);
             }
         }
@@ -705,7 +701,7 @@ router.put("/:id", function (req, res) {
                 let phQuery = 'INSERT INTO ' + db.phoneTable + ' SET';
                 phQuery += ' number = ' + conn.escape(phone.number);
                 phQuery += ', type = '  + (phone.hasOwnProperty('type') ? conn.escape(phone.type) : '""');
-                phQuery += ', person_id = ' + conn.escape(body.id);
+                phQuery += ', person_id = ' + conn.escape(req.params.id);
                 conn.query(phQuery, handler);
             }
         }
@@ -723,7 +719,7 @@ router.put("/:id", function (req, res) {
                 let phQuery = 'INSERT INTO ' + db.emailTable + ' SET';
                 phQuery += ' address = '  + conn.escape(email.address);
                 phQuery += ', type = '  + (email.hasOwnProperty('type') ? conn.escape(email.type) : '""');
-                phQuery += ', person_id = ' + conn.escape(body.id);
+                phQuery += ', person_id = ' + conn.escape(req.params.id);
                 conn.query(phQuery, handler);
             }
         }
