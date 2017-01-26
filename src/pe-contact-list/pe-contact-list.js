@@ -62,7 +62,7 @@ Polymer({
 		}
 		if (categoryList.length > 0)
 		{
-			categoryList = categoryList.map(s => s.toLowerCase());
+			categoryList = categoryList.map(s => s.name.toLowerCase());
 			categoryFilter = (contact) =>
 			{
 				return categoryList.indexOf(contact.category.name.toLowerCase()) !== -1;

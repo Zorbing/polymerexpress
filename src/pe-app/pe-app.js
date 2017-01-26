@@ -37,4 +37,25 @@ Polymer({
 			, value: ''
 		}
 	}
+
+	, handleAddFilter: function (event, category)
+	{
+		const index = this.filterCategories.indexOf(category);
+		if (index === -1)
+		{
+			// set the whole array to trigger the observer
+			this.set('filterCategories', this.get('filterCategories').concat([category]));
+		}
+	}
+	, handleRemoveFilter: function (event, category)
+	{
+		const index = this.filterCategories.indexOf(category);
+		if (index !== -1)
+		{
+			// set the whole array to trigger the observer
+			const arr = this.get('filterCategories').slice(0);
+			arr.splice(index, 1);
+			this.set('filterCategories', arr);
+		}
+	}
 });

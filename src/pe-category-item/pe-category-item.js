@@ -37,6 +37,12 @@ Polymer({
 			type: Boolean,
 			value: false
 		}
+		, enableFilter:
+		{
+			type: Boolean,
+			value: false,
+			observer: 'filterChanged'
+		}
 	}
 
 
@@ -63,6 +69,13 @@ Polymer({
 	, translateActionButton: function (mode)
 	{
 		return mode ? 'Save' : 'Edit';
+	}
+	, filterChanged: function (newValue, oldValue)
+	{
+		if (oldValue !== undefined)
+		{
+			this.fire((this.enableFilter ? 'add' : 'remove') + '-filter', this.category);
+		}
 	}
 
 

@@ -31,6 +31,7 @@ SOFTWARE.
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
 
 <link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
 <link rel="import" href="../forms/fields-phone-number.html">
@@ -98,6 +99,8 @@ h4
 
 		</style>
 		<paper-card class="card">
+			<!-- toggle button to enable for filter -->
+			<paper-toggle-button checked="{{enableFilter}}">Show contacts of this category</paper-toggle-button>
 			<!-- Delete Button -->
 			<div class="delete-button" hidden$="[[!configMode]]">
 				<paper-icon-button on-tap="handleDelete" icon="icons:delete-forever"></paper-icon-button>

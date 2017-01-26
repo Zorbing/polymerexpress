@@ -83,9 +83,15 @@ h2:not(:last-child)
 	padding: 1rem 2rem;
 	overflow-x: hidden;
 }
+.content-block.left h2
+{
+	color: rgba(255, 255, 255, 0.8);
+}
 .filter-search
 {
-	--paper-input-container-input-color: #8E6076;
+	/*--paper-input-container-input-color: #8E6076;*/
+	--paper-input-container-input-color: rgba(228, 103, 162, 1);
+	--paper-input-container-color: rgba(255, 255, 255, 0.5);
 }
 		</style>
 		<div class="center-it">
@@ -95,12 +101,12 @@ h2:not(:last-child)
 			</header>
 			<div class="content">
 				<nav class="content-block left">
-					<h2 style="color: #2C0719">Filter by text input</h2>
-					<paper-input class="filter-search" type="text" value="{{searchString}}">
+					<h2>Filter by text input</h2>
+					<paper-input class="filter-search" type="text" value="{{searchString}}" placeholder="search">
 						<iron-icon icon="icons:search" suffix></iron-icon>
 					</paper-input>
-					<h2 style="color: #2C0719">Category list</h2>
-					<pe-category-list></pe-category-list>
+					<h2>Category list</h2>
+					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter"></pe-category-list>
 				</nav>
 
 				<main class="content-block right">
