@@ -28,7 +28,11 @@ Polymer({
 	is: 'pe-app'
 
 	, properties: {
-		searchString: {
+		filterCategories: {
+			type: Array
+			, value: []
+		}
+		, searchString: {
 			type: String
 			, value: ''
 		}
