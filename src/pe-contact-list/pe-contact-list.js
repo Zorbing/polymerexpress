@@ -31,6 +31,10 @@ Polymer({
 		birthdayFilter: {
 			type: Boolean
 		}
+		, birthdayFilterDays: {
+			type: Number
+			, value: 10
+		}
 		, filterCategories: {
 			type: Array
 		}
@@ -59,7 +63,7 @@ Polymer({
 				{
 					dt.setFullYear(dt.getFullYear()+1);
 				}
-				return Math.floor((dt.getTime() - now.getTime()) / 1000 / 60 / 60 / 24) <= 10;
+				return Math.floor((dt.getTime() - now.getTime()) / 1000 / 60 / 60 / 24) <= this.birthdayFilterDays;
 			};
 		}
 
