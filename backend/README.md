@@ -6,6 +6,7 @@
 4. Install [MySQL](https://www.mysql.com/).
 5. Use `setup/tables.sql` to build the database structure in your MySQL server.
 6. Create a MySQL user with access to the previously created tables and configure the credentials in `database/connector.js`.
+7. Copy the bundled frontend files to the `static/` sub-directory.
 
 # Usage 
 ## Start
