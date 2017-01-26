@@ -23,6 +23,8 @@ SOFTWARE.
 -->
 
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
 
 <link rel="import" href="../pe-categories/pe-categories.html">
 <link rel="import" href="../pe-contact-list/pe-contact-list.html">
@@ -44,8 +46,12 @@ h2:not(:last-child)
 	margin-bottom: 0.4rem;
 }
 		</style>
+
+		<paper-input type="text" value="{{searchString}}">
+			<iron-icon icon="icons:search" suffix></iron-icon>
+		</paper-input>
 		<h2>Contact list</h2>
-		<pe-contact-list></pe-contact-list>
+		<pe-contact-list search-string="[[searchString]]"></pe-contact-list>
 
 		<h2>Category list</h2>
 		<pe-categories></pe-categories>

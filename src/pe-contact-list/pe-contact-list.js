@@ -28,12 +28,37 @@ Polymer({
 	is: 'pe-contact-list'
 
 	, properties: {
-		list: {
-			type: Array
-			, value: []
+		searchString: {
+			type: String
+			, value: ''
 		}
-	}
 
+	}
+	, list: []
+
+	, computeFilter: function (str)
+	{
+		if (!str)
+		{
+			// set filter to null to disable filtering
+			return null;
+		}
+
+		// return a filter function for the current search string
+		str = str.toLowerCase();
+		return function (contact)
+		{
+			return contact.name.toLowerCase().indexOf(str) != -1 ||
+				contact.dateOfBirth.toLowerCase().indexOf(str) != -1 ||
+				contact.company.toLowerCase().indexOf(str) != -1 ||
+				contact.category.color.toLowerCase().indexOf(str) != -1 ||
+				contact.category.name.toLowerCase().indexOf(str) != -1 ||
+				contact.addresses.some(a => a.toLowerCase().indexOf(str) != -1) ||
+				contact.phoneNumbers.some(p => p.toLowerCase().indexOf(str) != -1) ||
+				contact.emailAddresses.some(e => e.toLowerCase().indexOf(str) != -1)
+			;
+		};
+	}
 	, handleDelete: function (event, contact)
 	{
 		// remove element from list
@@ -47,11 +72,12 @@ Polymer({
 	{
 		console.log('args:', arguments);
 		// TODO: update some sort filter
+		this.notifyPath('searchString');
 	}
 	, ready: function ()
 	{
 		this.$.restContact.list()
-			.then(list => this.list = list)
+			.then(list => this.set('list', list))
 		;
 	}
 });

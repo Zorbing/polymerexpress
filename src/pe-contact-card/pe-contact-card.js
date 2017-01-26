@@ -35,20 +35,15 @@ Polymer({
 		{
 			type: Boolean,
 			value: false
-		} 
+		}
 		, editMode:
 		{
 			type: Boolean,
 			value: false
-		} 
+		}
 	}
 	, restContact: null
 
-	, computeDateOfBirth: function (dateOfBirth)
-	{
-		const dt = new Date(dateOfBirth * 1e5);
-		return dt.toLocaleDateString('en');
-	}
 	, handleDelete: function ()
 	{
 		this._showProgressNotifier();
@@ -82,7 +77,7 @@ Polymer({
 		console.info('Switched Edit Mode');
 		this.editMode = !this.editMode;
 		this.viewMode = true;
-		
+
 		if (!this.editMode)
 		{
 			this._showProgressNotifier();
