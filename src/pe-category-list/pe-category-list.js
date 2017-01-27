@@ -65,10 +65,13 @@ Polymer({
 
 	, handleNew: function (event)
 	{
-		console.debug(event);
 		this.$.restCategory.create('new category', 'yellow')
 			.then(() => this.$.restCategory.list())
-			.then(list => this.set('list', list))
+			.then((list) =>
+			{
+				this.set('list', list);
+				this.fire('add', list[list.length - 1]);
+			})
 			// >>> TEST
 			.catch((error) =>
 			{
@@ -79,6 +82,7 @@ Polymer({
 						, name: 'new category'
 						, color: 'yellow'
 					});
+					this.fire('add', this.list[this.list.length - 1]);
 				}
 			})
 			// <<< TEST

@@ -61,102 +61,98 @@ const stubCategoryMap = new Map([
 		, color: 'skyblue'
 	}]
 ]);
-const getCategory = (id) =>
-{
-	return JSON.parse(JSON.stringify(stubCategoryMap.get(id)));
-};
-const stubContactList = [
-	{
+let stubContactMap = new Map([
+	[0, {
 		id: 0
 		, name: 'Cond Uctor'
 		, dateOfBirth: '1942-2-4'
 		, company: 'Polybahn'
-		, get category() { return getCategory(0); }
+		, categoryId: 0
 		, addresses: ['Expressweg 15, 4242 Polymer']
 		, phoneNumbers: ['+49 41424344']
 		, emailAddresses: ['fahr.gast@polymer-express.de']
-	}
-	, {
+	}]
+	, [1, {
 		id: 1
 		, name: 'Bernd Schmidt'
 		, dateOfBirth: '1991-12-21'
 		, company: 'ynapmoC'
-		, get category() { return getCategory(0); }
+		, categoryId: 0
 		, addresses: ['Some street 13, 1234 Exampletown']
 		, phoneNumbers: ['+223 3223322']
 		, emailAddresses: ['mr.smith@timbuktu.ml']
-	}
-	, {
+	}]
+	, [2, {
 		id: 2
 		, name: 'Peter Pan'
 		, dateOfBirth: '1970-2-6'
 		, company: 'Polybahn'
-		, get category() { return getCategory(1); }
+		, categoryId: 1
 		, addresses: ['Direkt, 999 HTML', 'A, 234 B']
 		, phoneNumbers: ['345678', '98877665423']
 		, emailAddresses: ['test@bla.dia', 'star@gate.atlantis']
-	}
-	, {
+	}]
+	, [3, {
 		id: 3
 		, name: 'Bob Baumeister'
 		, dateOfBirth: '1970-2-2'
 		, company: 'Hot Animation Studios'
-		, get category() { return getCategory(1); }
+		, categoryId: 1
 		, addresses: ['Am Bauhof, 3 Bobhausen']
 		, phoneNumbers: ['']
 		, emailAddresses: ['']
-	}
-	, {
+	}]
+	, [4, {
 		id: 4
 		, name: 'Giesela Schmidt'
 		, dateOfBirth: '1970-2-3'
 		, company: 'ynapmoC'
-		, get category() { return getCategory(1); }
+		, categoryId: 1
 		, addresses: ['']
 		, phoneNumbers: ['']
 		, emailAddresses: ['']
-	}
-	, {
+	}]
+	, [5, {
 		id: 5
 		, name: 'Bernd Brot'
 		, dateOfBirth: '1970-2-5'
 		, company: 'KiKA-Lounge'
-		, get category() { return getCategory(2); }
+		, categoryId: 2
 		, addresses: ['']
 		, phoneNumbers: ['']
 		, emailAddresses: ['']
-	}
-	, {
+	}]
+	, [6, {
 		id: 6
 		, name: 'Bibi Range'
 		, dateOfBirth: '1970-2-12'
 		, company: 'TheirTube'
-		, get category() { return getCategory(2); }
+		, categoryId: 2
 		, addresses: ['']
 		, phoneNumbers: ['']
 		, emailAddresses: ['']
-	}
-	, {
+	}]
+	, [7, {
 		id: 7
 		, name: 'Wilmer Tinkler'
 		, dateOfBirth: '1880-2-13'
 		, company: 'SIMI'
-		, get category() { return getCategory(3); }
+		, categoryId: 3
 		, addresses: ['']
 		, phoneNumbers: ['']
 		, emailAddresses: ['']
-	}
-	, {
+	}]
+	, [8, {
 		id: 8
 		, name: 'Dieter Brooksdandern'
 		, dateOfBirth: '1970-2-14'
 		, company: 'SIMI'
-		, get category() { return getCategory(3); }
+		, categoryId: 3
 		, addresses: ['']
 		, phoneNumbers: ['']
 		, emailAddresses: ['']
-	}
-];
+	}]
+]);
 
 
 Polymer({
@@ -170,12 +166,18 @@ Polymer({
 	}
 	, getContactList: function ()
 	{
-		return Promise.resolve(stubContactList);
+		return Promise.resolve(
+			Array.from(stubContactMap.values()).map((contact) =>
+			{
+				contact.category = JSON.parse(JSON.stringify(stubCategoryMap.get(contact.categoryId)));
+				return contact;
+			})
+		);
 	}
 	, getCompanyList: function ()
 	{
 		const stubCompanyList = new Set();
-		for (let contact of stubContactList)
+		for (let contact of stubContactMap.values())
 		{
 			stubCompanyList.add(contact.company);
 		}

@@ -53,13 +53,8 @@ Polymer({
 
 	, handleDelete: function ()
 	{
-		this._showProgressNotifier();
 		this.restContact.delete()
-			.then(() =>
-			{
-				this.fire('delete', this.contact);
-				this._hideProgressNotifier();
-			})
+			.then(() => this.fire('delete', this.contact))
 			.catch((error) =>
 			{
 				if (error.status == 404)
@@ -70,7 +65,6 @@ Polymer({
 				{
 					console.error('error while deleting contact %d:', this.contact.id, error);
 				}
-				this._hideProgressNotifier();
 			})
 		;
 	}
@@ -174,22 +168,5 @@ Polymer({
 			view: this.viewMode
 			, edit: this.editMode
 		});
-	}
-
-
-
-	/**
-	 * private functions
-	 */
-
-	, _hideProgressNotifier: function ()
-	{
-		// TODO
-		console.warn('TODO: hide progress notifier');
-	}
-	, _showProgressNotifier: function ()
-	{
-		// TODO
-		console.warn('TODO: show progress notifier');
 	}
 });
