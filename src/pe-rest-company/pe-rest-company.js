@@ -24,20 +24,6 @@
 
 'use strict';
 
-const stubCompanyList = [
-	'Gleichner-Bins', 'Lakin and Sons', 'Schmidt Group', 'Quitzon Group', 'Homenick LLC'
-	, 'Nikolaus, Shanahan and Kemmer', 'Wunsch-Berge', 'Kohler LLC', 'Yundt-Mohr', 'Hammes, Kreiger and Gorczany'
-	, 'Rodriguez-Fritsch', 'Gutmann Inc', 'Brekke, Goodwin and Nikolaus', 'Leannon, Gislason and Doyle'
-	, 'Halvorson-Aufderhar', 'Upton-Gutkowski', 'Carter, Gorczany and Stehr', 'Upton-Spencer', 'Mayer LLC'
-	, 'Friesen, Jacobi and O\'Kon', 'Will Inc', 'Strosin Group', 'Will Group', 'Lind-Windler'
-	, 'Feest, Roberts and Kertzmann', 'Dooley, Howe and Champlin', 'Zulauf-Streich', 'Stiedemann, Lockman and Herman'
-	, 'Lowe, Nolan and Conn', 'Bechtelar, Monahan and Murray', 'Stoltenberg, Mohr and Kulas', 'Weimann Inc'
-	, 'Hamill-Aufderhar', 'Schuppe-Beer', 'Collier Inc', 'Bergnaum and Sons', 'Shanahan-Ernser', 'Stark-Emard'
-	, 'Kemmer, Walter and Mraz', 'Raynor LLC', 'Rath-Morar', 'Mohr, Rath and Armstrong', 'McLaughlin LLC', 'Batz Inc'
-	, 'Tremblay-Walsh', 'Kohler, Prosacco and Satterfield', 'Feest Inc', 'Hane-Gislason'
-	, 'Botsford, Weimann and Bechtelar', 'Huel Group'
-];
-
 Polymer({
 	is: 'pe-rest-company'
 
@@ -47,7 +33,7 @@ Polymer({
 	{
 		if (testData)
 		{
-			return Promise.resolve(stubCompanyList);
+			return this.$.stub.getCompanyList();
 		}
 		return this.$.rest.read()
 			.then((resultList) =>
