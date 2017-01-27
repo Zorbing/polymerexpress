@@ -193,11 +193,12 @@ h4
 
 
 					<!-- Category -->
+					<!--color of category: [[contact.category.id]]-->
 					<iron-icon class="make-it-sixty-percent-grey" icon="label" prefix></iron-icon>
 					<paper-dropdown-menu class="date-pci" on-change="computeColor" disabled$="[[!editMode]]">
-						<paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{contact.category.name}}">
+						<paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{contact.category.id}}">
 							<template is="dom-repeat" items="[[categoryList]]">
-								<paper-item value="{{item.name}}">{{item.name}}</paper-item>
+								<paper-item value="{{item.id}}">{{item.name}}</paper-item>
 							</template>
 						</paper-listbox>
 					</paper-dropdown-menu>
