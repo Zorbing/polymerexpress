@@ -36,5 +36,44 @@ Polymer({
 			type: String
 			, value: ''
 		}
+		, enableBirthdayFilter: {
+			type: Boolean
+			, value: false
+		}
+	}
+
+	, handleSendGroupMail: function (event, category)
+	{
+		console.error('To-do: Send group mail to category "' + category.name + '"', category);
+		const yourMessage = 'Hello there! I hope you like the color ' + category.color + ".";
+		const subject = 'Hello ' + category.name + ' person!';
+		document.location.href = "mailto:bastianschmeier@gmail.com?subject="
+		+ encodeURIComponent(subject)
+		+ "&body=" + encodeURIComponent(yourMessage);
+	}
+	, handleReceiveCategories: function (event, categoriesList)
+	{
+		this.set('filterCategories', this.get('filterCategories').concat(categoriesList));
+	}
+	, handleAddFilter: function (event, category)
+	{
+		const index = this.filterCategories.indexOf(category);
+		if (index === -1)
+		{
+			// set the whole array to trigger the observer
+			this.set('filterCategories', this.get('filterCategories').concat([category]));
+			console.log(category);
+		}
+	}
+	, handleRemoveFilter: function (event, category)
+	{
+		const index = this.filterCategories.indexOf(category);
+		if (index !== -1)
+		{
+			// set the whole array to trigger the observer
+			const arr = this.get('filterCategories').slice(0);
+			arr.splice(index, 1);
+			this.set('filterCategories', arr);
+		}
 	}
 });

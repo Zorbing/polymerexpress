@@ -26,7 +26,8 @@ SOFTWARE.
 <link rel="import" href="/bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 
-<link rel="import" href="../pe-categories/pe-categories.html">
+<link rel="import" href="../pe-category-list/pe-category-list.html">
+<link rel="import" href="../pe-company-list/pe-company-list.html">
 <link rel="import" href="../pe-contact-list/pe-contact-list.html">
 
 <dom-module id="pe-app">
@@ -83,9 +84,19 @@ h2:not(:last-child)
 	padding: 1rem 2rem;
 	overflow-x: hidden;
 }
+.content-block.left h2
+{
+	color: rgba(255, 255, 255, 0.8);
+}
 .filter-search
 {
-	--paper-input-container-input-color: #8E6076;
+	/*--paper-input-container-input-color: #8E6076;*/
+	--paper-input-container-input-color: rgba(228, 103, 162, 1);
+	--paper-input-container-color: rgba(255, 255, 255, 0.5);
+}
+.filter-birthday
+{
+	--paper-toggle-button-label-color: rgba(255, 255, 255, 0.8);
 }
 		</style>
 		<div class="center-it">
@@ -95,17 +106,20 @@ h2:not(:last-child)
 			</header>
 			<div class="content">
 				<nav class="content-block left">
-					<h2 style="color: #2C0719">Filter by text input</h2>
-					<paper-input class="filter-search" type="text" value="{{searchString}}">
+					<h2>Filter by text input</h2>
+					<paper-input class="filter-search" type="text" value="{{searchString}}" placeholder="search">
 						<iron-icon icon="icons:search" suffix></iron-icon>
 					</paper-input>
-					<h2 style="color: #2C0719">Category list</h2>
-					<pe-categories></pe-categories>
+					<paper-toggle-button class="filter-birthday" checked="{{enableBirthdayFilter}}">Display all people whose birthday happens in the next ten days</paper-toggle-button>
+					<h2>Category list</h2>
+					<pe-category-list on-receive-categories="handleReceiveCategories" on-send-group-mail="handleSendGroupMail" on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter"></pe-category-list>
+					<h2>Company list</h2>
+					<pe-company-list></pe-company-list>
 				</nav>
 
 				<main class="content-block right">
 					<!--<h2 style="color: #605274;">Contact list</h2>-->
-					<pe-contact-list search-string="[[searchString]]" filter-categories="[[filterCategories]]"></pe-contact-list>
+					<pe-contact-list search-string="[[searchString]]" filter-categories="[[filterCategories]]" birthday-filter="[[enableBirthdayFilter]]"></pe-contact-list>
 				</main>
 			</div>
 		</div>

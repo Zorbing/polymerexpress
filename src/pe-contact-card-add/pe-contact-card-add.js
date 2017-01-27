@@ -25,62 +25,35 @@
 'use strict';
 
 Polymer({
-	is: 'pe-category-item'
+	is: 'pe-contact-card-add'
 
 	, properties: {
-		category: {
-			type: Object
-		}
-
-		, configMode:
+		width:
 		{
-			type: Boolean,
-			value: false
-		}
-		, enableFilter:
-		{
-			type: Boolean,
-			value: true,
-			observer: 'filterChanged'
+			type: String
 		}
 	}
-
-
-	, handleSendGroupMail: function ()
+	, handleNew: function ()
 	{
-		this.fire('send-group-mail', this.category);
+		// is triggered by click on contact card add button
+		this.fire('new');
 	}
-	, handleDelete: function ()
-	{
-		this.fire('delete', this.category);
-	}
-
-	, handleConfig: function ()
-	{
-		this.configMode = !this.configMode;
-	}
-
-
 	, ready: function ()
 	{
-		this.computeColor('initial coloring');
 	}
-	, computeColor: function(event)
+	, calculateText: function (width)
 	{
-		this.customStyle['--category-color'] = this.category.color;
-		this.updateStyles();
+		return (width=='big') ? 'add new contact' : 'create category';
 	}
-	, translateActionButton: function (mode)
+	, calculateIcon: function (width)
 	{
-		return mode ? 'Save' : 'Edit';
-	}
-	, filterChanged: function (newValue, oldValue)
-	{
-		if (oldValue !== undefined)
-		{
-			this.fire((this.enableFilter ? 'add' : 'remove') + '-filter', this.category);
-		}
+		return (width=='big') ? 'icons:account-circle' : 'icons:label-outline';
 	}
 
+
+
+	/**
+	 * private functions
+	 */
 
 });

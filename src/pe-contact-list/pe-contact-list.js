@@ -28,25 +28,52 @@ Polymer({
 	is: 'pe-contact-list'
 
 	, properties: {
-		categoryList: {
+		birthdayFilter: {
+			type: Boolean
+		}
+		, birthdayFilterDays: {
+			type: Number
+			, value: 10
+		}
+		, filterCategories: {
 			type: Array
 		}
 		, searchString: {
 			type: String
 		}
-
 	}
 	, list: []
 
-	, computeFilter: function (str, categoryList)
+	, computeFilter: function (str, categoryList, birthday)
 	{
+		if (birthday)
+		{
+			return (contact) =>
+			{
+				const now = new Date();
+				const dt = new Date();
+				const split = contact.dateOfBirth.split('-');
+				if (split.length !== 3)
+				{
+					return false;
+				}
+				dt.setDate(parseInt(split[2], 10));
+				dt.setMonth(parseInt(split[1], 10) - 1);
+				if (dt.getTime() < now.getTime())
+				{
+					dt.setFullYear(dt.getFullYear()+1);
+				}
+				return Math.floor((dt.getTime() - now.getTime()) / 1000 / 60 / 60 / 24) <= this.birthdayFilterDays;
+			};
+		}
+
 		let textSearch = () => true;
 		let categoryFilter = () => true;
 
 		if (str)
 		{
 			// return a filter function for the current search string
-			str = str.toLowerCase();
+			str = str.trim().toLowerCase();
 			textSearch = (contact) =>
 			{
 				return contact.name.toLowerCase().indexOf(str) !== -1 ||
@@ -62,7 +89,7 @@ Polymer({
 		}
 		if (categoryList.length > 0)
 		{
-			categoryList = categoryList.map(s => s.toLowerCase());
+			categoryList = categoryList.map(s => s.name.toLowerCase());
 			categoryFilter = (contact) =>
 			{
 				return categoryList.indexOf(contact.category.name.toLowerCase()) !== -1;
@@ -70,6 +97,13 @@ Polymer({
 		}
 
 		return (contact) => textSearch(contact) && categoryFilter(contact);
+	}
+	, handleNew: function (event)
+	{
+		// add new element to list
+		this.$.restContact.add('new contact', '1970-2-3', 'ynapmoC', [''], [''], [''])
+			.then(list => this.set('list', list))
+		;
 	}
 	, handleDelete: function (event, contact)
 	{
@@ -82,9 +116,10 @@ Polymer({
 	}
 	, handleEdit: function (event, contact)
 	{
-		console.log('args:', arguments);
-		// TODO: update some sort filter
-		this.notifyPath('searchString');
+		// update some sort filter
+		const string = this.get('searchString');
+		this.set('searchString', '');
+		this.set('searchString', string);
 	}
 	, ready: function ()
 	{

@@ -31,6 +31,7 @@ SOFTWARE.
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
 
 <link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
 <link rel="import" href="../forms/fields-phone-number.html">
@@ -42,8 +43,9 @@ SOFTWARE.
 {
 	display: inline-block;
 	margin: .2rem .1rem;
-	width: 20rem;
 	--category-color: pink;
+	/* width because of parent element positioning */
+	width: calc(30rem - .2rem);
 }
 h4
 {
@@ -66,6 +68,10 @@ h4
 	-webkit-user-select: text;
 	-ms-user-select: text;
 }
+.card-content
+{
+	margin: 1rem;
+}
 .card-content iron-icon
 {
 	cursor: default;
@@ -75,8 +81,10 @@ h4
 .delete-button
 {
 	position: absolute;
-	top: 0rem;
-	left: 17rem;
+	top: 0.7rem;
+	/*left: 17rem;*/
+	right: .5rem;
+	color: rgba(0, 0, 0, 0.6);
 }
 
 .card-actions
@@ -86,11 +94,21 @@ h4
 .action-buttons
 {
 	width: 5rem;
+	color: rgba(0, 0, 0, 0.6);
+}
+.mail-button
+{
+	width: 8rem;
+}
+.switch
+{
+	width: 12rem;
 }
 
 .card
 {
-	width: 20rem;
+	/*width: 20rem;*/
+	width: calc(30rem - .2rem);
 	--paper-card-background-color: var(--category-color);
 }
 
@@ -103,13 +121,26 @@ h4
 				<paper-tooltip animation-delay=0>delete category</paper-tooltip>
 			</div>
 			<div class$="card-content">
-				<!-- Business -->
-				<fields-phone-number icon="icons:label" edit-mode="[[configMode]]" number="{{item.name}}"></fields-phone-number>
-				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{item.color}}"></fields-phone-number>
+				<!-- Category name -->
+				<fields-phone-number icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></fields-phone-number>
+				<!-- Color keyword -->
+				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{category.color}}"></fields-phone-number>
 			</div>
 			<div class="card-actions">
+				<!-- toggle button to enable for filter -->
+				<div class="action-buttons switch" style="display: inline-block;">
+						<paper-toggle-button style="display: inline-block;" checked="{{enableFilter}}"></paper-toggle-button>
+						<span style="display: inline-block; position: relative; top: -0.3rem;">SHOW CONTACTS</span>
+				</div>
+				<!-- Send group mail button -->
+				<paper-button class="action-buttons mail-button" on-tap="handleSendGroupMail">
+					<iron-icon icon="communication:email"></iron-icon>
+					mail 'em
+				</paper-button>
+				<!-- ConfigMode Button -->
 				<paper-button class="action-buttons" on-tap="handleConfig">
 					<iron-icon icon="icons:create"></iron-icon>
+					[[translateActionButton(configMode)]]
 				</paper-button>
 			</div>
 		</paper-card>

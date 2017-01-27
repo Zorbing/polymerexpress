@@ -25,62 +25,19 @@
 'use strict';
 
 Polymer({
-	is: 'pe-category-item'
+	is: 'pe-company-list'
 
 	, properties: {
-		category: {
-			type: Object
-		}
-
-		, configMode:
-		{
-			type: Boolean,
-			value: false
-		}
-		, enableFilter:
-		{
-			type: Boolean,
-			value: true,
-			observer: 'filterChanged'
+		list: {
+			type: Array
+			, value: []
 		}
 	}
-
-
-	, handleSendGroupMail: function ()
-	{
-		this.fire('send-group-mail', this.category);
-	}
-	, handleDelete: function ()
-	{
-		this.fire('delete', this.category);
-	}
-
-	, handleConfig: function ()
-	{
-		this.configMode = !this.configMode;
-	}
-
 
 	, ready: function ()
 	{
-		this.computeColor('initial coloring');
+		this.$.restCompany.list()
+			.then(list => this.set('list', list))
+		;
 	}
-	, computeColor: function(event)
-	{
-		this.customStyle['--category-color'] = this.category.color;
-		this.updateStyles();
-	}
-	, translateActionButton: function (mode)
-	{
-		return mode ? 'Save' : 'Edit';
-	}
-	, filterChanged: function (newValue, oldValue)
-	{
-		if (oldValue !== undefined)
-		{
-			this.fire((this.enableFilter ? 'add' : 'remove') + '-filter', this.category);
-		}
-	}
-
-
 });

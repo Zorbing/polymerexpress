@@ -24,10 +24,9 @@ SOFTWARE.
 
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
-<link rel="import" href="../pe-rest-category/pe-rest-category.html">
-<link rel="import" href="../pe-category-item/pe-category-item.html">
+<link rel="import" href="../pe-rest-company/pe-rest-company.html">
 
-<dom-module id="pe-categories">
+<dom-module id="pe-company-list">
 	<template>
 		<style>
 :host
@@ -37,14 +36,14 @@ SOFTWARE.
 
 		</style>
 
+		<ul>
+			<template is="dom-repeat" items="[[list]]">
+				<li>[[item]]</li>
+			</template>
+		</ul>
 
-		<template is="dom-repeat" items="[[list]]">
-			<pe-category-item item="{{item}}" on-delete="handleDelete" on-edit="handleEdit"></pe-category-item>
-		</template>
-		<div on-tap="handleNew">new!</div>
-
-		<pe-rest-category id="restCategory"></pe-rest-category>
+		<pe-rest-company id="restCompany"></pe-rest-company>
 	</template>
 
-	<script type="text/javascript" src="pe-categories.js"></script>
+	<script type="text/javascript" src="pe-company-list.js"></script>
 </dom-module>

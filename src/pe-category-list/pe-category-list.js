@@ -25,7 +25,7 @@
 'use strict';
 
 Polymer({
-	is: 'pe-categories'
+	is: 'pe-category-list'
 
 	, properties: {
 		list: {
@@ -37,12 +37,15 @@ Polymer({
 	, ready: function ()
 	{
 		this.$.restCategory.list()
-			.then(list => this.set('list', list))
+			.then(list => {this.set('list', list);this.fire('receive-categories', list);})
 		;
 	}
 	, handleNew: function (event)
 	{
 		console.debug(event);
+		this.$.restCategory.create('new category', 'yellow')
+			.then(list => {this.set('list', list);this.fire('receive-categories', list);})
+		;
 	}
 	, handleDelete: function (event)
 	{

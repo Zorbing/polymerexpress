@@ -28,22 +28,22 @@ SOFTWARE.
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-		<title>pe-categories test</title>
+		<title>pe-category-list test</title>
 
 		<script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
 		<script src="../../../web-component-tester/browser.js"></script>
 
-		<link rel="import" href="../../src/pe-categories/pe-categories.html">
+		<link rel="import" href="../../src/pe-category-list/pe-category-list.html">
 	</head>
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<pe-categories></pe-categories>
+				<pe-category-list></pe-category-list>
 			</template>
 		</test-fixture>
 
 		<script>
-suite('<pe-categories>', function()
+suite('<pe-category-list>', function()
 {
 	const testList = ['First', 'second'];
 	let element;
@@ -54,7 +54,7 @@ suite('<pe-categories>', function()
 
 	test('instantiating the element works', function ()
 	{
-		assert.equal(element.is, 'pe-categories');
+		assert.equal(element.is, 'pe-category-list');
 	});
 	test('setting the category list works', function ()
 	{
