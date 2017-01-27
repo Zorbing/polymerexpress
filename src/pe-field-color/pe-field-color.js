@@ -44,9 +44,4 @@ Polymer({
 	, ready: function ()
 	{
 	}
-
-	, behaviors:
-	[
-		FormsBehavior
-	]
 });

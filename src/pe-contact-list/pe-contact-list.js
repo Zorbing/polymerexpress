@@ -39,6 +39,10 @@ Polymer({
 		, filterCategories: {
 			type: Array
 		}
+		, list: {
+			type: Array
+			, value: []
+		}
 		, searchString: {
 			type: String
 		}
@@ -46,7 +50,6 @@ Polymer({
 	, listeners: {
 		'update': 'handleUpdate'
 	}
-	, list: []
 
 	, computeFilter: function (str, categoryList, birthday)
 	{
@@ -156,7 +159,14 @@ Polymer({
 	, handleUpdate: function (event)
 	{
 		this.$.restContact.list()
-			.then(list => this.set('list', list))
+			.then(list =>
+			{
+				this.set('list', list);
+				// force dom update!
+				const string = this.get('searchString');
+				this.set('searchString', String.fromCharCode(400));
+				setTimeout(() => this.set('searchString', string));
+			})
 		;
 	}
 	, ready: function ()
