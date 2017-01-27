@@ -99,6 +99,7 @@ class Contact
 			name: newContact.name
 			, dateOfBirth: newContact.dateOfBirth
 			, company: this.toServer.company(newContact.company)
+			, category: this.toServer.category(newContact.categoryId)
 			, addresses: this.toServer.addressList(newContact.addresses)
 			, phoneNumbers: this.toServer.phoneNumberList(newContact.phoneNumbers)
 			, emailAddresses: this.toServer.emailAddressList(newContact.emailAddresses)
@@ -185,12 +186,13 @@ Polymer({
 
 	, properties: {}
 
-	, add: function (name, dateOfBirth, company, addresses = [], phoneNumbers = [], emailAddresses = [])
+	, add: function (name, dateOfBirth, company, categoryId, addresses = [], phoneNumbers = [], emailAddresses = [])
 	{
 		return this.$.rest.create({
 			name: name
 			, dateOfBirth: dateOfBirth
 			, company: this.$.rest.toServer.company(company)
+			, category: this.$.rest.toServer.category(categoryId)
 			, addresses: this.$.rest.toServer.addressList(addresses)
 			, phoneNumbers: this.$.rest.toServer.phoneNumberList(phoneNumbers)
 			, emailAddresses: this.$.rest.toServer.emailAddressList(emailAddresses)

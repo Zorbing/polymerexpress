@@ -84,6 +84,10 @@ Polymer({
 		{
 			return this.genericList(list) || list.map(a => this.address(a));
 		}
+		, category: function (categoryId)
+		{
+			return { id: categoryId };
+		}
 		, company: function (companyName)
 		{
 			return { name: companyName };
