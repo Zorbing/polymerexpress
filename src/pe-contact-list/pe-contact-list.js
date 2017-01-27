@@ -36,6 +36,10 @@ Polymer({
 			, value: 10
 			, readOnly: true
 		}
+		, categoryList: {
+			type: Array
+			, value: []
+		}
 		, filterCategories: {
 			type: Array
 		}
@@ -167,6 +171,9 @@ Polymer({
 				this.set('searchString', String.fromCharCode(400));
 				setTimeout(() => this.set('searchString', string));
 			})
+		;
+		this.$.restCategory.list()
+			.then(list => this.set('categoryList', list))
 		;
 	}
 	, ready: function ()
