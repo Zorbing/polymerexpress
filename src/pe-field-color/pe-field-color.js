@@ -43,7 +43,6 @@ Polymer({
 	}
 	, ready: function ()
 	{
-		console.log(this.disabled);
 	}
 
 	, behaviors:
