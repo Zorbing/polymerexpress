@@ -82,6 +82,7 @@ h4
 	top: 0.7rem;
 	/*left: 17rem;*/
 	right: .5rem;
+	color: rgba(0, 0, 0, 0.6);
 }
 
 .card-actions
@@ -90,12 +91,16 @@ h4
 }
 .action-buttons
 {
-	width: 7rem;
+	width: 5rem;
 	color: rgba(0, 0, 0, 0.6);
+}
+.mail-button
+{
+	width: 8rem;
 }
 .switch
 {
-	width: 11.7rem;
+	width: 12rem;
 }
 
 .card
@@ -120,8 +125,13 @@ h4
 				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{category.color}}"></fields-phone-number>
 			</div>
 			<div class="card-actions">
+				<!-- toggle button to enable for filter -->
+				<div class="action-buttons switch" style="display: inline-block;">
+						<paper-toggle-button style="display: inline-block;" checked="{{enableFilter}}"></paper-toggle-button>
+						<span style="display: inline-block; position: relative; top: -0.3rem;">SHOW CONTACTS</span>
+				</div>
 				<!-- Send group mail button -->
-				<paper-button class="action-buttons" on-tap="handleSendGroupMail">
+				<paper-button class="action-buttons mail-button" on-tap="handleSendGroupMail">
 					<iron-icon icon="communication:email"></iron-icon>
 					mail 'em
 				</paper-button>
@@ -130,11 +140,6 @@ h4
 					<iron-icon icon="icons:create"></iron-icon>
 					[[translateActionButton(configMode)]]
 				</paper-button>
-				<!-- toggle button to enable for filter -->
-				<div class="action-buttons switch" style="display: inline-block;">
-						<paper-toggle-button style="display: inline-block;" checked="{{enableFilter}}"></paper-toggle-button>
-						<span style="display: inline-block; position: relative; top: -0.3rem;">SHOW CONTACTS</span>
-				</div>
 			</div>
 		</paper-card>
 	</template>
