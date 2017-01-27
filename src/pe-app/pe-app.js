@@ -62,7 +62,8 @@ Polymer({
 			console.log(category);
 		}
 	}
-	, ready: function ()
+	, handleEditCategory: function (event, category)
 	{
+		this.$.contactList.fire('update');
 	}
 });

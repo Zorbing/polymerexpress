@@ -44,43 +44,8 @@ const colorKeywords = [
 	, 'springgreen', 'steelblue', 'tan', 'thistle', 'tomato', 'turquoise', 'violet', 'wheat', 'whitesmoke'
 	, 'yellowgreen', 'rebeccapurple'
 ];
-const stubCategoryList = [
-	{
-		id: 0
-		, color: 'mintcream'
-		, name: 'Test'
-	}
-	, {
-		id: 1
-		, color: 'deepskyblue'
-		, name: 'Coole Leute'
-	}
-	, {
-		id: 2
-		, color: 'forestgreen'
-		, name: 'Uncoole Leute'
-	}
-	, {
-		id: 3
-		, color: 'deeppink'
-		, name: 'Wer ist das?'
-	}
-	, {
-		id: 4
-		, name: 'Supplier'
-		, color: 'darkorange'
-	}
-	, {
-		id: 5
-		, name: 'Business'
-		, color: 'dimgray'
-	}
-	, {
-		id: 6
-		, name: 'Work'
-		, color: 'skyblue'
-	}
-];
+
+
 
 Polymer({
 	is: 'pe-rest-category'
@@ -125,7 +90,7 @@ Polymer({
 	{
 		if (testData)
 		{
-			return Promise.resolve(stubCategoryList);
+			return this.$.stub.getCategoryList();
 		}
 		return this.$.rest.read();
 	}

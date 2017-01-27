@@ -34,18 +34,19 @@ Polymer({
 			, observer: 'categoryChanged'
 		}
 
-		, configMode:
-		{
-			type: Boolean,
-			value: false
+		, configMode: {
+			type: Boolean
+			, value: false
 			, observer: 'modeChanged'
 		}
-		, enableFilter:
-		{
-			type: Boolean,
-			value: true,
-			observer: 'filterChanged'
+		, enableFilter: {
+			type: Boolean
+			, value: true
+			, observer: 'filterChanged'
 		}
+	}
+	, observe: {
+		'category.color': 'computeColor'
 	}
 
 
@@ -59,9 +60,18 @@ Polymer({
 	}
 	, handleConfig: function ()
 	{
-	}
 		this.set('configMode', !this.configMode);
 
+		if (!this.configMode)
+		{
+			this.$.restCategory.edit(this.category)
+				.then(() => this.fire('edit', this.category))
+				// >>> TEST
+				.catch(() => this.fire('edit', this.category))
+				// <<< TEST
+			;
+		}
+	}
 
 	, ready: function ()
 	{

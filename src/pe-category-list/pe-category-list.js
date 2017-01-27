@@ -94,8 +94,4 @@ Polymer({
 			this.splice('list', index, 1);
 		}
 	}
-	, handleEdit: function (event)
-	{
-		console.debug(event);
-	}
 });
