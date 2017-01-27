@@ -106,7 +106,30 @@ Polymer({
 	{
 		// add new element to list
 		this.$.restContact.add('new contact', '1970-2-3', 'ynapmoC', [''], [''], [''])
+			.then(() => this.$.restContact.list())
 			.then(list => this.set('list', list))
+			// >>> TEST
+			.catch((error) =>
+			{
+				if (error.status == 404)
+				{
+					this.push('list', {
+						id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
+						, name: 'new contact'
+						, dateOfBirth: '1970-2-3'
+						, company: 'ynapmoC'
+						, category: {
+							id: 0
+							, color: 'mintcream'
+							, name: 'Test'
+						}
+						, addresses: ['']
+						, phoneNumbers: ['']
+						, emailAddresses: ['']
+					});
+				}
+			})
+			// <<< TEST
 		;
 	}
 	, handleDelete: function (event, contact)
