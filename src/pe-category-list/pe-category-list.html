@@ -24,9 +24,10 @@ SOFTWARE.
 
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
-<link rel="import" href="../pe-contact-card-add/pe-contact-card-add.html">
+<link rel="import" href="../pe-add-card/pe-add-card.html">
 <link rel="import" href="../pe-rest-category/pe-rest-category.html">
 <link rel="import" href="../pe-category-item/pe-category-item.html">
+<link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
 
 <dom-module id="pe-category-list">
 	<template>
@@ -38,12 +39,13 @@ SOFTWARE.
 
 		</style>
 
-		<pe-contact-card-add width="small" on-new="handleNew"></pe-contact-card-add>
 		<template is="dom-repeat" items="[[list]]">
-			<pe-category-item category="{{item}}" on-delete="handleDelete"></pe-category-item>
+			<pe-category-item on-send-group-mail="handleSendGroupMail" category="{{item}}" on-delete="handleDelete"></pe-category-item>
 		</template>
+		<pe-add-card width="small" on-new="handleNew"></pe-add-card>
 
 		<pe-rest-category id="restCategory"></pe-rest-category>
+		<pe-rest-contact id="restContact"></pe-rest-contact>
 	</template>
 
 	<script type="text/javascript" src="pe-category-list.js"></script>

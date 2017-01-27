@@ -25,7 +25,7 @@
 'use strict';
 
 Polymer({
-	is: 'pe-contact-card-add'
+	is: 'pe-add-card'
 
 	, properties: {
 		width:

@@ -34,6 +34,7 @@ SOFTWARE.
 <link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
 
 <link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
+<link rel="import" href="../pe-field-color/pe-field-color.html">
 <link rel="import" href="../forms/fields-phone-number.html">
 <link rel="import" href="../pe-rest-category/pe-rest-category.html">
 
@@ -112,6 +113,19 @@ h4
 	width: calc(30rem - .2rem);
 	--paper-card-background-color: var(--category-color);
 }
+.name-input
+{
+	margin: 1rem 0 1rem 1rem;
+	display: inline-block;
+}
+.color-input
+{
+	margin: 0 0 -3rem 2rem;
+	position: relative;
+	right: -5rem;
+	top: 0rem;
+	display: inline-block;
+}
 
 
 		</style>
@@ -123,9 +137,9 @@ h4
 			</div>
 			<div class$="card-content">
 				<!-- Category name -->
-				<fields-phone-number icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></fields-phone-number>
+				<fields-phone-number extra-class="true" class="name-input" icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></fields-phone-number>
 				<!-- Color keyword -->
-				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{category.color}}"></fields-phone-number>
+				<pe-field-color hidden$="[[!configMode]]" class="color-input" on-change="computeColor" disabled="[[!configMode]]" color="{{category.color}}"></pe-field-color>
 			</div>
 			<div class="card-actions">
 				<!-- toggle button to enable for filter -->
@@ -134,7 +148,7 @@ h4
 						<span style="display: inline-block; position: relative; top: -0.3rem;">SHOW CONTACTS</span>
 				</div>
 				<!-- Send group mail button -->
-				<paper-button class="action-buttons mail-button" on-tap="handleSendGroupMail">
+				<paper-button id&="[[true]]" class="action-buttons mail-button" on-tap="handleSendGroupMail">
 					<iron-icon icon="communication:email"></iron-icon>
 					mail 'em
 				</paper-button>

@@ -25,49 +25,28 @@
 'use strict';
 
 Polymer({
-	is: 'pe-app'
+	is: 'pe-field-color'
 
-	, properties: {
-		filterCategories: {
-			type: Array
-			, value: []
-		}
-		, searchString: {
+	, properties:
+	{
+		color:
+		{
 			type: String
-			, value: ''
+			, notify: true
 		}
-		, enableBirthdayFilter: {
+		,disabled:
+		{
 			type: Boolean
 			, value: false
 		}
+
 	}
-	, handleAddFilter: function (event, category)
+	, ready: function ()
 	{
-		const index = this.filterCategories.indexOf(category);
-		if (index !== -1)
-		{
-			// set the whole array to trigger the observer
-			const arr = this.get('filterCategories').slice(0);
-			arr.splice(index, 1);
-			this.set('filterCategories', arr);
-		}
 	}
-	, handleRemoveFilter: function (event, category)
-	{
-		const index = this.filterCategories.indexOf(category);
-		if (index === -1)
-		{
-			// set the whole array to trigger the observer
-			this.set('filterCategories', this.get('filterCategories').concat([category]));
-			console.log(category);
-		}
-	}
-	, handleEditCategory: function (event, category)
-	{
-		this.$.contactList.fire('update');
-	}
-	, handleEditContact: function (event, contact)
-	{
-		this.$.companyList.fire('update');
-	}
+
+	, behaviors:
+	[
+		FormsBehavior
+	]
 });
