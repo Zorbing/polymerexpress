@@ -57,21 +57,7 @@ Polymer({
 		const subject = 'Hello ' + category.name + ' person!';
 		document.location.href = 'mailto:' + mailAddresses.join('j') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(yourMessage);
 	}
-	, handleReceiveCategories: function (event, categoriesList)
-	{
-		this.set('filterCategories', this.get('filterCategories').concat(categoriesList));
-	}
 	, handleAddFilter: function (event, category)
-	{
-		const index = this.filterCategories.indexOf(category);
-		if (index === -1)
-		{
-			// set the whole array to trigger the observer
-			this.set('filterCategories', this.get('filterCategories').concat([category]));
-			console.log(category);
-		}
-	}
-	, handleRemoveFilter: function (event, category)
 	{
 		const index = this.filterCategories.indexOf(category);
 		if (index !== -1)
@@ -80,6 +66,16 @@ Polymer({
 			const arr = this.get('filterCategories').slice(0);
 			arr.splice(index, 1);
 			this.set('filterCategories', arr);
+		}
+	}
+	, handleRemoveFilter: function (event, category)
+	{
+		const index = this.filterCategories.indexOf(category);
+		if (index === -1)
+		{
+			// set the whole array to trigger the observer
+			this.set('filterCategories', this.get('filterCategories').concat([category]));
+			console.log(category);
 		}
 	}
 	, ready: function ()

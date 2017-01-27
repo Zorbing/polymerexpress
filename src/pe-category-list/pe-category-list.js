@@ -37,19 +37,37 @@ Polymer({
 	, ready: function ()
 	{
 		this.$.restCategory.list()
-			.then(list => {this.set('list', list);this.fire('receive-categories', list);})
+			.then(list => this.set('list', list))
 		;
 	}
 	, handleNew: function (event)
 	{
 		console.debug(event);
 		this.$.restCategory.create('new category', 'yellow')
-			.then(list => {this.set('list', list);this.fire('receive-categories', list);})
+			.then(() => this.$.restCategory.list())
+			.then(list => this.set('list', list))
+			// >>> TEST
+			.catch((error) =>
+			{
+				if (error.status == 404)
+				{
+					this.push('list', {
+						name: 'new category'
+						, color: 'yellow'
+					});
+				}
+			})
+			// <<< TEST
 		;
 	}
-	, handleDelete: function (event)
+	, handleDelete: function (event, category)
 	{
-		console.debug(event);
+		// remove element from list
+		const index = this.list.indexOf(category);
+		if (index !== -1)
+		{
+			this.splice('list', index, 1);
+		}
 	}
 	, handleEdit: function (event)
 	{

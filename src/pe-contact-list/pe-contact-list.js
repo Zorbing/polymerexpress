@@ -92,7 +92,7 @@ Polymer({
 			categoryList = categoryList.map(s => s.name.toLowerCase());
 			categoryFilter = (contact) =>
 			{
-				return categoryList.indexOf(contact.category.name.toLowerCase()) !== -1;
+				return categoryList.indexOf(contact.category.name.toLowerCase()) === -1;
 			};
 		}
 
