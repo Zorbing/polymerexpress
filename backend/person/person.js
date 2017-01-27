@@ -642,7 +642,7 @@ router.put("/:id", function (req, res) {
 
     // 2. Insert the new addresses, phone numbers and email addresses
     let afterDrop = function() {
-        let queryCount = 0;
+        let queryCount = 1;
         if (body.hasOwnProperty('addresses') && Array.isArray(body.addresses)) {
             queryCount += body.addresses.length;
         }
