@@ -35,7 +35,7 @@ SOFTWARE.
 
 <link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
 <link rel="import" href="../pe-field-color/pe-field-color.html">
-<link rel="import" href="../forms/fields-phone-number.html">
+<link rel="import" href="../pe-field-general/pe-field-general.html">
 <link rel="import" href="../pe-rest-category/pe-rest-category.html">
 
 <dom-module id="pe-category-item">
@@ -137,7 +137,7 @@ h4
 			</div>
 			<div class$="card-content">
 				<!-- Category name -->
-				<fields-phone-number extra-class="true" class="name-input" icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></fields-phone-number>
+				<pe-field-general extra-class="true" class="name-input" icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></pe-field-general>
 				<!-- Color keyword -->
 				<pe-field-color hidden$="[[!configMode]]" class="color-input" on-change="computeColor" disabled="[[!configMode]]" color="{{category.color}}"></pe-field-color>
 			</div>

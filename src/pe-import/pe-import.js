@@ -46,7 +46,7 @@ Polymer({
 			{
 				return Promise.all(json.contacts.map((contact) =>
 				{
-					promises.push(restContact.import(contact));
+					return restContact.import(contact);
 				}));
 			})
 			.then(this.deferred.resolve, this.deferred.reject)
