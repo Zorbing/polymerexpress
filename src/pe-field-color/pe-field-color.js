@@ -39,14 +39,5 @@ Polymer({
 			type: Boolean
 			, value: false
 		}
-
 	}
-	, ready: function ()
-	{
-	}
-
-	, behaviors:
-	[
-		FormsBehavior
-	]
 });
