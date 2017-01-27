@@ -208,6 +208,7 @@ Polymer({
 			name: contactObject.name
 			, dateOfBirth: contactObject.dateOfBirth
 			, company: this.$.rest.toServer.company(contactObject.company)
+			, category: this.$.rest.toServer.category(contactObject.category)
 			, addresses: this.$.rest.toServer.addressList(contactObject.addresses)
 			, phoneNumbers: this.$.rest.toServer.phoneNumberList(contactObject.phones)
 			, emailAddresses: this.$.rest.toServer.emailAddressList(contactObject.emails)

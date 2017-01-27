@@ -106,7 +106,7 @@ Polymer({
 			{
 				this.computeColor('changed category color');
 			}
-			const modeObj = categoryModeMap.get(this.contact);
+			const modeObj = categoryModeMap.get(this.category);
 			this.configMode = modeObj.config;
 		}
 	}
