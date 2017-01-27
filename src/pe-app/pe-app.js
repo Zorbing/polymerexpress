@@ -41,15 +41,21 @@ Polymer({
 			, value: false
 		}
 	}
+	, list: []
 
 	, handleSendGroupMail: function (event, category)
 	{
-		console.error('To-do: Send group mail to category "' + category.name + '"', category);
+		let mailAddresses = [];
+		for (let contact of this.list)
+		{
+			if ( (contact.category.id == category.id) && (contact.emailAddresses[0] != '') )
+			{
+				mailAddresses.push(contact.emailAddresses[0]);
+			}
+		}
 		const yourMessage = 'Hello there! I hope you like the color ' + category.color + ".";
 		const subject = 'Hello ' + category.name + ' person!';
-		document.location.href = "mailto:bastianschmeier@gmail.com?subject="
-		+ encodeURIComponent(subject)
-		+ "&body=" + encodeURIComponent(yourMessage);
+		document.location.href = 'mailto:' + mailAddresses.join('j') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(yourMessage);
 	}
 	, handleReceiveCategories: function (event, categoriesList)
 	{
@@ -75,5 +81,11 @@ Polymer({
 			arr.splice(index, 1);
 			this.set('filterCategories', arr);
 		}
+	}
+	, ready: function ()
+	{
+		this.$.restContact.list()
+			.then(list => this.set('list', list))
+		;
 	}
 });
