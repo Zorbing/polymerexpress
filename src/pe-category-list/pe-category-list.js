@@ -37,8 +37,11 @@ Polymer({
 			, value: []
 		}
 	}
+	, listeners: {
+		'update': 'handleUpdate'
+	}
 
-	, ready: function ()
+	, handleUpdate: function (event)
 	{
 		this.$.restCategory.list()
 			.then(list => this.set('list', list))
@@ -46,6 +49,10 @@ Polymer({
 		this.$.restContact.list()
 			.then(list => this.set('contactList', list))
 		;
+	}
+	, ready: function ()
+	{
+		this.handleUpdate();
 	}
 
 	, handleSendGroupMail: function (event, category)
@@ -60,7 +67,10 @@ Polymer({
 		}
 		const yourMessage = 'Hello there! I hope you like the color ' + category.color + ".";
 		const subject = 'Hello ' + category.name + ' person!';
-		if (mailAddresses.length>0) document.location.href = 'mailto:' + mailAddresses.join('j') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(yourMessage);
+		if (mailAddresses.length > 0)
+		{
+			document.location.href = 'mailto:' + mailAddresses.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(yourMessage);
+		}
 	}
 
 	, handleNew: function (event)

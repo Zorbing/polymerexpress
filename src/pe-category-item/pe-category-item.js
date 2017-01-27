@@ -56,7 +56,20 @@ Polymer({
 	}
 	, handleDelete: function ()
 	{
-		this.fire('delete', this.category);
+		this.$.restCategory.delete(this.category.id)
+			.then(() => this.fire('delete', this.category))
+			.catch((error) =>
+			{
+				if (error.status == 404)
+				{
+					this.fire('delete', this.category);
+				}
+				else
+				{
+					console.error('error while deleting category %d:', this.category.id, error);
+				}
+			})
+		;
 	}
 	, handleConfig: function ()
 	{
@@ -106,7 +119,7 @@ Polymer({
 			{
 				this.computeColor('changed category color');
 			}
-			const modeObj = categoryModeMap.get(this.contact);
+			const modeObj = categoryModeMap.get(this.category);
 			this.configMode = modeObj.config;
 		}
 	}

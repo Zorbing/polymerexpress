@@ -111,8 +111,13 @@ Polymer({
 	}
 	, handleNew: function (event)
 	{
+		if (this.categoryList.length === 0)
+		{
+			throw new Error('No category');
+		}
+
 		// add new element to list
-		this.$.restContact.add('new contact', '1970-2-3', 'ynapmoC', [''], [''], [''])
+		this.$.restContact.add('new contact', '1970-02-03', 'ynapmoC', this.categoryList[0].id, [''], [''], [''])
 			.then(() => this.$.restContact.list())
 			.then((list) =>
 			{

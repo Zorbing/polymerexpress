@@ -61,6 +61,14 @@ Polymer({
 			this.set('filterCategories', this.get('filterCategories').concat([category]));
 		}
 	}
+	, handleAddCategory: function (event, category)
+	{
+		this.$.contactList.fire('update');
+	}
+	, handleAddContact: function (event, contact)
+	{
+		this.$.companyList.fire('update');
+	}
 	, handleEditCategory: function (event, category)
 	{
 		this.$.contactList.fire('update');
@@ -68,5 +76,11 @@ Polymer({
 	, handleEditContact: function (event, contact)
 	{
 		this.$.companyList.fire('update');
+	}
+	, handleImport: function ()
+	{
+		this.$.categoryList.fire('update');
+		this.$.companyList.fire('update');
+		this.$.contactList.fire('update');
 	}
 });

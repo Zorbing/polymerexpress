@@ -34,7 +34,53 @@ SOFTWARE.
 		<!-- See https://goo.gl/OOhYW5 -->
 		<link rel="manifest" href="/manifest.json">
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700" rel="stylesheet">
-		<link href="style/default.css" rel="stylesheet">
+		<style>
+*
+{
+	margin: 0;
+	padding: 0;
+
+	cursor: inherit;
+}
+html
+{
+	height: 100%;
+}
+body
+{
+	cursor: default;
+	font-family: 'Lato', sans-serif;
+	font-size: 16px;
+	background-color: #F7F7F7;
+	height: 100%;
+
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+input,
+textarea
+{
+	cursor: text;
+	user-select: text;
+	-moz-user-select: text;
+	-webkit-user-select: text;
+	-ms-user-select: text;
+}
+input,
+textarea,
+button
+{
+	font-size: inherit;
+	font-family: inherit;
+}
+ol,
+ul
+{
+	list-style: none;
+}
+		</style>
 
 		<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 

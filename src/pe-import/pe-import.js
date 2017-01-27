@@ -36,25 +36,21 @@ Polymer({
 
 	, importFromJSON: function (json)
 	{
-		console.log('json:', json);
-		const promises = [];
 		const restCategory = this.$.restCategory;
 		const restContact = this.$.restContact;
-		if (typeof json.categories == 'object' && json.categories instanceof Array)
+		return Promise.all(json.categories.map((category) =>
 		{
-			json.categories.forEach((category) =>
+			return restCategory.import(category);
+		}))
+			.then(() =>
 			{
-				promises.push(restCategory.import(category));
-			});
-		}
-		if (typeof json.contacts == 'object' && json.contacts instanceof Array)
-		{
-			json.contacts.forEach((contact) =>
-			{
-				promises.push(restContact.import(contact));
-			});
-		}
-		return Promise.all(promises);
+				return Promise.all(json.contacts.map((contact) =>
+				{
+					promises.push(restContact.import(contact));
+				}));
+			})
+			.then(this.deferred.resolve, this.deferred.reject)
+		;
 	}
 	, handleUpload: function (event)
 	{
@@ -103,6 +99,6 @@ Polymer({
 				resolve: resolve
 				, reject: reject
 			};
-		})
+		});
 	}
 });
