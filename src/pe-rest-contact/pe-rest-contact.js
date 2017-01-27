@@ -192,7 +192,7 @@ Polymer({
 			name: name
 			, dateOfBirth: dateOfBirth
 			, company: this.$.rest.toServer.company(company)
-			, category: this.$.rest.toServer.category(category.id)
+			, category: this.$.rest.toServer.category(categoryId)
 			, addresses: this.$.rest.toServer.addressList(addresses)
 			, phoneNumbers: this.$.rest.toServer.phoneNumberList(phoneNumbers)
 			, emailAddresses: this.$.rest.toServer.emailAddressList(emailAddresses)
