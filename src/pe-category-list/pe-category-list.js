@@ -37,8 +37,11 @@ Polymer({
 			, value: []
 		}
 	}
+	, listeners: {
+		'update': 'handleUpdate'
+	}
 
-	, ready: function ()
+	, handleUpdate: function (event)
 	{
 		this.$.restCategory.list()
 			.then(list => this.set('list', list))
@@ -46,6 +49,10 @@ Polymer({
 		this.$.restContact.list()
 			.then(list => this.set('contactList', list))
 		;
+	}
+	, ready: function ()
+	{
+		this.handleUpdate();
 	}
 
 	, handleSendGroupMail: function (event, category)
@@ -75,20 +82,6 @@ Polymer({
 				this.set('list', list);
 				this.fire('add', list[list.length - 1]);
 			})
-			// >>> TEST
-			.catch((error) =>
-			{
-				if (error.status == 404)
-				{
-					this.push('list', {
-						id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
-						, name: 'new category'
-						, color: 'yellow'
-					});
-					this.fire('add', this.list[this.list.length - 1]);
-				}
-			})
-			// <<< TEST
 		;
 	}
 	, handleDelete: function (event, category)

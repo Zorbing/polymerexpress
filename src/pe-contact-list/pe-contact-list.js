@@ -111,37 +111,19 @@ Polymer({
 	}
 	, handleNew: function (event)
 	{
+		if (this.categoryList.length === 0)
+		{
+			throw new Error('No category');
+		}
+
 		// add new element to list
-		this.$.restContact.add('new contact', '1970-2-3', 'ynapmoC', [''], [''], [''])
+		this.$.restContact.add('new contact', '1970-02-03', 'ynapmoC', this.categoryList[0].id, [''], [''], [''])
 			.then(() => this.$.restContact.list())
 			.then((list) =>
 			{
 				this.set('list', list);
 				this.fire('add', list[list.length - 1]);
 			})
-			// >>> TEST
-			.catch((error) =>
-			{
-				if (error.status == 404)
-				{
-					this.push('list', {
-						id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
-						, name: 'new contact'
-						, dateOfBirth: '1970-2-3'
-						, company: 'ynapmoC'
-						, category: {
-							id: 0
-							, color: 'mintcream'
-							, name: 'Test'
-						}
-						, addresses: ['']
-						, phoneNumbers: ['']
-						, emailAddresses: ['']
-					});
-					this.fire('add', this.list[this.list.length - 1]);
-				}
-			})
-			// <<< TEST
 		;
 	}
 	, handleDelete: function (event, contact)

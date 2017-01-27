@@ -38,10 +38,11 @@ Polymer({
 		return this.$.rest.read()
 			.then((resultList) =>
 			{
-				return resultList.map((result) =>
+				const companySet = new Set(resultList.map((result) =>
 				{
 					return this.$.rest.fromServer.company(result);
-				});
+				}));
+				return Array.from(companySet.values());
 			})
 		;
 	}

@@ -77,4 +77,10 @@ Polymer({
 	{
 		this.$.companyList.fire('update');
 	}
+	, handleImport: function ()
+	{
+		this.$.categoryList.fire('update');
+		this.$.companyList.fire('update');
+		this.$.contactList.fire('update');
+	}
 });
