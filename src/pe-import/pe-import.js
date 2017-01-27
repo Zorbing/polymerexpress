@@ -38,14 +38,22 @@ Polymer({
 	{
 		const restCategory = this.$.restCategory;
 		const restContact = this.$.restContact;
+		const categoryId2DBId = new Map();
 		return Promise.all(json.categories.map((category) =>
 		{
-			return restCategory.import(category);
+			return restCategory.import(category)
+				.then((response) =>
+				{
+					categoryId2DBId.set(category.id, response.detail.id);
+					return response;
+				})
+			;
 		}))
 			.then(() =>
 			{
 				return Promise.all(json.contacts.map((contact) =>
 				{
+					contact.category = categoryId2DBId.get(contact.category);
 					return restContact.import(contact);
 				}));
 			})
