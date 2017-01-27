@@ -76,6 +76,10 @@ SOFTWARE.
 					<iron-icon icon="[[calculateIcon(width)]]"></iron-icon>
 					[[calculateText(width)]]
 				</paper-button>
+				<paper-button hidden$="[[import(width)]]" class="action-buttons" on-tap="handleUpload">
+					<iron-icon icon="file-upload"></iron-icon>
+					Import JSON
+				</paper-button>
 			</div>
 		</paper-card>
 	</template>

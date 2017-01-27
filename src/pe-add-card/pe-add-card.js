@@ -38,6 +38,11 @@ Polymer({
 		// is triggered by click on contact card add button
 		this.fire('new');
 	}
+	, handleUpload: function ()
+	{
+		// is triggered by click on import JSON
+		this.fire('upload');
+	}
 	, ready: function ()
 	{
 	}
@@ -48,6 +53,10 @@ Polymer({
 	, calculateIcon: function (width)
 	{
 		return (width=='big') ? 'icons:account-circle' : 'icons:label-outline';
+	}
+	, import: function (width)
+	{
+		return (width!='big');
 	}
 
 
