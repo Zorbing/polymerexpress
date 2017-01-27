@@ -114,12 +114,12 @@ h2:not(:last-child)
 					<h2>Category list</h2>
 					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter" on-edit="handleEditCategory"></pe-category-list>
 					<h2>Company list</h2>
-					<pe-company-list></pe-company-list>
+					<pe-company-list id="companyList"></pe-company-list>
 				</nav>
 
 				<main class="content-block right">
 					<!--<h2 style="color: #605274;">Contact list</h2>-->
-					<pe-contact-list id="contactList" search-string="[[searchString]]" filter-categories="[[filterCategories]]" birthday-filter="[[enableBirthdayFilter]]"></pe-contact-list>
+					<pe-contact-list id="contactList" search-string="[[searchString]]" filter-categories="[[filterCategories]]" birthday-filter="[[enableBirthdayFilter]]" on-edit="handleEditContact"></pe-contact-list>
 				</main>
 			</div>
 		</div>

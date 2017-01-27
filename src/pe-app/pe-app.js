@@ -65,4 +65,8 @@ Polymer({
 	{
 		this.$.contactList.fire('update');
 	}
+	, handleEditContact: function (event, contact)
+	{
+		this.$.companyList.fire('update');
+	}
 });
