@@ -40,7 +40,7 @@ SOFTWARE.
 		</style>
 
 		<template is="dom-repeat" items="[[list]]">
-			<pe-category-item on-send-group-mail="handleSendGroupMail" category="{{item}}" on-delete="handleDelete" on-edit="handleEdit"></pe-category-item>
+			<pe-category-item on-send-group-mail="handleSendGroupMail" category="{{item}}" on-delete="handleDelete"></pe-category-item>
 		</template>
 		<pe-add-card width="small" on-new="handleNew"></pe-add-card>
 
