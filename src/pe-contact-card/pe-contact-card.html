@@ -97,7 +97,7 @@ h4
 {
 	position: absolute;
 	margin-left: 17rem;
-	margin-top: -2.2rem;
+	margin-top: -1.2rem;
 }
 .card-actions
 {
@@ -195,7 +195,7 @@ h4
 					<!-- Category -->
 					<iron-icon class="make-it-sixty-percent-grey" icon="label" prefix></iron-icon>
 					<paper-dropdown-menu class="date-pci" on-change="computeColor" disabled$="[[!editMode]]">
-						<paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{contact.category.name}}">
+						<paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{contact.category}}">
 							<template is="dom-repeat" items="[[categoryList]]">
 								<paper-item value="{{item}}">{{item}}</paper-item>
 							</template>
