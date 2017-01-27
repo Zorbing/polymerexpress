@@ -169,10 +169,6 @@ Polymer({
 			})
 		;
 	}
-	, handleUpload: function ()
-	{
-		this.$.import.upload();
-	}
 	, ready: function ()
 	{
 		this.handleUpdate();
