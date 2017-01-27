@@ -75,20 +75,6 @@ Polymer({
 				this.set('list', list);
 				this.fire('add', list[list.length - 1]);
 			})
-			// >>> TEST
-			.catch((error) =>
-			{
-				if (error.status == 404)
-				{
-					this.push('list', {
-						id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
-						, name: 'new category'
-						, color: 'yellow'
-					});
-					this.fire('add', this.list[this.list.length - 1]);
-				}
-			})
-			// <<< TEST
 		;
 	}
 	, handleDelete: function (event, category)
