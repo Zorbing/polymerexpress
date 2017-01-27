@@ -87,6 +87,9 @@ Polymer({
 		{
 			this.restContact.edit(this.contact)
 				.then(() => this.fire('edit', this.contact))
+				// >>> TEST
+				.catch(() => this.fire('edit', this.contact))
+				// <<< TEST
 			;
 		}
 	}

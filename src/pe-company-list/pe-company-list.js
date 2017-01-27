@@ -33,11 +33,18 @@ Polymer({
 			, value: []
 		}
 	}
+	, listeners: {
+		'update': 'handleUpdate'
+	}
 
-	, ready: function ()
+	, handleUpdate: function (event)
 	{
 		this.$.restCompany.list()
 			.then(list => this.set('list', list))
 		;
+	}
+	, ready: function ()
+	{
+		this.handleUpdate();
 	}
 });
