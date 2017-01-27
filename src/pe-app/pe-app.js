@@ -41,22 +41,6 @@ Polymer({
 			, value: false
 		}
 	}
-	, list: []
-
-	, handleSendGroupMail: function (event, category)
-	{
-		let mailAddresses = [];
-		for (let contact of this.list)
-		{
-			if ( (contact.category.id == category.id) && (contact.emailAddresses[0] != '') )
-			{
-				mailAddresses.push(contact.emailAddresses[0]);
-			}
-		}
-		const yourMessage = 'Hello there! I hope you like the color ' + category.color + ".";
-		const subject = 'Hello ' + category.name + ' person!';
-		if (mailAddresses.length>0) document.location.href = 'mailto:' + mailAddresses.join('j') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(yourMessage);
-	}
 	, handleAddFilter: function (event, category)
 	{
 		const index = this.filterCategories.indexOf(category);
@@ -80,8 +64,5 @@ Polymer({
 	}
 	, ready: function ()
 	{
-		this.$.restContact.list()
-			.then(list => this.set('list', list))
-		;
 	}
 });

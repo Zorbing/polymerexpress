@@ -32,6 +32,10 @@ Polymer({
 			type: Array
 			, value: []
 		}
+		, contactList: {
+			type: Array
+			, value: []
+		}
 	}
 
 	, ready: function ()
@@ -39,7 +43,27 @@ Polymer({
 		this.$.restCategory.list()
 			.then(list => this.set('list', list))
 		;
+		this.$.restContact.list()
+			.then(list => this.set('contactList', list))
+		;
 	}
+
+	, handleSendGroupMail: function (event, category)
+	{
+		console.log('dfdf');
+		let mailAddresses = [];
+		for (let contact of this.contactList)
+		{
+			if ( (contact.category.id == category.id) && (contact.emailAddresses[0] != '') )
+			{
+				mailAddresses.push(contact.emailAddresses[0]);
+			}
+		}
+		const yourMessage = 'Hello there! I hope you like the color ' + category.color + ".";
+		const subject = 'Hello ' + category.name + ' person!';
+		if (mailAddresses.length>0) document.location.href = 'mailto:' + mailAddresses.join('j') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(yourMessage);
+	}
+
 	, handleNew: function (event)
 	{
 		console.debug(event);

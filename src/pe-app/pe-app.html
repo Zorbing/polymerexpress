@@ -29,7 +29,6 @@ SOFTWARE.
 <link rel="import" href="../pe-category-list/pe-category-list.html">
 <link rel="import" href="../pe-company-list/pe-company-list.html">
 <link rel="import" href="../pe-contact-list/pe-contact-list.html">
-<link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
 
 <dom-module id="pe-app">
 	<template>
@@ -113,7 +112,7 @@ h2:not(:last-child)
 					</paper-input>
 					<paper-toggle-button class="filter-birthday" checked="{{enableBirthdayFilter}}">Display all people whose birthday happens in the next ten days</paper-toggle-button>
 					<h2>Category list</h2>
-					<pe-category-list on-send-group-mail="handleSendGroupMail" on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter"></pe-category-list>
+					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter"></pe-category-list>
 					<h2>Company list</h2>
 					<pe-company-list></pe-company-list>
 				</nav>
@@ -124,7 +123,6 @@ h2:not(:last-child)
 				</main>
 			</div>
 		</div>
-		<pe-rest-contact id="restContact"></pe-rest-contact>
 	</template>
 
 	<script type="text/javascript" src="pe-app.js"></script>
