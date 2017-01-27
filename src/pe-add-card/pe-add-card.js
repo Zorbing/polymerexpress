@@ -41,7 +41,10 @@ Polymer({
 	, handleUpload: function ()
 	{
 		// is triggered by click on import JSON
-		this.$.import.upload();
+		this.$.import.upload()
+			.then(() => this.fire('import'))
+			.then(() => this.fire('import'))
+		;
 	}
 	, ready: function ()
 	{

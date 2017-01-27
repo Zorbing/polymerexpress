@@ -37,8 +37,11 @@ Polymer({
 			, value: []
 		}
 	}
+	, listeners: {
+		'update': 'handleUpdate'
+	}
 
-	, ready: function ()
+	, handleUpdate: function (event)
 	{
 		this.$.restCategory.list()
 			.then(list => this.set('list', list))
@@ -46,6 +49,10 @@ Polymer({
 		this.$.restContact.list()
 			.then(list => this.set('contactList', list))
 		;
+	}
+	, ready: function ()
+	{
+		this.handleUpdate();
 	}
 
 	, handleSendGroupMail: function (event, category)

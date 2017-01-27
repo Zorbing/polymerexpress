@@ -112,7 +112,7 @@ h2:not(:last-child)
 					</paper-input>
 					<paper-toggle-button class="filter-birthday" checked="{{enableBirthdayFilter}}">Display all people whose birthday happens in the next ten days</paper-toggle-button>
 					<h2>Category list</h2>
-					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter" on-edit="handleEditCategory" on-add="handleAddCategory"></pe-category-list>
+					<pe-category-list id="categoryList" on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter" on-edit="handleEditCategory" on-add="handleAddCategory" on-import="handleImport"></pe-category-list>
 					<h2>Company list</h2>
 					<pe-company-list id="companyList"></pe-company-list>
 				</nav>
