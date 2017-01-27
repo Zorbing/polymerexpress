@@ -65,7 +65,7 @@ let stubContactMap = new Map([
 	[0, {
 		id: 0
 		, name: 'Cond Uctor'
-		, dateOfBirth: '1942-2-4'
+		, dateOfBirth: '1942-02-04'
 		, company: 'Polybahn'
 		, categoryId: 0
 		, addresses: ['Expressweg 15, 4242 Polymer']
@@ -85,7 +85,7 @@ let stubContactMap = new Map([
 	, [2, {
 		id: 2
 		, name: 'Peter Pan'
-		, dateOfBirth: '1970-2-6'
+		, dateOfBirth: '1970-02-06'
 		, company: 'Polybahn'
 		, categoryId: 1
 		, addresses: ['Direkt, 999 HTML', 'A, 234 B']
@@ -95,7 +95,7 @@ let stubContactMap = new Map([
 	, [3, {
 		id: 3
 		, name: 'Bob Baumeister'
-		, dateOfBirth: '1970-2-2'
+		, dateOfBirth: '1970-02-02'
 		, company: 'Hot Animation Studios'
 		, categoryId: 1
 		, addresses: ['Am Bauhof, 3 Bobhausen']
@@ -105,7 +105,7 @@ let stubContactMap = new Map([
 	, [4, {
 		id: 4
 		, name: 'Giesela Schmidt'
-		, dateOfBirth: '1970-2-3'
+		, dateOfBirth: '1970-02-03'
 		, company: 'ynapmoC'
 		, categoryId: 1
 		, addresses: ['']
@@ -115,7 +115,7 @@ let stubContactMap = new Map([
 	, [5, {
 		id: 5
 		, name: 'Bernd Brot'
-		, dateOfBirth: '1970-2-5'
+		, dateOfBirth: '1970-02-05'
 		, company: 'KiKA-Lounge'
 		, categoryId: 2
 		, addresses: ['']
@@ -125,7 +125,7 @@ let stubContactMap = new Map([
 	, [6, {
 		id: 6
 		, name: 'Bibi Range'
-		, dateOfBirth: '1970-2-12'
+		, dateOfBirth: '1970-02-12'
 		, company: 'TheirTube'
 		, categoryId: 2
 		, addresses: ['']
@@ -135,7 +135,7 @@ let stubContactMap = new Map([
 	, [7, {
 		id: 7
 		, name: 'Wilmer Tinkler'
-		, dateOfBirth: '1880-2-13'
+		, dateOfBirth: '1880-02-13'
 		, company: 'SIMI'
 		, categoryId: 3
 		, addresses: ['']
@@ -145,7 +145,7 @@ let stubContactMap = new Map([
 	, [8, {
 		id: 8
 		, name: 'Dieter Brooksdandern'
-		, dateOfBirth: '1970-2-14'
+		, dateOfBirth: '1970-02-14'
 		, company: 'SIMI'
 		, categoryId: 3
 		, addresses: ['']

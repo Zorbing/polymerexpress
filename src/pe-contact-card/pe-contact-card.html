@@ -205,9 +205,11 @@ h4
 					<!--<fields-phone-number on-change="computeColor" icon="label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>-->
 
 					<!-- Date of Birth -->
-					<paper-input-date-picker class="date-pci margin-away" disabled$="[[!editMode]]"  value="{{contact.dateOfBirth}}" locale="en">
+					<!--<paper-date-picker id="picker" class="date-pci margin-away" disabled$="[[!editMode]]" date="{{contact.dateOfBirth}}" locale="en">
 						<iron-icon class="make-it-sixty-percent-grey" icon="social:cake" prefix></iron-icon>
-					</paper-input-date-picker>
+					</paper-date-picker>-->
+					<fields-phone-number  icon="social:cake" pattern="[0-9-]" edit-mode="[[editMode]]" number="{{contact.dateOfBirth}}"></fields-phone-number>
+
 
 				</div>
 				<!-- Details Block -->

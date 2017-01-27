@@ -86,6 +86,10 @@ Polymer({
 	{
 		return colorKeywords;
 	}
+	, import: function (categoryObject)
+	{
+		return this.$.rest.create(categoryObject);
+	}
 	, list: function (testData = false)
 	{
 		if (testData)

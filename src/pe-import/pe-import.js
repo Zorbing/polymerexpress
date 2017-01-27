@@ -37,6 +37,24 @@ Polymer({
 	, importFromJSON: function (json)
 	{
 		console.log('json:', json);
+		const promises = [];
+		const restCategory = this.$.restCategory;
+		const restContact = this.$.restContact;
+		if (typeof json.categories == 'object' && json.categories instanceof Array)
+		{
+			json.categories.forEach((category) =>
+			{
+				promises.push(restCategory.import(category));
+			});
+		}
+		if (typeof json.contacts == 'object' && json.contacts instanceof Array)
+		{
+			json.contacts.forEach((contact) =>
+			{
+				promises.push(restContact.import(contact));
+			});
+		}
+		return Promise.all(promises);
 	}
 	, handleUpload: function (event)
 	{
