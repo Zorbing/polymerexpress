@@ -24,18 +24,21 @@
 
 'use strict';
 
+const categoryModeMap = new WeakMap();
 Polymer({
 	is: 'pe-category-item'
 
 	, properties: {
 		category: {
 			type: Object
+			, observer: 'categoryChanged'
 		}
 
 		, configMode:
 		{
 			type: Boolean,
 			value: false
+			, observer: 'modeChanged'
 		}
 		, enableFilter:
 		{
@@ -54,11 +57,10 @@ Polymer({
 	{
 		this.fire('delete', this.category);
 	}
-
 	, handleConfig: function ()
 	{
-		this.configMode = !this.configMode;
 	}
+		this.set('configMode', !this.configMode);
 
 
 	, ready: function ()
@@ -80,6 +82,33 @@ Polymer({
 		{
 			this.fire((this.enableFilter ? 'add' : 'remove') + '-filter', this.category);
 		}
+	}
+	, categoryChanged: function (newCategory, oldCategory)
+	{
+		if (!categoryModeMap.has(this.category))
+		{
+			this.modeChanged();
+		}
+		if (oldCategory !== undefined)
+		{
+			if (newCategory.color !== oldCategory.color)
+			{
+				this.computeColor('changed category color');
+			}
+			const modeObj = categoryModeMap.get(this.contact);
+			this.configMode = modeObj.config;
+		}
+	}
+	, modeChanged: function (newMode, oldMode)
+	{
+		if (!this.category)
+		{
+			return;
+		}
+
+		categoryModeMap.set(this.category, {
+			config: this.configMode
+		});
 	}
 
 

@@ -52,7 +52,8 @@ Polymer({
 				if (error.status == 404)
 				{
 					this.push('list', {
-						name: 'new category'
+						id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
+						, name: 'new category'
 						, color: 'yellow'
 					});
 				}
