@@ -200,6 +200,17 @@ Polymer({
 	{
 		return new Contact(contactId, this.$.rest);
 	}
+	, import: function (contactObject)
+	{
+		return this.$.rest.create({
+			name: contactObject.name
+			, dateOfBirth: contactObject.dateOfBirth
+			, company: this.$.rest.toServer.company(contactObject.company)
+			, addresses: this.$.rest.toServer.addressList(contactObject.addresses)
+			, phoneNumbers: this.$.rest.toServer.phoneNumberList(contactObject.phones)
+			, emailAddresses: this.$.rest.toServer.emailAddressList(contactObject.emails)
+		});
+	}
 	, list: function (testData = true)
 	{
 		if (testData)
