@@ -37,10 +37,10 @@ SOFTWARE.
 	width: 20rem;
 }
 		</style>
-		<pe-contact-card-add width="big" on-new="handleNew"></pe-contact-card-add>
 		<template is="dom-repeat" items="[[list]]" filter="{{computeFilter(searchString, filterCategories, birthdayFilter)}}">
 			<pe-contact-card contact="[[item]]" on-delete="handleDelete" on-edit="handleEdit"></pe-contact-card>
 		</template>
+		<pe-contact-card-add width="big" on-new="handleNew"></pe-contact-card-add>
 
 		<pe-rest-contact id="restContact"></pe-rest-contact>
 	</template>
