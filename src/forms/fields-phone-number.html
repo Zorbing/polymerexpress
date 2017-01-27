@@ -7,8 +7,8 @@
 <link rel="import" href="/src/forms/forms-behavior.html">
 
 <dom-module id="fields-phone-number">
-<template>
-	<style include="shared-styles">
+	<template>
+		<style>
 #inputField
 {
 	margin: -1.5rem 0 -1.5rem 0;
@@ -36,85 +36,80 @@
 }
 
 
-	</style>
-	<paper-input on-blur="leavingField" id="inputField" class$="[[extraClass]]" maxlength="[[maxlength]]" disabled$="[[!editMode]]" auto-validate allowed-pattern="[[pattern]]" type="[[type]]" value="{{number}}">
-		  <iron-icon hidden$="[[extraClass]]" class="fieldIcon" icon="[[icon]]" prefix></iron-icon>
-	</paper-input>
-</template>
-<script>
-	Polymer({
-		is: 'fields-phone-number',
+		</style>
+		<paper-input on-blur="leavingField" id="inputField" class$="[[extraClass]]" maxlength="[[maxlength]]" disabled$="[[!editMode]]" auto-validate allowed-pattern="[[pattern]]" type="[[type]]" value="{{number}}">
+			<iron-icon hidden$="[[extraClass]]" class="fieldIcon" icon="[[icon]]" prefix></iron-icon>
+		</paper-input>
+	</template>
+	<script>
+Polymer({
+	is: 'fields-phone-number',
 
-		properties: {
+	properties: {
 
 
-			number:
-			{
-				type: String
-				, notify: true
-			}
-			, id:
-			{
-				type: Number
-			}
-			, arrayName:
-			{
-				type: String
-			}
-			, type:
-			{
-				type: String
-				, value: ''
-			}
-			, editMode:
-			{
-				type: Boolean
-				, value: false
-			}
-			, pattern:
-			{
-				type: String
-				, value: ''
-			}
-			, icon:
-			{
-				type: String
-				, value: ''
-			}
-			, maxlength:
-			{
-				type: Number
-			}
-			, extraClass:
-			{
-				type: Boolean
-				, value: false
-			}
-		}
-
-		, isEmpty: function ()
+		number:
 		{
-			return (this.$.inputField.value == '');
+			type: String
+			, notify: true
 		}
-		, isValid: function ()
+		, id:
 		{
-			return (this.isEmpty() || this.$.inputField.validate());
+			type: Number
 		}
-		, leavingField: function (event)
+		, arrayName:
 		{
-			if (this.isEmpty())
-				this.fire('lineremove', {id: this.id, arrayName: this.arrayName});
+			type: String
 		}
-		, focus: function ()
+		, type:
 		{
-			this.$.inputField.inputElement.focus();
+			type: String
+			, value: ''
 		}
+		, editMode:
+		{
+			type: Boolean
+			, value: false
+		}
+		, pattern:
+		{
+			type: String
+			, value: ''
+		}
+		, icon:
+		{
+			type: String
+			, value: ''
+		}
+		, maxlength:
+		{
+			type: Number
+		}
+		, extraClass:
+		{
+			type: Boolean
+			, value: false
+		}
+	}
 
-		, behaviors:
-		[
-			FormsBehavior
-		]
-	});
-</script>
+	, isEmpty: function ()
+	{
+		return (this.$.inputField.value == '');
+	}
+	, isValid: function ()
+	{
+		return (this.isEmpty() || this.$.inputField.validate());
+	}
+	, leavingField: function (event)
+	{
+		if (this.isEmpty())
+			this.fire('lineremove', {id: this.id, arrayName: this.arrayName});
+	}
+	, focus: function ()
+	{
+		this.$.inputField.inputElement.focus();
+	}
+});
+	</script>
 
 </dom-module>

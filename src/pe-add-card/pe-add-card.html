@@ -1,0 +1,90 @@
+<!--
+The MIT License (MIT)
+
+Copyright 2017 Martin Boekhoff
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-card/paper-card.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/communication-icons.html">
+<link rel="import" href="/bower_components/iron-icons/social-icons.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
+
+<link rel="import" href="../forms/fields-phone-number.html">
+<link rel="import" href="../pe-import/pe-import.html">
+
+<dom-module id="pe-add-card">
+	<template>
+		<style>
+:host
+{
+	display: inline-block;
+	margin: .2rem .1rem;
+	width: 20rem;
+}
+
+.card-actions
+{
+	text-align: center;
+}
+.action-buttons
+{
+	width: 18rem;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+.card
+{
+
+	--paper-card-background-color: white;
+}
+#big
+{
+	width: 40rem;
+}
+#small
+{
+	width: calc(30rem - .2rem);
+}
+
+		</style>
+		<paper-card class="card" id="[[width]]">
+			<div class="card-actions">
+				<paper-button class="action-buttons" on-tap="handleNew">
+					<iron-icon icon="[[calculateIcon(width)]]"></iron-icon>
+					[[calculateText(width)]]
+				</paper-button>
+				<paper-button hidden$="[[import(width)]]" class="action-buttons" on-tap="handleUpload">
+					<iron-icon icon="file-upload"></iron-icon>
+					Import JSON
+				</paper-button>
+			</div>
+		</paper-card>
+
+		<pe-import id="import"></pe-import>
+	</template>
+
+	<script type="text/javascript" src="pe-add-card.js"></script>
+</dom-module>

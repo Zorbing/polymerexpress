@@ -25,24 +25,44 @@
 'use strict';
 
 Polymer({
-	is: 'pe-rest-company'
+	is: 'pe-add-card'
 
-	, properties: {}
-
-	, list: function (testData = false)
-	{
-		if (testData)
+	, properties: {
+		width:
 		{
-			return this.$.stub.getCompanyList();
+			type: String
 		}
-		return this.$.rest.read()
-			.then((resultList) =>
-			{
-				return resultList.map((result) =>
-				{
-					return this.$.rest.fromServer.company(result);
-				});
-			})
-		;
 	}
+	, handleNew: function ()
+	{
+		// is triggered by click on contact card add button
+		this.fire('new');
+	}
+	, handleUpload: function ()
+	{
+		// is triggered by click on import JSON
+		this.$.import.upload();
+	}
+	, ready: function ()
+	{
+	}
+	, calculateText: function (width)
+	{
+		return (width=='big') ? 'add new contact' : 'create category';
+	}
+	, calculateIcon: function (width)
+	{
+		return (width=='big') ? 'icons:account-circle' : 'icons:label-outline';
+	}
+	, import: function (width)
+	{
+		return (width!='big');
+	}
+
+
+
+	/**
+	 * private functions
+	 */
+
 });

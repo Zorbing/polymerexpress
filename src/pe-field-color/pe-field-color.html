@@ -1,0 +1,93 @@
+<!--
+The MIT License (MIT)
+
+Copyright 2017 Martin Boekhoff
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/paper-swatch-picker/paper-swatch-picker.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+
+
+<dom-module id="pe-field-color">
+	<template>
+		<style>
+.background
+{
+	background-color: rgba(0, 0, 0, 0.7);
+	width: 2.4rem;
+	height: 2.4rem;
+	border-radius: 50%;
+}
+:host paper-swatch-picker
+{
+
+	/*margin: 0;*/
+	top: -0.5rem;
+	left: -0.5rem;
+
+	--paper-swatch-picker-color-size: 20px;
+}
+
+div.picker
+{
+	display: inline-block;
+}
+		</style>
+
+		<!-- colorlist-array by @bobspace -->
+		<div class="background">
+			<paper-swatch-picker color="{{color}}" column-count="20" autofill-columns disabled$="[[disabled]]"
+				color-list='[
+							"AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige",
+							"Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown",
+							"BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral",
+							"CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue",
+							"DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen",
+							"DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid",
+							"DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray",
+							"DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue",
+							"DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen",
+							"Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey",
+							"Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory",
+							"Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue",
+							"LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey",
+							"LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue",
+							"LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime",
+							"LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue",
+							"MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue",
+							"MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue",
+							"MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive",
+							"OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen",
+							"PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink",
+							"Plum","PowderBlue","Purple","Rebeccapurple", "Red","RosyBrown","RoyalBlue","SaddleBrown",
+							"Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue",
+							"SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan",
+							"Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke",
+							"Yellow","YellowGreen"
+							]'>
+			</paper-swatch-picker>
+		</div>
+	</template>
+	<script type="text/javascript" src="pe-field-color.js"></script>
+</dom-module>

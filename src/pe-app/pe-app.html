@@ -27,6 +27,7 @@ SOFTWARE.
 <link rel="import" href="/bower_components/paper-input/paper-input.html">
 
 <link rel="import" href="../pe-category-list/pe-category-list.html">
+<link rel="import" href="../pe-company-list/pe-company-list.html">
 <link rel="import" href="../pe-contact-list/pe-contact-list.html">
 
 <dom-module id="pe-app">
@@ -111,12 +112,14 @@ h2:not(:last-child)
 					</paper-input>
 					<paper-toggle-button class="filter-birthday" checked="{{enableBirthdayFilter}}">Display all people whose birthday happens in the next ten days</paper-toggle-button>
 					<h2>Category list</h2>
-					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter"></pe-category-list>
+					<pe-category-list on-add-filter="handleAddFilter" on-remove-filter="handleRemoveFilter" on-edit="handleEditCategory" on-add="handleAddCategory"></pe-category-list>
+					<h2>Company list</h2>
+					<pe-company-list id="companyList"></pe-company-list>
 				</nav>
 
 				<main class="content-block right">
 					<!--<h2 style="color: #605274;">Contact list</h2>-->
-					<pe-contact-list search-string="[[searchString]]" filter-categories="[[filterCategories]]" birthday-filter="[[enableBirthdayFilter]]"></pe-contact-list>
+					<pe-contact-list id="contactList" search-string="[[searchString]]" filter-categories="[[filterCategories]]" birthday-filter="[[enableBirthdayFilter]]" on-edit="handleEditContact" on-add="handleAddContact"></pe-contact-list>
 				</main>
 			</div>
 		</div>

@@ -41,17 +41,7 @@ Polymer({
 			, value: false
 		}
 	}
-
 	, handleAddFilter: function (event, category)
-	{
-		const index = this.filterCategories.indexOf(category);
-		if (index === -1)
-		{
-			// set the whole array to trigger the observer
-			this.set('filterCategories', this.get('filterCategories').concat([category]));
-		}
-	}
-	, handleRemoveFilter: function (event, category)
 	{
 		const index = this.filterCategories.indexOf(category);
 		if (index !== -1)
@@ -61,5 +51,30 @@ Polymer({
 			arr.splice(index, 1);
 			this.set('filterCategories', arr);
 		}
+	}
+	, handleRemoveFilter: function (event, category)
+	{
+		const index = this.filterCategories.indexOf(category);
+		if (index === -1)
+		{
+			// set the whole array to trigger the observer
+			this.set('filterCategories', this.get('filterCategories').concat([category]));
+		}
+	}
+	, handleAddCategory: function (event, category)
+	{
+		this.$.contactList.fire('update');
+	}
+	, handleAddContact: function (event, contact)
+	{
+		this.$.companyList.fire('update');
+	}
+	, handleEditCategory: function (event, category)
+	{
+		this.$.contactList.fire('update');
+	}
+	, handleEditContact: function (event, contact)
+	{
+		this.$.companyList.fire('update');
 	}
 });

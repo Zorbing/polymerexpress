@@ -25,24 +25,19 @@
 'use strict';
 
 Polymer({
-	is: 'pe-rest-company'
+	is: 'pe-field-color'
 
-	, properties: {}
-
-	, list: function (testData = false)
+	, properties:
 	{
-		if (testData)
+		color:
 		{
-			return this.$.stub.getCompanyList();
+			type: String
+			, notify: true
 		}
-		return this.$.rest.read()
-			.then((resultList) =>
-			{
-				return resultList.map((result) =>
-				{
-					return this.$.rest.fromServer.company(result);
-				});
-			})
-		;
+		,disabled:
+		{
+			type: Boolean
+			, value: false
+		}
 	}
 });

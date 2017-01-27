@@ -34,7 +34,9 @@ SOFTWARE.
 <link rel="import" href="/bower_components/paper-toggle-button/paper-toggle-button.html">
 
 <link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
+<link rel="import" href="../pe-field-color/pe-field-color.html">
 <link rel="import" href="../forms/fields-phone-number.html">
+<link rel="import" href="../pe-rest-category/pe-rest-category.html">
 
 <dom-module id="pe-category-item">
 	<template>
@@ -44,6 +46,8 @@ SOFTWARE.
 	display: inline-block;
 	margin: .2rem .1rem;
 	--category-color: pink;
+	/* width because of parent element positioning */
+	width: calc(30rem - .2rem);
 }
 h4
 {
@@ -66,6 +70,10 @@ h4
 	-webkit-user-select: text;
 	-ms-user-select: text;
 }
+.card-content
+{
+	margin: 1rem;
+}
 .card-content iron-icon
 {
 	cursor: default;
@@ -75,9 +83,10 @@ h4
 .delete-button
 {
 	position: absolute;
-	top: 0rem;
+	top: 0.7rem;
 	/*left: 17rem;*/
 	right: .5rem;
+	color: rgba(0, 0, 0, 0.6);
 }
 
 .card-actions
@@ -87,6 +96,15 @@ h4
 .action-buttons
 {
 	width: 5rem;
+	color: rgba(0, 0, 0, 0.6);
+}
+.mail-button
+{
+	width: 8rem;
+}
+.switch
+{
+	width: 12rem;
 }
 
 .card
@@ -95,12 +113,23 @@ h4
 	width: calc(30rem - .2rem);
 	--paper-card-background-color: var(--category-color);
 }
+.name-input
+{
+	margin: 1rem 0 1rem 1rem;
+	display: inline-block;
+}
+.color-input
+{
+	margin: 0 0 -3rem 0.9rem;
+	position: relative;
+	right: -5rem;
+	top: 0rem;
+	display: inline-block;
+}
 
 
 		</style>
 		<paper-card class="card">
-			<!-- toggle button to enable for filter -->
-			<paper-toggle-button checked="{{enableFilter}}">Show contacts of this category</paper-toggle-button>
 			<!-- Delete Button -->
 			<div class="delete-button" hidden$="[[!configMode]]">
 				<paper-icon-button on-tap="handleDelete" icon="icons:delete-forever"></paper-icon-button>
@@ -108,17 +137,30 @@ h4
 			</div>
 			<div class$="card-content">
 				<!-- Category name -->
-				<fields-phone-number icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></fields-phone-number>
+				<fields-phone-number extra-class="true" class="name-input" icon="icons:label" edit-mode="[[configMode]]" number="{{category.name}}"></fields-phone-number>
 				<!-- Color keyword -->
-				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{category.color}}"></fields-phone-number>
+				<pe-field-color hidden$="[[!configMode]]" class="color-input" on-change="computeColor" disabled="[[!configMode]]" color="{{category.color}}"></pe-field-color>
 			</div>
 			<div class="card-actions">
+				<!-- toggle button to enable for filter -->
+				<div class="action-buttons switch" style="display: inline-block;">
+						<paper-toggle-button style="display: inline-block;" checked="{{enableFilter}}"></paper-toggle-button>
+						<span style="display: inline-block; position: relative; top: -0.3rem;">SHOW CONTACTS</span>
+				</div>
+				<!-- Send group mail button -->
+				<paper-button id&="[[true]]" class="action-buttons mail-button" on-tap="handleSendGroupMail">
+					<iron-icon icon="communication:email"></iron-icon>
+					mail 'em
+				</paper-button>
+				<!-- ConfigMode Button -->
 				<paper-button class="action-buttons" on-tap="handleConfig">
 					<iron-icon icon="icons:create"></iron-icon>
 					[[translateActionButton(configMode)]]
 				</paper-button>
 			</div>
 		</paper-card>
+
+		<pe-rest-category id="restCategory"></pe-rest-category>
 	</template>
 
 

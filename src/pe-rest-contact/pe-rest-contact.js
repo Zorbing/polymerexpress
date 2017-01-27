@@ -27,134 +27,6 @@
 const addressSubPath = 'address';
 const emailAdressSubPath = 'email-address';
 const phoneNumberSubPath = 'phone-number';
-const stubContactList = [
-	{
-		id: 0
-		, name: 'Cond Uctor'
-		, dateOfBirth: '1942-2-4'
-		, company: 'Polybahn'
-		, category: {
-			id: 0
-			, color: 'mintcream'
-			, name: 'Test'
-		}
-		, addresses: ['Expressweg 15, 4242 Polymer']
-		, phoneNumbers: ['+49 41424344']
-		, emailAddresses: ['fahr.gast@polymer-express.de']
-	}
-	, {
-		id: 1
-		, name: 'Bernd Schmidt'
-		, dateOfBirth: '1991-12-21'
-		, company: 'ynapmoC'
-		, category: {
-			id: 0
-			, color: 'mintcream'
-			, name: 'Test'
-		}
-		, addresses: ['Some street 13, 1234 Exampletown']
-		, phoneNumbers: ['+223 3223322']
-		, emailAddresses: ['mr.smith@timbuktu.ml']
-	}
-	, {
-		id: 2
-		, name: 'Peter Pan'
-		, dateOfBirth: '1970-2-6'
-		, company: 'Polybahn'
-		, category: {
-			id: 1
-			, color: 'deepskyblue'
-			, name: 'Coole Leute'
-		}
-		, addresses: ['Direkt, 999 HTML', 'A, 234 B']
-		, phoneNumbers: ['345678', '98877665423']
-		, emailAddresses: ['test@bla.dia', 'star@gate.atlantis']
-	}
-	, {
-		id: 3
-		, name: 'Bob Baumeister'
-		, dateOfBirth: '1970-2-2'
-		, company: 'Hot Animation Studios'
-		, category: {
-			id: 1
-			, color: 'deepskyblue'
-			, name: 'Coole Leute'
-		}
-		, addresses: ['Am Bauhof, 3 Bobhausen']
-		, phoneNumbers: ['']
-		, emailAddresses: ['']
-	}
-	, {
-		id: 4
-		, name: 'Giesela Schmidt'
-		, dateOfBirth: '1970-2-3'
-		, company: 'ynapmoC'
-		, category: {
-			id: 1
-			, color: 'deepskyblue'
-			, name: 'Coole Leute'
-		}
-		, addresses: ['']
-		, phoneNumbers: ['']
-		, emailAddresses: ['']
-	}
-	, {
-		id: 5
-		, name: 'Bernd Brot'
-		, dateOfBirth: '1970-2-5'
-		, company: 'KiKA-Lounge'
-		, category: {
-			id: 2
-			, color: 'forestgreen'
-			, name: 'Uncoole Leute'
-		}
-		, addresses: ['']
-		, phoneNumbers: ['']
-		, emailAddresses: ['']
-	}
-	, {
-		id: 6
-		, name: 'Bibi Range'
-		, dateOfBirth: '1970-2-12'
-		, company: 'TheirTube'
-		, category: {
-			id: 2
-			, color: 'forestgreen'
-			, name: 'Uncoole Leute'
-		}
-		, addresses: ['']
-		, phoneNumbers: ['']
-		, emailAddresses: ['']
-	}
-	, {
-		id: 7
-		, name: 'Wilmer Tinkler'
-		, dateOfBirth: '1880-2-13'
-		, company: 'SIMI'
-		, category: {
-			id: 3
-			, color: 'deeppink'
-			, name: 'Wer ist das?'
-		}
-		, addresses: ['']
-		, phoneNumbers: ['']
-		, emailAddresses: ['']
-	}
-	, {
-		id: 8
-		, name: 'Dieter Brooksdandern'
-		, dateOfBirth: '1970-2-14'
-		, company: 'SIMI'
-		, category: {
-			id: 3
-			, color: 'deeppink'
-			, name: 'Wer ist das?'
-		}
-		, addresses: ['']
-		, phoneNumbers: ['']
-		, emailAddresses: ['']
-	}
-];
 
 
 
@@ -227,6 +99,7 @@ class Contact
 			name: newContact.name
 			, dateOfBirth: newContact.dateOfBirth
 			, company: this.toServer.company(newContact.company)
+			, category: this.toServer.category(newContact.categoryId)
 			, addresses: this.toServer.addressList(newContact.addresses)
 			, phoneNumbers: this.toServer.phoneNumberList(newContact.phoneNumbers)
 			, emailAddresses: this.toServer.emailAddressList(newContact.emailAddresses)
@@ -313,12 +186,13 @@ Polymer({
 
 	, properties: {}
 
-	, add: function (name, dateOfBirth, company, addresses = [], phoneNumbers = [], emailAddresses = [])
+	, add: function (name, dateOfBirth, company, categoryId, addresses = [], phoneNumbers = [], emailAddresses = [])
 	{
 		return this.$.rest.create({
 			name: name
 			, dateOfBirth: dateOfBirth
 			, company: this.$.rest.toServer.company(company)
+			, category: this.$.rest.toServer.category(categoryId)
 			, addresses: this.$.rest.toServer.addressList(addresses)
 			, phoneNumbers: this.$.rest.toServer.phoneNumberList(phoneNumbers)
 			, emailAddresses: this.$.rest.toServer.emailAddressList(emailAddresses)
@@ -328,29 +202,34 @@ Polymer({
 	{
 		return new Contact(contactId, this.$.rest);
 	}
-	, list: function (testData = true)
+	, import: function (contactObject)
+	{
+		return this.$.rest.create({
+			name: contactObject.name
+			, dateOfBirth: contactObject.dateOfBirth
+			, company: this.$.rest.toServer.company(contactObject.company)
+			, addresses: this.$.rest.toServer.addressList(contactObject.addresses)
+			, phoneNumbers: this.$.rest.toServer.phoneNumberList(contactObject.phones)
+			, emailAddresses: this.$.rest.toServer.emailAddressList(contactObject.emails)
+		});
+	}
+	, list: function (testData = false)
 	{
 		if (testData)
 		{
-			return Promise.resolve(stubContactList);
+			return this.$.stub.getContactList();
 		}
 		return this.$.rest.read()
-			.then((resultList) =>
-			{
-				return resultList.map((result) =>
-				{
-					return {
-						id: result.id
-						, name: result.name
-						, dateOfBirth: result.dateOfBirth
-						, company: this.$.rest.fromServer.company(result.company)
-						, category: result.category
-						, addresses: this.$.rest.fromServer.addressList(result.addresses)
-						, phoneNumbers: this.$.rest.fromServer.phoneNumberList(result.phoneNumbers)
-						, emailAddresses: this.$.rest.fromServer.emailAddressList(result.emailAddresses)
-					};
-				});
-			})
+			.then(resultList => resultList.map(result => ({
+				id: result.id
+				, name: result.name
+				, dateOfBirth: result.dateOfBirth
+				, company: this.$.rest.fromServer.company(result.company)
+				, category: result.category
+				, addresses: this.$.rest.fromServer.addressList(result.addresses)
+				, phoneNumbers: this.$.rest.fromServer.phoneNumberList(result.phoneNumbers)
+				, emailAddresses: this.$.rest.fromServer.emailAddressList(result.emailAddresses)
+			})))
 		;
 	}
 });

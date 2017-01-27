@@ -24,6 +24,7 @@
 
 'use strict';
 
+const contactModeMap = new WeakMap();
 Polymer({
 	is: 'pe-contact-card'
 
@@ -34,26 +35,33 @@ Polymer({
 		}
 		, viewMode:
 		{
-			type: Boolean,
-			value: false
+			type: Boolean
+			,value: false
+			, observer: 'modeChanged'
 		}
 		, editMode:
 		{
-			type: Boolean,
-			value: false
+			type: Boolean
+			,value: false
+			, observer: 'modeChanged'
 		}
+		, categoryList:
+		{
+			type: Array
+			, value: function () {
+				return ['Test', 'B', 'C'];
+			}
+		}
+	}
+	, observe: {
+		'contact.category.color': 'computeColor'
 	}
 	, restContact: null
 
 	, handleDelete: function ()
 	{
-		this._showProgressNotifier();
 		this.restContact.delete()
-			.then(() =>
-			{
-				this.fire('delete', this.contact);
-				this._hideProgressNotifier();
-			})
+			.then(() => this.fire('delete', this.contact))
 			.catch((error) =>
 			{
 				if (error.status == 404)
@@ -64,33 +72,25 @@ Polymer({
 				{
 					console.error('error while deleting contact %d:', this.contact.id, error);
 				}
-				this._hideProgressNotifier();
 			})
 		;
 	}
 	, handleView: function ()
 	{
-		this.viewMode = !this.viewMode;
+		this.set('viewMode', !this.viewMode);
 	}
 	, handleEdit: function ()
 	{
-		this.editMode = !this.editMode;
-		this.viewMode = true;
+		this.set('editMode', !this.editMode);
+		this.set('viewMode', true);
 
 		if (!this.editMode)
 		{
-			this._showProgressNotifier();
 			this.restContact.edit(this.contact)
-				.then(() =>
-				{
-					this.fire('edit', this.contact);
-					this._hideProgressNotifier();
-				})
-				.catch((error) =>
-				{
-					console.error('error while editing contact %d:', this.contact.id, error);
-					this._hideProgressNotifier();
-				})
+				.then(() => this.fire('edit', this.contact))
+				// >>> TEST
+				.catch(() => this.fire('edit', this.contact))
+				// <<< TEST
 			;
 		}
 	}
@@ -149,26 +149,31 @@ Polymer({
 	}
 	, contactChanged: function (newContact, oldContact)
 	{
-		if (oldContact !== undefined && newContact.category.name !== oldContact.category.name)
+		if (!contactModeMap.has(this.contact))
 		{
-			this.computeColor('changed triggered');
+			this.modeChanged();
+		}
+		if (oldContact !== undefined)
+		{
+			if (newContact.category.color !== oldContact.category.color)
+			{
+				this.computeColor('changed contact');
+			}
+			const modeObj = contactModeMap.get(this.contact);
+			this.viewMode = modeObj.view;
+			this.editMode = modeObj.edit;
 		}
 	}
-
-
-
-	/**
-	 * private functions
-	 */
-
-	, _hideProgressNotifier: function ()
+	, modeChanged: function (newMode, oldMode)
 	{
-		// TODO
-		console.warn('TODO: hide progress notifier');
-	}
-	, _showProgressNotifier: function ()
-	{
-		// TODO
-		console.warn('TODO: show progress notifier');
+		if (!this.contact)
+		{
+			return;
+		}
+
+		contactModeMap.set(this.contact, {
+			view: this.viewMode
+			, edit: this.editMode
+		});
 	}
 });

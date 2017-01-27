@@ -25,24 +25,26 @@
 'use strict';
 
 Polymer({
-	is: 'pe-rest-company'
+	is: 'pe-company-list'
 
-	, properties: {}
-
-	, list: function (testData = false)
-	{
-		if (testData)
-		{
-			return this.$.stub.getCompanyList();
+	, properties: {
+		list: {
+			type: Array
+			, value: []
 		}
-		return this.$.rest.read()
-			.then((resultList) =>
-			{
-				return resultList.map((result) =>
-				{
-					return this.$.rest.fromServer.company(result);
-				});
-			})
+	}
+	, listeners: {
+		'update': 'handleUpdate'
+	}
+
+	, handleUpdate: function (event)
+	{
+		this.$.restCompany.list()
+			.then(list => this.set('list', list))
 		;
+	}
+	, ready: function ()
+	{
+		this.handleUpdate();
 	}
 });

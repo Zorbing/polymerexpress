@@ -32,6 +32,10 @@ Polymer({
 			type: Array
 			, value: []
 		}
+		, contactList: {
+			type: Array
+			, value: []
+		}
 	}
 
 	, ready: function ()
@@ -39,17 +43,61 @@ Polymer({
 		this.$.restCategory.list()
 			.then(list => this.set('list', list))
 		;
+		this.$.restContact.list()
+			.then(list => this.set('contactList', list))
+		;
 	}
+
+	, handleSendGroupMail: function (event, category)
+	{
+		let mailAddresses = [];
+		for (let contact of this.contactList)
+		{
+			if ( (contact.category.id == category.id) && (contact.emailAddresses[0] != '') )
+			{
+				mailAddresses.push(contact.emailAddresses[0]);
+			}
+		}
+		const yourMessage = 'Hello there! I hope you like the color ' + category.color + ".";
+		const subject = 'Hello ' + category.name + ' person!';
+		if (mailAddresses.length > 0)
+		{
+			document.location.href = 'mailto:' + mailAddresses.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(yourMessage);
+		}
+	}
+
 	, handleNew: function (event)
 	{
-		console.debug(event);
+		this.$.restCategory.create('new category', 'yellow')
+			.then(() => this.$.restCategory.list())
+			.then((list) =>
+			{
+				this.set('list', list);
+				this.fire('add', list[list.length - 1]);
+			})
+			// >>> TEST
+			.catch((error) =>
+			{
+				if (error.status == 404)
+				{
+					this.push('list', {
+						id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
+						, name: 'new category'
+						, color: 'yellow'
+					});
+					this.fire('add', this.list[this.list.length - 1]);
+				}
+			})
+			// <<< TEST
+		;
 	}
-	, handleDelete: function (event)
+	, handleDelete: function (event, category)
 	{
-		console.debug(event);
-	}
-	, handleEdit: function (event)
-	{
-		console.debug(event);
+		// remove element from list
+		const index = this.list.indexOf(category);
+		if (index !== -1)
+		{
+			this.splice('list', index, 1);
+		}
 	}
 });

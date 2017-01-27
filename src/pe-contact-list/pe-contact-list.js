@@ -34,15 +34,26 @@ Polymer({
 		, birthdayFilterDays: {
 			type: Number
 			, value: 10
+			, readOnly: true
+		}
+		, categoryList: {
+			type: Array
+			, value: []
 		}
 		, filterCategories: {
 			type: Array
+		}
+		, list: {
+			type: Array
+			, value: []
 		}
 		, searchString: {
 			type: String
 		}
 	}
-	, list: []
+	, listeners: {
+		'update': 'handleUpdate'
+	}
 
 	, computeFilter: function (str, categoryList, birthday)
 	{
@@ -92,11 +103,46 @@ Polymer({
 			categoryList = categoryList.map(s => s.name.toLowerCase());
 			categoryFilter = (contact) =>
 			{
-				return categoryList.indexOf(contact.category.name.toLowerCase()) !== -1;
+				return categoryList.indexOf(contact.category.name.toLowerCase()) === -1;
 			};
 		}
 
 		return (contact) => textSearch(contact) && categoryFilter(contact);
+	}
+	, handleNew: function (event)
+	{
+		// add new element to list
+		this.$.restContact.add('new contact', '1970-2-3', 'ynapmoC', [''], [''], [''])
+			.then(() => this.$.restContact.list())
+			.then((list) =>
+			{
+				this.set('list', list);
+				this.fire('add', list[list.length - 1]);
+			})
+			// >>> TEST
+			.catch((error) =>
+			{
+				if (error.status == 404)
+				{
+					this.push('list', {
+						id: Math.floor(Math.random() * Number.MAX_SAFE_INTEGER)
+						, name: 'new contact'
+						, dateOfBirth: '1970-2-3'
+						, company: 'ynapmoC'
+						, category: {
+							id: 0
+							, color: 'mintcream'
+							, name: 'Test'
+						}
+						, addresses: ['']
+						, phoneNumbers: ['']
+						, emailAddresses: ['']
+					});
+					this.fire('add', this.list[this.list.length - 1]);
+				}
+			})
+			// <<< TEST
+		;
 	}
 	, handleDelete: function (event, contact)
 	{
@@ -114,10 +160,24 @@ Polymer({
 		this.set('searchString', '');
 		this.set('searchString', string);
 	}
-	, ready: function ()
+	, handleUpdate: function (event)
 	{
 		this.$.restContact.list()
-			.then(list => this.set('list', list))
+			.then(list =>
+			{
+				this.set('list', list);
+				// force dom update!
+				const string = this.get('searchString');
+				this.set('searchString', String.fromCharCode(400));
+				setTimeout(() => this.set('searchString', string));
+			})
 		;
+		this.$.restCategory.list()
+			.then(list => this.set('categoryList', list))
+		;
+	}
+	, ready: function ()
+	{
+		this.handleUpdate();
 	}
 });

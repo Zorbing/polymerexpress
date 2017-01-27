@@ -24,38 +24,55 @@
 
 'use strict';
 
+const categoryModeMap = new WeakMap();
 Polymer({
 	is: 'pe-category-item'
 
 	, properties: {
 		category: {
 			type: Object
+			, observer: 'categoryChanged'
 		}
 
-		, configMode:
-		{
-			type: Boolean,
-			value: false
+		, configMode: {
+			type: Boolean
+			, value: false
+			, observer: 'modeChanged'
 		}
-		, enableFilter:
-		{
-			type: Boolean,
-			value: false,
-			observer: 'filterChanged'
+		, enableFilter: {
+			type: Boolean
+			, value: true
+			, observer: 'filterChanged'
 		}
+	}
+	, observe: {
+		'category.color': 'computeColor'
 	}
 
 
+	, handleSendGroupMail: function ()
+	{
+		this.fire('send-group-mail', this.category);
+	}
 	, handleDelete: function ()
 	{
 		this.fire('delete', this.category);
 	}
-
 	, handleConfig: function ()
 	{
-		this.configMode = !this.configMode;
-	}
+		this.set('configMode', !this.configMode);
+		this.computeColor();
 
+		if (!this.configMode)
+		{
+			this.$.restCategory.edit(this.category.id, this.category.name, this.category.color)
+				.then(() => this.fire('edit', this.category))
+				// >>> TEST
+				.catch(() => this.fire('edit', this.category))
+				// <<< TEST
+			;
+		}
+	}
 
 	, ready: function ()
 	{
@@ -76,6 +93,33 @@ Polymer({
 		{
 			this.fire((this.enableFilter ? 'add' : 'remove') + '-filter', this.category);
 		}
+	}
+	, categoryChanged: function (newCategory, oldCategory)
+	{
+		if (!categoryModeMap.has(this.category))
+		{
+			this.modeChanged();
+		}
+		if (oldCategory !== undefined)
+		{
+			if (newCategory.color !== oldCategory.color)
+			{
+				this.computeColor('changed category color');
+			}
+			const modeObj = categoryModeMap.get(this.contact);
+			this.configMode = modeObj.config;
+		}
+	}
+	, modeChanged: function (newMode, oldMode)
+	{
+		if (!this.category)
+		{
+			return;
+		}
+
+		categoryModeMap.set(this.category, {
+			config: this.configMode
+		});
 	}
 
 
