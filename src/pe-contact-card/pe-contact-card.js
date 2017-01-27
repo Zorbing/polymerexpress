@@ -35,15 +35,22 @@ Polymer({
 		}
 		, viewMode:
 		{
-			type: Boolean,
-			value: false
+			type: Boolean
+			,value: false
 			, observer: 'modeChanged'
 		}
 		, editMode:
 		{
-			type: Boolean,
-			value: false
+			type: Boolean
+			,value: false
 			, observer: 'modeChanged'
+		}
+		, categoryList:
+		{
+			type: Array
+			, value: function () {
+				return ['Test', 'B', 'C'];
+			}
 		}
 	}
 	, observe: {

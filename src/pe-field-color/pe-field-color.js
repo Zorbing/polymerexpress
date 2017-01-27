@@ -39,9 +39,5 @@ Polymer({
 			type: Boolean
 			, value: false
 		}
-
-	}
-	, ready: function ()
-	{
 	}
 });

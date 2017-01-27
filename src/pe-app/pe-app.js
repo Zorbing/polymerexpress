@@ -59,7 +59,6 @@ Polymer({
 		{
 			// set the whole array to trigger the observer
 			this.set('filterCategories', this.get('filterCategories').concat([category]));
-			console.log(category);
 		}
 	}
 	, handleEditCategory: function (event, category)

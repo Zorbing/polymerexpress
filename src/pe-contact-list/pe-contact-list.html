@@ -23,6 +23,11 @@ SOFTWARE.
 -->
 
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-icons/social-icons.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="/bower_components/iron-collapse/iron-collapse.html">
 
 <link rel="import" href="../pe-add-card/pe-add-card.html">
 <link rel="import" href="../pe-contact-card/pe-contact-card.html">
@@ -40,9 +45,15 @@ SOFTWARE.
 		<template is="dom-repeat" items="[[list]]" filter="{{computeFilter(searchString, filterCategories, birthdayFilter)}}">
 			<pe-contact-card contact="[[item]]" on-delete="handleDelete" on-edit="handleEdit"></pe-contact-card>
 		</template>
-		<pe-contact-card-add width="big" on-new="handleNew"></pe-add-card>
+		<pe-add-card width="big" on-new="handleNew"></pe-add-card>
 
 		<pe-rest-contact id="restContact"></pe-rest-contact>
+
+		<span class="buttonWithText">
+			<paper-icon-button icon="file-upload" on-tap="handleUpload"></paper-icon-button>
+			<div class="buttonText">Import JSON</div>
+		</span>
+
 	</template>
 
 	<script type="text/javascript" src="pe-contact-list.js"></script>

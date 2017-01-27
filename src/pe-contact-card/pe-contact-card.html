@@ -31,6 +31,10 @@ SOFTWARE.
 <link rel="import" href="/bower_components/paper-button/paper-button.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/bower_components/paper-tooltip/paper-tooltip.html">
+<link rel="import" href="/bower_components/paper-date-picker/paper-date-picker.html">
+<link rel="import" href="/bower_components/paper-input-date-picker/paper-input-date-picker.html">
+<link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 
 <link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
 <link rel="import" href="../forms/fields-phone-number.html">
@@ -93,7 +97,7 @@ h4
 {
 	position: absolute;
 	margin-left: 17rem;
-	margin-top: -2.2rem;
+	margin-top: -1.2rem;
 }
 .card-actions
 {
@@ -148,6 +152,28 @@ h4
 	padding: 16px;
 	font-size: 30px;
 }
+.date-pci
+{
+	--paper-input-container-disabled:
+	{
+		opacity: 1;
+	};
+	--paper-input-container-underline-disabled:
+	{
+		opacity: 0;
+	};
+}
+
+.margin-away
+{
+	margin: -1.5rem 0 -1.5rem 0;
+}
+.make-it-sixty-percent-grey
+{
+	color: rgba(0, 0, 0, 0.6);
+	position: relative;
+	top: 1.9rem;
+}
 
 		</style>
 		<paper-card class="card">
@@ -164,10 +190,25 @@ h4
 				<div class="main-info-block">
 					<!-- Business -->
 					<fields-phone-number icon="communication:business" edit-mode="[[editMode]]" number="{{contact.company}}"></fields-phone-number>
+
+
 					<!-- Category -->
-					<fields-phone-number on-change="computeColor" icon="icons:label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>
+					<iron-icon class="make-it-sixty-percent-grey" icon="label" prefix></iron-icon>
+					<paper-dropdown-menu class="date-pci" on-change="computeColor" disabled$="[[!editMode]]">
+						<paper-listbox attr-for-selected="value" class="dropdown-content" selected="{{contact.category}}">
+							<template is="dom-repeat" items="[[categoryList]]">
+								<paper-item value="{{item}}">{{item}}</paper-item>
+							</template>
+						</paper-listbox>
+					</paper-dropdown-menu>
+
+					<!--<fields-phone-number on-change="computeColor" icon="label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>-->
+
 					<!-- Date of Birth -->
-					<fields-phone-number icon="social:cake" pattern="[0-9.-/]" edit-mode="[[editMode]]" number="{{contact.dateOfBirth}}"></fields-phone-number>
+					<paper-input-date-picker class="date-pci margin-away" disabled$="[[!editMode]]"  value="{{contact.dateOfBirth}}" locale="en">
+						<iron-icon class="make-it-sixty-percent-grey" icon="social:cake" prefix></iron-icon>
+					</paper-input-date-picker>
+
 				</div>
 				<!-- Details Block -->
 				<div hidden$="[[!viewMode]]" class="details-block">
