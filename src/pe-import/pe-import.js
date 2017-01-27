@@ -49,6 +49,7 @@ Polymer({
 					promises.push(restContact.import(contact));
 				}));
 			})
+			.then(this.deferred.resolve, this.deferred.reject)
 		;
 	}
 	, handleUpload: function (event)
@@ -98,6 +99,6 @@ Polymer({
 				resolve: resolve
 				, reject: reject
 			};
-		})
+		});
 	}
 });
