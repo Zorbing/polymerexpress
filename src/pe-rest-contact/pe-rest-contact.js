@@ -200,7 +200,7 @@ Polymer({
 	{
 		return new Contact(contactId, this.$.rest);
 	}
-	, list: function (testData = true)
+	, list: function (testData = false)
 	{
 		if (testData)
 		{

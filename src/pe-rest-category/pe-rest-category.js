@@ -86,7 +86,7 @@ Polymer({
 	{
 		return colorKeywords;
 	}
-	, list: function (testData = true)
+	, list: function (testData = false)
 	{
 		if (testData)
 		{
