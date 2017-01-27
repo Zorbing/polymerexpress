@@ -1,0 +1,164 @@
+{
+	"categories": [
+		{
+			"id": 1,
+			"name": "Test",
+			"color": "mintcream"
+		},
+		{
+			"id": 2,
+			"name": "Coole Leute",
+			"color": "deepskyblue"
+		},
+		{
+			"id": 3,
+			"name": "Uncoole Leute",
+			"color": "forestgreen"
+		},
+		{
+			"id": 4,
+			"name": "Wer ist das?",
+			"color": "deeppink"
+		}
+	],
+	"contacts": [
+		{
+			"name": "Cond Uctor",
+			"company": "Polybahn",
+			"addresses": [
+				"Expressweg 15, 4242 Polymer"
+			],
+			"phones": [
+				"+49 41424344"
+			],
+			"emails": [
+				"fahr.gast@polymer-express.de"
+			],
+			"dateOfBirth": "1942-02-04",
+			"category": 1
+		},
+		{
+			"name": "Bernd Schmidt",
+			"company": "ynapmoC",
+			"addresses": [
+				"Some street 13, 1234 Exampletown"
+			],
+			"phones": [
+				"+223 3223322"
+			],
+			"emails": [
+				"mr.smith@timbuktu.ml"
+			],
+			"dateOfBirth": "1991-12-21",
+			"category": 1
+		},
+		{
+			"name": "Peter Pan",
+			"company": "Polybahn",
+			"addresses": [
+				"Direkt, 999 HTML",
+				"A, 234 B"
+			],
+			"phones": [
+				"345678",
+				"98877665423"
+			],
+			"emails": [
+				"test@bla.dia",
+				"star@gate.atlantis"
+			],
+			"dateOfBirth": "1970-02-06",
+			"category": 2
+		},
+		{
+			"name": "Bob Baumeister",
+			"company": "Hot Animation Studios",
+			"addresses": [
+				"Am Bauhof, 3 Bobhausen"
+			],
+			"phones": [
+				""
+			],
+			"emails": [
+				""
+			],
+			"dateOfBirth": "1970-02-02",
+			"category": 2
+		},
+		{
+			"name": "Giesela Schmidt",
+			"company": "ynapmoC",
+			"addresses": [
+				""
+			],
+			"phones": [
+				""
+			],
+			"emails": [
+				""
+			],
+			"dateOfBirth": "1970-02-03",
+			"category": 2
+		},
+		{
+			"name": "Bernd Brot",
+			"company": "KiKA-Lounge",
+			"addresses": [
+				""
+			],
+			"phones": [
+				""
+			],
+			"emails": [
+				""
+			],
+			"dateOfBirth": "1970-02-05",
+			"category": 3
+		},
+		{
+			"name": "Bibi Range",
+			"company": "TheirTube",
+			"addresses": [
+				""
+			],
+			"phones": [
+				""
+			],
+			"emails": [
+				""
+			],
+			"dateOfBirth": "1970-02-12",
+			"category": 3
+		},
+		{
+			"name": "Wilmer Tinkler",
+			"company": "SIMI",
+			"addresses": [
+				""
+			],
+			"phones": [
+				""
+			],
+			"emails": [
+				""
+			],
+			"dateOfBirth": "1880-02-13",
+			"category": 4
+		},
+		{
+			"name": "Dieter Brooksdandern",
+			"company": "SIMI",
+			"addresses": [
+				""
+			],
+			"phones": [
+				""
+			],
+			"emails": [
+				""
+			],
+			"dateOfBirth": "1970-02-14",
+			"category": 4
+		}
+	]
+}
