@@ -37,7 +37,7 @@ SOFTWARE.
 <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
 
 <link rel="import" href="../pe-rest-contact/pe-rest-contact.html">
-<link rel="import" href="../forms/fields-phone-number.html">
+<link rel="import" href="../pe-field-general/pe-field-general.html">
 
 <dom-module id="pe-contact-card">
 	<template>
@@ -178,7 +178,7 @@ h4
 		</style>
 		<paper-card class="card">
 			<div class="contact-name">
-			<fields-phone-number extra-class="true" maxlength="40" edit-mode="[[editMode]]" number="{{contact.name}}"></fields-phone-number>
+			<pe-field-general extra-class="true" maxlength="40" edit-mode="[[editMode]]" number="{{contact.name}}"></pe-field-general>
 			</div>
 			<!-- Delete Button -->
 			<div class="delete-button" hidden$="[[!editMode]]">
@@ -189,7 +189,7 @@ h4
 				<!-- Main Information Block-->
 				<div class="main-info-block">
 					<!-- Business -->
-					<fields-phone-number icon="communication:business" edit-mode="[[editMode]]" number="{{contact.company}}"></fields-phone-number>
+					<pe-field-general icon="communication:business" edit-mode="[[editMode]]" number="{{contact.company}}"></pe-field-general>
 
 
 					<!-- Category -->
@@ -203,13 +203,13 @@ h4
 						</paper-listbox>
 					</paper-dropdown-menu>
 
-					<!--<fields-phone-number on-change="computeColor" icon="label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></fields-phone-number>-->
+					<!--<pe-field-general on-change="computeColor" icon="label" edit-mode="[[editMode]]" number="{{contact.category.name}}"></pe-field-general>-->
 
 					<!-- Date of Birth -->
 					<!--<paper-date-picker id="picker" class="date-pci margin-away" disabled$="[[!editMode]]" date="{{contact.dateOfBirth}}" locale="en">
 						<iron-icon class="make-it-sixty-percent-grey" icon="social:cake" prefix></iron-icon>
 					</paper-date-picker>-->
-					<fields-phone-number  icon="social:cake" pattern="[0-9-]" edit-mode="[[editMode]]" number="{{contact.dateOfBirth}}"></fields-phone-number>
+					<pe-field-general  icon="social:cake" pattern="[0-9-]" edit-mode="[[editMode]]" number="{{contact.dateOfBirth}}"></pe-field-general>
 
 
 				</div>
@@ -218,7 +218,7 @@ h4
 					<!-- Phone Numbers -->
 					<div class="phone-numbers-fields">
 						<template is="dom-repeat" items="[[contact.phoneNumbers]]" as="phoneNumber">
-							<fields-phone-number id="[[index]]" array-name="contact.phoneNumbers" on-lineremove="handleLineremove" icon="maps:local-phone" pattern="[0-9+/ ]" edit-mode="[[editMode]]" number="{{phoneNumber}}"></fields-phone-number>
+							<pe-field-general id="[[index]]" array-name="contact.phoneNumbers" on-lineremove="handleLineremove" icon="maps:local-phone" pattern="[0-9+/ ]" edit-mode="[[editMode]]" number="{{phoneNumber}}"></pe-field-general>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
 							<paper-icon-button data-list="phoneNumbers" data-class="phone-numbers-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
@@ -227,7 +227,7 @@ h4
 					<!-- E-mail Adresses -->
 					<div class="email-addresses-fields">
 						<template is="dom-repeat" items="[[contact.emailAddresses]]" as="emailAddress">
-							<fields-phone-number id="[[index]]" array-name="contact.emailAddresses" on-lineremove="handleLineremove" icon="communication:email" edit-mode="[[editMode]]" type="email" number="{{emailAddress}}"></fields-phone-number>
+							<pe-field-general id="[[index]]" array-name="contact.emailAddresses" on-lineremove="handleLineremove" icon="communication:email" edit-mode="[[editMode]]" type="email" number="{{emailAddress}}"></pe-field-general>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
 							<paper-icon-button data-list="emailAddresses" data-class="email-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
@@ -236,7 +236,7 @@ h4
 					<!-- Post Addresses -->
 					<div class="post-addresses-fields">
 						<template is="dom-repeat" items="[[contact.addresses]]" as="address">
-							<fields-phone-number id="[[index]]" array-name="contact.addresses" on-lineremove="handleLineremove" icon="icons:home" edit-mode="[[editMode]]" number="{{address}}"></fields-phone-number>
+							<pe-field-general id="[[index]]" array-name="contact.addresses" on-lineremove="handleLineremove" icon="icons:home" edit-mode="[[editMode]]" number="{{address}}"></pe-field-general>
 						</template>
 						<div class="new-item-button" hidden$="[[!editMode]]">
 							<paper-icon-button data-list="addresses" data-class="post-addresses-fields" on-tap="handleNew" icon="icons:add-circle"></paper-icon-button>
