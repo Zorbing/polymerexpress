@@ -61,6 +61,7 @@ Polymer({
 	, handleConfig: function ()
 	{
 		this.set('configMode', !this.configMode);
+		this.computeColor();
 
 		if (!this.configMode)
 		{
