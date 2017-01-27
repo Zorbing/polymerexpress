@@ -46,6 +46,9 @@ Polymer({
 			, observer: 'modeChanged'
 		}
 	}
+	, observe: {
+		'contact.category.color': 'computeColor'
+	}
 	, restContact: null
 
 	, handleDelete: function ()

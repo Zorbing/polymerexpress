@@ -40,7 +40,7 @@ SOFTWARE.
 
 		<pe-contact-card-add width="small" on-new="handleNew"></pe-contact-card-add>
 		<template is="dom-repeat" items="[[list]]">
-			<pe-category-item category="{{item}}" on-delete="handleDelete" on-edit="handleEdit"></pe-category-item>
+			<pe-category-item category="{{item}}" on-delete="handleDelete"></pe-category-item>
 		</template>
 
 		<pe-rest-category id="restCategory"></pe-rest-category>

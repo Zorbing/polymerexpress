@@ -34,6 +34,7 @@ Polymer({
 		, birthdayFilterDays: {
 			type: Number
 			, value: 10
+			, readOnly: true
 		}
 		, filterCategories: {
 			type: Array
@@ -41,6 +42,9 @@ Polymer({
 		, searchString: {
 			type: String
 		}
+	}
+	, listeners: {
+		'update': 'handleUpdate'
 	}
 	, list: []
 
@@ -121,10 +125,14 @@ Polymer({
 		this.set('searchString', '');
 		this.set('searchString', string);
 	}
-	, ready: function ()
+	, handleUpdate: function (event)
 	{
 		this.$.restContact.list()
 			.then(list => this.set('list', list))
 		;
+	}
+	, ready: function ()
+	{
+		this.handleUpdate();
 	}
 });
