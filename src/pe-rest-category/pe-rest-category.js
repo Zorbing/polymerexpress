@@ -90,7 +90,7 @@ Polymer({
 	{
 		return this.$.rest.create(categoryObject);
 	}
-	, list: function (testData = false)
+	, list: function (testData = true)
 	{
 		if (testData)
 		{

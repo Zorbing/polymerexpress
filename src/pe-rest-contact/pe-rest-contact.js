@@ -214,7 +214,7 @@ Polymer({
 			, emailAddresses: this.$.rest.toServer.emailAddressList(contactObject.emails)
 		});
 	}
-	, list: function (testData = false)
+	, list: function (testData = true)
 	{
 		if (testData)
 		{

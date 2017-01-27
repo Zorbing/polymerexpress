@@ -29,7 +29,7 @@ Polymer({
 
 	, properties: {}
 
-	, list: function (testData = false)
+	, list: function (testData = true)
 	{
 		if (testData)
 		{
