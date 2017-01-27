@@ -98,6 +98,13 @@ Polymer({
 
 		return (contact) => textSearch(contact) && categoryFilter(contact);
 	}
+	, handleNew: function (event)
+	{
+		// add new element to list
+		this.$.restContact.add('new contact', '1970-2-3', 'ynapmoC', [''], [''], [''])
+			.then(list => this.set('list', list))
+		;
+	}
 	, handleDelete: function (event, contact)
 	{
 		// remove element from list
