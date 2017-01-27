@@ -8,54 +8,54 @@ Install the common prerequisites: [node.js](https://nodejs.org/en/), [npm](https
 
 1. Install the frontend's prerequisites (the package manager bower and the polymer build tool).
 
-```
-# npm install -g bower polymer-cli
-```
+    ```
+    # npm install -g bower polymer-cli
+    ```
 
 2. Install all dependencies of the frontend.
 
-```
-$ npm install
-```
-```
-$ bower install
-```
+    ```
+    $ npm install
+    ```
+    ```
+    $ bower install
+    ```
 
 3. Build the frontend
 
-```
-$ polymer build
-```
+    ```
+    $ polymer build
+    ```
 
-This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders containing a bundled (Vulcanized) and unbundled builds, both run through HTML, CSS, and JS optimizers.
+    This will create a `build/` folder with `bundled/` and `unbundled/` sub-folders containing a bundled (Vulcanized) and unbundled builds, both run through HTML, CSS, and JS optimizers.
 
 4. Create the folder `static` in `backend` and copy the build files into that folder (or just create a symlink).
 
-```
-$ mkdir -p backend/static
-$ cp -r build/bundled/* backend/static/
-```
-or
-```
-$ ln -s $(pwd)/build/bundled backend/static
-```
+    ```
+    $ mkdir -p backend/static
+    $ cp -r build/bundled/* backend/static/
+    ```
+    or
+    ```
+    $ ln -s $(pwd)/build/bundled backend/static
+    ```
 
 ### Backend
 
 1. Navigate to the `backend` directory.
-```
-$ cd backend
-```
+    ```
+    $ cd backend
+    ```
 
 2. Run `npm install` while in `/backend` to install the backend's dependencies.
-```
-backend $ npm install
-```
+    ```
+    backend $ npm install
+    ```
 
 3. Use `setup/tables.sql` to build the database structure in your MySQL server, for example with:
-```
-backend $ mysql -u root -p < setup/tables.sql
-```
+    ```
+    backend $ mysql -u root -p < setup/tables.sql
+    ```
 
 4. Create a MySQL user with access to the previously created tables and configure the credentials in `database/connector.js` using your favorite text editor (which, of course, is vim).
 
