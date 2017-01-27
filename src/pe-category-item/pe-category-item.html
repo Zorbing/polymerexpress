@@ -75,7 +75,7 @@ h4
 .delete-button
 {
 	position: absolute;
-	top: 0rem;
+	top: 0.7rem;
 	/*left: 17rem;*/
 	right: .5rem;
 }
@@ -86,7 +86,12 @@ h4
 }
 .action-buttons
 {
-	width: 5rem;
+	width: 7rem;
+	color: rgba(0, 0, 0, 0.6);
+}
+.switch
+{
+	width: 18rem;
 }
 
 .card
@@ -99,8 +104,6 @@ h4
 
 		</style>
 		<paper-card class="card">
-			<!-- toggle button to enable for filter -->
-			<paper-toggle-button checked="{{enableFilter}}">Show contacts of this category</paper-toggle-button>
 			<!-- Delete Button -->
 			<div class="delete-button" hidden$="[[!configMode]]">
 				<paper-icon-button on-tap="handleDelete" icon="icons:delete-forever"></paper-icon-button>
@@ -113,10 +116,16 @@ h4
 				<fields-phone-number icon="icons:label" on-change="computeColor" edit-mode="[[configMode]]" number="{{category.color}}"></fields-phone-number>
 			</div>
 			<div class="card-actions">
+				<!-- ConfigMode Button -->
 				<paper-button class="action-buttons" on-tap="handleConfig">
 					<iron-icon icon="icons:create"></iron-icon>
 					[[translateActionButton(configMode)]]
 				</paper-button>
+				<!-- toggle button to enable for filter -->
+				<div class="action-buttons switch" style="display: inline-block;">
+						<paper-toggle-button style="display: inline-block;" checked="{{enableFilter}}"></paper-toggle-button>
+						<span style="display: inline-block; position: relative; top: -0.3rem;">SHOW THESE CONTACTS</span>
+				</div>
 			</div>
 		</paper-card>
 	</template>

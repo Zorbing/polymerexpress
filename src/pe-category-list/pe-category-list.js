@@ -37,7 +37,7 @@ Polymer({
 	, ready: function ()
 	{
 		this.$.restCategory.list()
-			.then(list => this.set('list', list))
+			.then(list => {this.set('list', list);this.fire('receive-categories', list);})
 		;
 	}
 	, handleNew: function (event)

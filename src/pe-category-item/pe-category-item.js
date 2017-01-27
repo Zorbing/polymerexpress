@@ -40,7 +40,7 @@ Polymer({
 		, enableFilter:
 		{
 			type: Boolean,
-			value: false,
+			value: true,
 			observer: 'filterChanged'
 		}
 	}

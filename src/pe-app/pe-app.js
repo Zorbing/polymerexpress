@@ -42,6 +42,10 @@ Polymer({
 		}
 	}
 
+	, handleReceiveCategories: function (event, categoriesList)
+	{
+		this.set('filterCategories', this.get('filterCategories').concat(categoriesList));
+	}
 	, handleAddFilter: function (event, category)
 	{
 		const index = this.filterCategories.indexOf(category);
@@ -49,6 +53,7 @@ Polymer({
 		{
 			// set the whole array to trigger the observer
 			this.set('filterCategories', this.get('filterCategories').concat([category]));
+			console.log(category);
 		}
 	}
 	, handleRemoveFilter: function (event, category)
