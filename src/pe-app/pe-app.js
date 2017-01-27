@@ -64,6 +64,7 @@ Polymer({
 	}
 	, handleEditCategory: function (event, category)
 	{
+		console.log('[handleEditCategory] update:', arguments);
 		this.$.contactList.fire('update');
 	}
 	, handleEditContact: function (event, contact)

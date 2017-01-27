@@ -43,10 +43,6 @@ Polymer({
 	}
 	, ready: function ()
 	{
+		console.log('this.color:', this.color);
 	}
-
-	, behaviors:
-	[
-		FormsBehavior
-	]
 });

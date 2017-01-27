@@ -96,6 +96,7 @@ Polymer({
 	}
 	, categoryChanged: function (newCategory, oldCategory)
 	{
+		console.log('changed category!');
 		if (!categoryModeMap.has(this.category))
 		{
 			this.modeChanged();

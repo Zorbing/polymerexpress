@@ -155,8 +155,14 @@ Polymer({
 	}
 	, handleUpdate: function (event)
 	{
+		console.log('update dat shit!');
 		this.$.restContact.list()
-			.then(list => this.set('list', list))
+			.then(list =>
+			{
+				console.log('list:', list);
+				console.log('list:', this.get('list'));
+				this.set('list', list);
+			})
 		;
 	}
 	, ready: function ()
