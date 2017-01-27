@@ -46,6 +46,10 @@ Polymer({
 	}
 
 
+	, handleSendGroupMail: function ()
+	{
+		this.fire('send-group-mail', this.category);
+	}
 	, handleDelete: function ()
 	{
 		this.fire('delete', this.category);

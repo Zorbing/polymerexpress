@@ -42,6 +42,15 @@ Polymer({
 		}
 	}
 
+	, handleSendGroupMail: function (event, category)
+	{
+		console.error('To-do: Send group mail to category "' + category.name + '"', category);
+		const yourMessage = 'Hello there! I hope you like the color ' + category.color + ".";
+		const subject = 'Hello ' + category.name + ' person!';
+		document.location.href = "mailto:bastianschmeier@gmail.com?subject="
+		+ encodeURIComponent(subject)
+		+ "&body=" + encodeURIComponent(yourMessage);
+	}
 	, handleReceiveCategories: function (event, categoriesList)
 	{
 		this.set('filterCategories', this.get('filterCategories').concat(categoriesList));
