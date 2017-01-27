@@ -61,8 +61,6 @@ Polymer({
 	, handleConfig: function ()
 	{
 		this.set('configMode', !this.configMode);
-	}
-
 		if (!this.configMode)
 		{
 			this.$.restCategory.edit(this.category)
