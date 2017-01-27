@@ -50,7 +50,6 @@ Polymer({
 
 	, handleSendGroupMail: function (event, category)
 	{
-		console.log('dfdf');
 		let mailAddresses = [];
 		for (let contact of this.contactList)
 		{

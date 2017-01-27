@@ -61,6 +61,7 @@ Polymer({
 	, handleConfig: function ()
 	{
 		this.set('configMode', !this.configMode);
+	}
 
 		if (!this.configMode)
 		{
