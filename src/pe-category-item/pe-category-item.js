@@ -65,7 +65,7 @@ Polymer({
 
 		if (!this.configMode)
 		{
-			this.$.restCategory.edit(this.category)
+			this.$.restCategory.edit(this.category.id, this.category.name, this.category.color)
 				.then(() => this.fire('edit', this.category))
 				// >>> TEST
 				.catch(() => this.fire('edit', this.category))
